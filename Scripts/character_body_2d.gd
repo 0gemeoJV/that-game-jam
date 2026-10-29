@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+var JUMP_VELOCITY = -600.0
 const  BULLET_SCENE = preload("res://prefabs/bullets.tscn")
 # Força do impulso da mola (ajuste o valor se quiser que ele pule mais alto ou mais baixo)
 const BOUNCE_VELOCITY = -600.0
@@ -32,6 +32,13 @@ func shoot():
 func bounce():
 	velocity.y = BOUNCE_VELOCITY
 
+func inside_water(surface_y: float):
+	print("Dentro da água")
+	JUMP_VELOCITY = -800
+
+func out_water():
+	JUMP_VELOCITY = -600	
+	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
