@@ -1,10 +1,12 @@
 extends RigidBody2D
 
-var bullet_speed := 400.0
-var direction : int = 2
+var bullet_speed := 900.0
+var direction : int = 1
 var in_water : bool = false
 var force_float : float = 350.0
 #var has_fired := false
+# Variável para guardar o limite de altura da água
+var water_surface_y: float = 0.0
 
 func _ready() -> void:
 	# Aplica o impulso inicial assim que a bala nasce
@@ -22,18 +24,31 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 		if body.has_method("bounce"):
 			body.bounce() # Replace with function body.
 
-#func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-#	if inside_water():
-		# Anula parte ou toda a gravidade e aplica uma força empurrando para cima
-		# Diminuímos a velocidade linear vertical (damping) para simular a resistência da água
-#		state.linear_velocity.y *= 0.95 
+func _physics_process(delta: float) -> void:
+	if in_water:
+		# Exemplo simples: diminui a velocidade horizontal por causa da resistência da água
+		linear_velocity.x = move_toward(linear_velocity.x, 0, 400 * delta)
 		
-		# Aplica um empuxo para cima para fazê-la subir até o topo
-#		state.apply_central_force(Vector2(0, -force_float))
+		# Se a bala ainda estiver abaixo do topo da água, continua subindo
+		if global_position.y > water_surface_y:
+			# Empurra a bala para cima (quanto mais negativo, mais rápido ela sobe)
+			# Aplicamos uma força contrária à gravidade para ela flutuar
+			apply_central_force(Vector2(0, -100.0))
+		else:
+			# Se chegou no topo ou passou, zera a velocidade vertical e trava na posição da superfície
+			linear_velocity.y = 0
+			gravity_scale = 0.0 # Desativa a gravidade para ela flutuar estática
+			global_position.y = water_surface_y # Garante que ela fique exatamente na linha do topo
 
-#func inside_water():
-#	in_water = true
-#	linear_velocity *= 0.5
+# Agora a água passa a posição do topo para a bola
+func inside_water(surface_y: float):
+	in_water = true
+	#print('dentro dágua')
+	water_surface_y = surface_y
+	gravity_scale = -0.125
+	linear_velocity *= 0.5
 	
-#func out_water():
-#	in_water = false
+func out_water():
+	in_water = false
+	gravity_scale = 1.0
+	#print('fora dágua')

@@ -11,7 +11,7 @@ size = Vector2(1159, 28.5)
 [node name="MyScene" type="Node2D" unique_id=1393564109]
 
 [node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
-position = Vector2(370, 156)
+position = Vector2(617, 188)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1901407927]
 position = Vector2(2, 608)
@@ -30,4 +30,4 @@ texture = ExtResource("2_53g5h")
 position = Vector2(1088, 539)
 
 [node name="water" parent="." unique_id=90170645 instance=ExtResource("4_wnxh6")]
-position = Vector2(2, 193)
+position = Vector2(174, 191)
