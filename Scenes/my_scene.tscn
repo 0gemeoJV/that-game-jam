@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://crhnrgwkssxrn" path="res://Scenes/player.tscn" id="1_nj2kq"]
 [ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="2_53g5h"]
+[ext_resource type="PackedScene" uid="uid://bqy5fxici1bny" path="res://wall.tscn" id="3_53g5h"]
+[ext_resource type="PackedScene" uid="uid://lfia5vmdc30i" path="res://Scenes/water.tscn" id="4_wnxh6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(1159, 40)
+size = Vector2(1159, 28.5)
 
 [node name="MyScene" type="Node2D" unique_id=1393564109]
 
@@ -23,3 +25,9 @@ shape = SubResource("RectangleShape2D_13qdw")
 position = Vector2(572.25, 8.749994)
 scale = Vector2(9.128906, 0.33203116)
 texture = ExtResource("2_53g5h")
+
+[node name="Wall" parent="." unique_id=1992269527 instance=ExtResource("3_53g5h")]
+position = Vector2(1088, 539)
+
+[node name="water" parent="." unique_id=90170645 instance=ExtResource("4_wnxh6")]
+position = Vector2(2, 193)
