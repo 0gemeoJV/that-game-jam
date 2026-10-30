@@ -3,26 +3,19 @@ extends CharacterBody2D
 const SPEED = 300.0
 var JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
-# Força do impulso da mola (ajuste o valor se quiser que ele pule mais alto ou mais baixo)
 const BOUNCE_VELOCITY = -600.0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 
-# Referências para os nós da cena
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D # Verifique se o nome na cena é AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
 @onready var marker: Marker2D = $Marker2D
 
-# Variável para guardar a distância inicial X do Marker
 var marker_position_x: float
-
-# Variável para guardar a referência da bala ativa
 var current_bullet: Node2D = null
-
 var direction: int = 1
 
 func _ready():
-	# Guarda a posição local X inicial do Marker
 	marker_position_x = marker.position.x
 
 func shoot():
@@ -45,29 +38,40 @@ func out_water():
 	JUMP_VELOCITY = -600	
 	
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# 1. Adiciona a gravidade se não estiver no chão
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	# Tiro (pode acontecer a qualquer momento)
 	if Input.is_action_pressed("Shoot"):
 		shoot()
 
-	# Handle jump.
+	# 2. Tratamento de Pulo
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
+	
+	# 3. Movimentação horizontal (funciona igual no ar e no chão para você poder se mover pulando)
 	var input_axis := Input.get_axis("ui_left", "ui_right")
 	if input_axis != 0:
 		direction = int(sign(input_axis))
-		state_machine.travel("run")
 		velocity.x = input_axis * SPEED
-		
-		# Vira o AnimatedSprite2D e ajusta a posição do Marker para o lado correto
-		animated_sprite.flip_h = direction < 0
+		animated_sprite.flip_h = direction > 0
 		marker.position.x = marker_position_x * direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		state_machine.travel("idle") # Retorna para a animação parado
+
+	# 4. Controle da AnimationTree baseado no estado físico (Chão vs Ar)
+	if not is_on_floor():
+		# Se está no ar, verifica se está subindo (negativo no eixo Y) ou caindo (positivo)
+		if velocity.y < 0:
+			state_machine.travel("jump")
+		else:
+			state_machine.travel("fall")
+	else:
+		# Se está no chão, decide entre run e idle baseado no input/velocidade
+		if input_axis != 0:
+			state_machine.travel("run")
+		else:
+			state_machine.travel("idle")
 
 	move_and_slide()
