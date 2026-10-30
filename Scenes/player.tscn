@@ -659,6 +659,10 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fd4e3"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cvnsp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6t5aa"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b1lj4"]
 states/Start/position = Vector2(165.6, 55.839996)
 states/fall/node = SubResource("AnimationNodeBlendTree_gymyn")
@@ -671,7 +675,7 @@ states/run/node = SubResource("AnimationNodeBlendTree_3smsa")
 states/run/position = Vector2(483.6, 55.854076)
 states/shoot/node = SubResource("AnimationNodeBlendTree_7dp3o")
 states/shoot/position = Vector2(166.16, 177.59999)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8erm5"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_fd4e3")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8erm5"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_6t5aa")]
 
 [node name="player" type="CharacterBody2D" unique_id=1111961102 groups=["Player"]]
 script = ExtResource("1_cvnsp")
@@ -681,7 +685,7 @@ position = Vector2(-12, 6)
 shape = SubResource("RectangleShape2D_xrivr")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1181285564]
-position = Vector2(40, 0)
+position = Vector2(80, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=812081602]
 scale = Vector2(6, 6)
@@ -698,8 +702,8 @@ speed_scale = 10.0
 root_node = NodePath("../AnimatedSprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_b1lj4")
 anim_player = NodePath("../AnimationPlayer")
-parameters/fall/TimeScale/scale = 8.0
-parameters/idle/TimeScale/scale = 8.0
-parameters/jump/TimeScale/scale = 8.0
-parameters/run/TimeScale/scale = 8.0
-parameters/shoot/TimeScale/scale = 8.0
+parameters/fall/TimeScale/scale = 10.0
+parameters/idle/TimeScale/scale = 10.0
+parameters/jump/TimeScale/scale = 10.0
+parameters/run/TimeScale/scale = 10.0
+parameters/shoot/TimeScale/scale = 20.0

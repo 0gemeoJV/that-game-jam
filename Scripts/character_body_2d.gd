@@ -42,15 +42,18 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	# Variável auxiliar para sabermos se o botão de tiro está pressionado
+	var is_shooting = Input.is_action_pressed("Shoot")
+	
 	# Tiro (pode acontecer a qualquer momento)
-	if Input.is_action_pressed("Shoot"):
+	if is_shooting:
 		shoot()
 
 	# 2. Tratamento de Pulo
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-	# 3. Movimentação horizontal (funciona igual no ar e no chão para você poder se mover pulando)
+	# 3. Movimentação horizontal
 	var input_axis := Input.get_axis("ui_left", "ui_right")
 	if input_axis != 0:
 		direction = int(sign(input_axis))
@@ -60,16 +63,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	# 4. Controle da AnimationTree baseado no estado físico (Chão vs Ar)
+	# 4. Controle da AnimationTree baseado no estado físico e de tiro
 	if not is_on_floor():
-		# Se está no ar, verifica se está subindo (negativo no eixo Y) ou caindo (positivo)
+		# No ar continua normal por enquanto
 		if velocity.y < 0:
 			state_machine.travel("jump")
 		else:
 			state_machine.travel("fall")
 	else:
-		# Se está no chão, decide entre run e idle baseado no input/velocidade
-		if input_axis != 0:
+		# No chão: verificamos se está atirando parado, correndo ou parado normal
+		if is_shooting and input_axis == 0:
+			state_machine.travel("shoot") # Toca o tiro parado se estiver no chão e sem andar
+		elif input_axis != 0:
 			state_machine.travel("run")
 		else:
 			state_machine.travel("idle")
