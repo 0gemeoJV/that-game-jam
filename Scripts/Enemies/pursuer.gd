@@ -1,3 +1,4 @@
+class_name Pursuer
 extends CharacterBody2D
 
 const SPEED = 250.0
@@ -11,9 +12,6 @@ var player_ref: Node2D = null
 var targets_in_vision: Array[Node2D] = []
 
 func _physics_process(delta: float) -> void:
-	# Adiciona gravidade se não estiver no chão
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 	
 	# Limpa da lista objetos que foram destruídos
 	targets_in_vision = targets_in_vision.filter(func(t): return is_instance_valid(t))
@@ -26,7 +24,13 @@ func _physics_process(delta: float) -> void:
 			targets_in_vision.erase(current_target)
 			# Escolhe o próximo da lista que sobrou
 			escolher_proximo_alvo()
-	
+	aplicar_movimento(delta)
+
+# Criamos esta função virtual no base para o inimigo terrestre usar
+func aplicar_movimento(delta: float) -> void:
+	# Adiciona gravidade se não estiver no chão	
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 	var target_velocity_x = 0.0
 	
 	if is_chasing and current_target != null:
@@ -37,7 +41,6 @@ func _physics_process(delta: float) -> void:
 			$Sprite2D.scale.x = direction
 	
 	velocity.x = move_toward(velocity.x, target_velocity_x, ACCELERATION * delta)
-
 	move_and_slide()
 
 # Função auxiliar para olhar a lista e definir quem perseguir (Prioridade: Bola > Player)
@@ -46,7 +49,7 @@ func escolher_proximo_alvo() -> void:
 	var novo_player: Node2D = null
 	
 	for target in targets_in_vision:
-		if target.has_method("inside_water"):
+		if target.is_in_group("Ball"):
 			nova_bola = target
 			break # Bola tem prioridade máxima
 		elif target.is_in_group("Player"):

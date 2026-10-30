@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dvyc0edbqtk2w"]
+
+[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="1_7uh3d"]
+[ext_resource type="Script" uid="uid://b23l1nmexvw4g" path="res://Scripts/Enemies/pursuer_water.gd" id="1_nci4u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(125, 123)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 289.04324
+
+[node name="pursuer_water" type="CharacterBody2D" unique_id=803863473]
+script = ExtResource("1_nci4u")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1343852390]
+texture = ExtResource("1_7uh3d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2137065311]
+position = Vector2(-1.5, -0.5)
+shape = SubResource("RectangleShape2D_xrivr")
+debug_color = Color(0.9998787, 0, 0.11368752, 0.41960785)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1118439168]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=328526247]
+shape = SubResource("CircleShape2D_xrivr")
+debug_color = Color(0.9955711, 0, 0.21094406, 0.41960785)

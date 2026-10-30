@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bqy5fxici1bny" path="res://wall.tscn" id="3_53g5h"]
 [ext_resource type="PackedScene" uid="uid://lfia5vmdc30i" path="res://Scenes/water.tscn" id="4_wnxh6"]
 [ext_resource type="PackedScene" uid="uid://cw8a8qn5f1sc1" path="res://Scenes/Enemies/pursuer.tscn" id="5_hua3f"]
+[ext_resource type="PackedScene" uid="uid://dvyc0edbqtk2w" path="res://Scenes/Enemies/pursuer_water.tscn" id="6_kdlp7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(1159, 28.5)
@@ -35,3 +36,6 @@ position = Vector2(174, 191)
 
 [node name="pursuer" parent="." unique_id=2031184125 instance=ExtResource("5_hua3f")]
 position = Vector2(60, 528)
+
+[node name="pursuer_water" parent="." unique_id=803863473 instance=ExtResource("6_kdlp7")]
+position = Vector2(343, -51)
