@@ -578,7 +578,7 @@ states/run/node = SubResource("AnimationNodeAnimation_vgqql")
 states/run/position = Vector2(307.6, 180)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_fkybt"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_8erm5"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_f1ek2")]
 
-[node name="player" type="CharacterBody2D" unique_id=1111961102]
+[node name="player" type="CharacterBody2D" unique_id=1111961102 groups=["Player"]]
 script = ExtResource("1_cvnsp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=519868413]
@@ -591,7 +591,7 @@ position = Vector2(40, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=812081602]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"jump"
+animation = &"idle"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1327391040]

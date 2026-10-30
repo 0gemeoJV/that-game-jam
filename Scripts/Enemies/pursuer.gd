@@ -44,14 +44,17 @@ func _physics_process(delta: float) -> void:
 
 # Conecte o sinal "body_entered" da VisionArea aqui
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	# PRIORIDADE 1: Se a bola entrar no campo de visão, ele se distrai e foca nela imediatamente
-	# (Verificamos se o corpo tem o método da bola, como "inside_water" ou se é um RigidBody2D)
-	if body.name == "bullets":
-		print("Bolaaa!!")
-		current_target = body
-		is_chasing = true
 	
-	# PRIORIDADE 2: Se for o player (e o inimigo não estiver ocupado com a bola)
-	elif (body.name == "CharacterBody2D") and current_target == null:
+	# PRIORIDADE 1: Se for o player (e o inimigo não estiver ocupado com a bola)
+	if (body.is_in_group("Player")):
+		player_ref = body
+		if(current_target == null):
+			current_target = body
+			is_chasing = true
+	
+	# PRIORIDADE 2: Se a bola entrar no campo de visão, ele se distrai e foca nela imediatamente
+	# (Verificamos se o corpo tem o método da bola, como "inside_water" ou se é um RigidBody2D)		
+	elif body.name == "bullets":
+		print("Bolaaa!!")
 		current_target = body
 		is_chasing = true
