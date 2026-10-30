@@ -1,24 +1,29 @@
 extends CharacterBody2D
 
-
 const SPEED = 300.0
 var JUMP_VELOCITY = -600.0
-const  BULLET_SCENE = preload("res://prefabs/bullets.tscn")
+const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
 # Força do impulso da mola (ajuste o valor se quiser que ele pule mais alto ou mais baixo)
 const BOUNCE_VELOCITY = -600.0
 
-#MARKER_2D
-#Esta variável esta pegando o marker2d
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var state_machine = animation_tree.get("parameters/playback")
+
+# Referências para os nós da cena
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D # Verifique se o nome na cena é AnimatedSprite2D
 @onready var marker: Marker2D = $Marker2D
-#Variável que irá receber o Marker position
-var marker_position
-# Variável para guardar a referência da bala que está ativa na tela
+
+# Variável para guardar a distância inicial X do Marker
+var marker_position_x: float
+
+# Variável para guardar a referência da bala ativa
 var current_bullet: Node2D = null
 
 var direction: int = 1
 
 func _ready():
-	marker_position = marker.position
+	# Guarda a posição local X inicial do Marker
+	marker_position_x = marker.position.x
 
 func shoot():
 	if current_bullet != null and is_instance_valid(current_bullet):
@@ -52,13 +57,17 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_axis := Input.get_axis("ui_left", "ui_right")
 	if input_axis != 0:
-		# Atualiza a direção da classe apenas quando o jogador se move
 		direction = int(sign(input_axis))
+		state_machine.travel("run")
 		velocity.x = input_axis * SPEED
+		
+		# Vira o AnimatedSprite2D e ajusta a posição do Marker para o lado correto
+		animated_sprite.flip_h = direction < 0
+		marker.position.x = marker_position_x * direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		state_machine.travel("idle") # Retorna para a animação parado
 
 	move_and_slide()
