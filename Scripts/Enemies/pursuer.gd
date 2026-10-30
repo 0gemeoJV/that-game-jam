@@ -4,57 +4,91 @@ const SPEED = 250.0
 const ACCELERATION = 600.0
 
 var is_chasing: bool = false
-# Variável para guardar o alvo atual (pode ser o Player ou a Bola)
 var current_target: Node2D = null
-var player_ref: Node2D = null #guarda a referência do player separadamente
+var player_ref: Node2D = null
+
+# A lista que armazena quem está na área de visão
+var targets_in_vision: Array[Node2D] = []
 
 func _physics_process(delta: float) -> void:
 	# Adiciona gravidade se não estiver no chão
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	# VERIFICAÇÃO DE VALIDADE DO ALVO:
-	# Se tivermos um alvo, checamos se ele ainda existe (útil para quando a bola é destruída)
+	# Limpa da lista objetos que foram destruídos
+	targets_in_vision = targets_in_vision.filter(func(t): return is_instance_valid(t))
+	
+	# VERIFICAÇÃO DE VALIDADE DO ALVO ATUAL:
 	if current_target != null:
 		if not is_instance_valid(current_target):
-			# A bola sumiu! Vamos ver se o player ainda existe para focar nele
-			if player_ref != null and is_instance_valid(player_ref):
-				current_target = player_ref # Transfere o foco imediatamente para o player!
-				is_chasing = true
-			else:
-				#Volta ao estado inicial.
-				current_target = null
-				is_chasing = false
+			#print("--- A BOLA FOI DESTRUÍDA! ---")
+			# Remove o alvo inválido da lista se ainda estiver lá
+			targets_in_vision.erase(current_target)
+			# Escolhe o próximo da lista que sobrou
+			escolher_proximo_alvo()
 	
 	var target_velocity_x = 0.0
 	
 	if is_chasing and current_target != null:
-		# Persegue a posição X do alvo atual (bola ou player)
 		var direction = sign(current_target.global_position.x - global_position.x)
 		target_velocity_x = direction * SPEED
 		
-		# Vira o sprite para o lado do alvo
 		if direction != 0:
 			$Sprite2D.scale.x = direction
 	
-	# Aplica a inércia/derrapagem
 	velocity.x = move_toward(velocity.x, target_velocity_x, ACCELERATION * delta)
 
 	move_and_slide()
 
+# Função auxiliar para olhar a lista e definir quem perseguir (Prioridade: Bola > Player)
+func escolher_proximo_alvo() -> void:
+	var nova_bola: Node2D = null
+	var novo_player: Node2D = null
+	
+	for target in targets_in_vision:
+		if target.has_method("inside_water"):
+			nova_bola = target
+			break # Bola tem prioridade máxima
+		elif target.is_in_group("Player"):
+			novo_player = target
+			
+	if nova_bola != null:
+		current_target = nova_bola
+		is_chasing = true
+		#print("Novo alvo definido (Bola): ", current_target)
+	elif novo_player != null:
+		current_target = novo_player
+		is_chasing = true
+		#print("Novo alvo definido (Player): ", current_target)
+	else:
+		current_target = null
+		is_chasing = false
+		#print("Nenhum alvo restante na área. Voltando ao estado inicial.")
+
 # Conecte o sinal "body_entered" da VisionArea aqui
 func _on_vision_area_body_entered(body: Node2D) -> void:
-	
-	# PRIORIDADE 1: Se for o player (e o inimigo não estiver ocupado com a bola)
-	if (body.is_in_group("Player")):
-		player_ref = body
-		if(current_target == null):
+	if (body.is_in_group("Player") or body.has_method("inside_water")) and not body in targets_in_vision:
+		targets_in_vision.append(body)
+		#print("-> ENTROU NA ÁREA: ", body, " | Lista atual: ", targets_in_vision)
+		
+		if body.is_in_group("Player"):
+			player_ref = body
+			if current_target == null:
+				current_target = body
+				is_chasing = true
+				#print("Foco inicial no Player.")
+		elif body.has_method("inside_water"):
+			#print("Bolaaa detectada!! Roubando o foco.")
 			current_target = body
 			is_chasing = true
-	
-	# PRIORIDADE 2: Se a bola entrar no campo de visão, ele se distrai e foca nela imediatamente
-	# (Verificamos se o corpo tem o método da bola, como "inside_water" ou se é um RigidBody2D)		
-	elif body.name == "bullets":
-		print("Bolaaa!!")
-		current_target = body
-		is_chasing = true
+
+# Conecte o sinal "body_exited" da VisionArea aqui
+func _on_vision_area_body_exited(body: Node2D) -> void:
+	if body in targets_in_vision:
+		targets_in_vision.erase(body)
+		#print("<- SAIU DA ÁREA: ", body, " | Lista atual: ", targets_in_vision)
+		
+		# Se o alvo que saiu era exatamente quem o inimigo estava perseguindo...
+		if body == current_target:
+			#print("O alvo atual saiu da área! Escolhendo quem sobrou...")
+			escolher_proximo_alvo()
