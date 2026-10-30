@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cw8a8qn5f1sc1"]
+
+[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="1_0awnm"]
+[ext_resource type="Script" uid="uid://bs2gd7kss15jv" path="res://Scripts/Enemies/pursuer.gd" id="1_4rvhr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(110, 109)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(1157, 101)
+
+[node name="pursuer" type="CharacterBody2D" unique_id=2031184125]
+script = ExtResource("1_4rvhr")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=596731622]
+texture = ExtResource("1_0awnm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1312390254]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_xrivr")
+debug_color = Color(0.97275144, 0.14958304, 0.18940833, 0.41960785)
+
+[node name="VisionArea" type="Area2D" parent="." unique_id=250598081]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=234486157]
+position = Vector2(0.5, -40.5)
+shape = SubResource("RectangleShape2D_13qdw")
+debug_color = Color(0.9929804, 0.031836376, 0.2021519, 0.41960785)
+
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
