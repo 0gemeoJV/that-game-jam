@@ -38,4 +38,4 @@ position = Vector2(174, 191)
 position = Vector2(60, 528)
 
 [node name="pursuer_water" parent="." unique_id=803863473 instance=ExtResource("6_kdlp7")]
-position = Vector2(343, -51)
+position = Vector2(331, 46)
