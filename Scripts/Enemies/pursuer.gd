@@ -1,4 +1,4 @@
-class_name Pursuer
+#class_name Pursuer
 extends CharacterBody2D
 
 const SPEED = 250.0

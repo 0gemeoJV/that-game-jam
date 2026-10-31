@@ -1,19 +1,30 @@
-extends Pursuer 
+extends CharacterBody2D
+#procurar video aula depois
+@onready var target = $"../CharacterBody2D"
+var SPEED = 200 
+var is_chasing = false
+const STOP_DISTANCE = 30.0 # Distância para parar antes de colar no player
 
-# Sobrescrevemos a função de movimento para o comportamento aquático (Gravidade 0)
-func aplicar_movimento(delta: float) -> void:
-	# Como ele está na água, anulamos a gravidade no eixo Y (ele fica flutuando/estável)
-	velocity.y = move_toward(velocity.y, 0, ACCELERATION * delta)
-	
-	# Mesma lógica de perseguição horizontal do Pursuer normal
-	var target_velocity_x = 0.0
-	if is_chasing and current_target != null:
-		var direction = sign(current_target.global_position.x - global_position.x)
-		target_velocity_x = direction * SPEED
-		if direction != 0:
-			$Sprite2D.scale.x = direction
+func _physics_process(delta: float) -> void:
+	if is_chasing == true and is_instance_valid(target):
+		var distance = position.distance_to(target.position)
+		
+		# Só se move se estiver longe o suficiente do player
+		if distance > STOP_DISTANCE:
+			var direction = (target.position - position).normalized()
+			velocity = direction * SPEED
+			look_at(target.position)
+		else:
+			# Para o movimento quando chega perto para não grudar
+			velocity = Vector2.ZERO
 			
-	velocity.x = move_toward(velocity.x, target_velocity_x, ACCELERATION * delta)
-	
-	# Executa a movimentação
-	move_and_slide()
+		move_and_slide()
+
+func _on_vision_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		is_chasing = true
+
+func _on_vision_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		is_chasing = false
+		velocity = Vector2.ZERO
