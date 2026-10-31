@@ -39,7 +39,7 @@ func aplicar_movimento(delta: float) -> void:
 		
 		if direction != 0:
 			$Sprite2D.scale.x = direction
-	
+	#Derrapagem
 	velocity.x = move_toward(velocity.x, target_velocity_x, ACCELERATION * delta)
 	move_and_slide()
 
