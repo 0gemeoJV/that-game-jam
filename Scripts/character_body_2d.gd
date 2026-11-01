@@ -36,7 +36,7 @@ func bounce():
 	velocity.y = BOUNCE_VELOCITY
 
 func inside_water(surface_y: float):
-	print("Dentro da água")
+	#print("Dentro da água")
 	JUMP_VELOCITY = -800
 
 func out_water():
