@@ -19,10 +19,16 @@ func _on_timer_timeout() -> void:
 # Esta função é chamada quando qualquer corpo entra no detector de cima
 func _on_jump_detector_body_entered(body: Node2D) -> void:
 	# Verifica se o corpo que colidiu é o Player (baseado no nome ou grupo)
-	if body.name == "CharacterBody2D":
+	if body.is_in_group("Player"):
 		# Chama uma função de impulso no player que vamos criar agora
+		#print("PLayer aki :D")
 		if body.has_method("bounce"):
-			body.bounce() # Replace with function body.
+			body.bounce() 
+	if body.name == "pursuer_water":
+		#print("Estouro")
+		#A bola irá ser exluída, pois chamamos a função timeout
+		_on_timer_timeout()
+		body.dizzy()
 
 func _physics_process(delta: float) -> void:
 	if in_water:

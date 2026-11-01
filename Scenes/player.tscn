@@ -884,3 +884,4 @@ parameters/run_shoot/TimeScale/scale = 20.0
 parameters/shoot/TimeScale/scale = 20.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=706479705]
+position_smoothing_enabled = true

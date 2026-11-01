@@ -7,10 +7,11 @@ var player: Node2D = null
 var in_water = false
 var velocity_y = 0.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var is_dizzy = false
 
 func _physics_process(delta: float) -> void:
 	
-	if is_chasing == true:
+	if is_chasing == true and player != null:
 		if in_water == true:
 			position += (player.position - position) / SPEED
 		else:
@@ -45,3 +46,21 @@ func inside_water(_top_y: float) -> void:
 func out_water() -> void:
 	in_water = false
 	#velocity_y = 0.0 # Começa a cair do zero quando sai da água
+
+#função de ficar tonto, chamada no bullets linha 31
+func dizzy():
+	# Evita acumular temporizadores se o inimigo for atingido várias vezes seguidas
+	if is_dizzy:
+		return
+		
+	is_dizzy = true
+	is_chasing = false # Para de perseguir o player imediatamente
+	
+	# Opcional: print para depuração
+	# print("Inimigo atordoado!")
+	
+	# Cria um temporizador de 5 segundos
+	await get_tree().create_timer(5.0).timeout
+	is_chasing = true
+	is_dizzy = false
+	pass
