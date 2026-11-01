@@ -10,6 +10,8 @@ size = Vector2(114, 108)
 radius = 439.00113
 
 [node name="pursuer_water" type="CharacterBody2D" unique_id=803863473]
+collision_layer = 8
+collision_mask = 51
 script = ExtResource("1_nci4u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1343852390]
@@ -21,6 +23,8 @@ shape = SubResource("RectangleShape2D_nci4u")
 debug_color = Color(0.9998787, 0, 0.11368752, 0.41960785)
 
 [node name="VisionArea" type="Area2D" parent="." unique_id=1118439168]
+collision_layer = 8
+collision_mask = 51
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=328526247]
 shape = SubResource("CircleShape2D_xrivr")

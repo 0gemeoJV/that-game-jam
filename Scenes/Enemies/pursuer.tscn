@@ -10,6 +10,8 @@ size = Vector2(110, 109)
 size = Vector2(1157, 254)
 
 [node name="pursuer" type="CharacterBody2D" unique_id=2031184125]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_4rvhr")
 metadata/_edit_group_ = true
 
@@ -22,6 +24,8 @@ shape = SubResource("RectangleShape2D_xrivr")
 debug_color = Color(0.97275144, 0.14958304, 0.18940833, 0.41960785)
 
 [node name="VisionArea" type="Area2D" parent="." unique_id=250598081]
+collision_layer = 4
+collision_mask = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=234486157]
 position = Vector2(0.5, -117)

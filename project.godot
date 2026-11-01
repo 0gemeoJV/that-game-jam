@@ -28,6 +28,15 @@ Shoot={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Enviroment"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Pursuer"
+2d_physics/layer_4="Pursuer_Water"
+2d_physics/layer_5="Ball"
+2d_physics/layer_6="water"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

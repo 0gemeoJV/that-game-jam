@@ -848,6 +848,8 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(0, 32.190643)
 
 [node name="player" type="CharacterBody2D" unique_id=1111961102 groups=["Player"]]
+collision_layer = 2
+collision_mask = 61
 script = ExtResource("1_cvnsp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=519868413]
@@ -880,3 +882,5 @@ parameters/jump_shoot/TimeScale/scale = 20.0
 parameters/run/TimeScale/scale = 10.0
 parameters/run_shoot/TimeScale/scale = 20.0
 parameters/shoot/TimeScale/scale = 20.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=706479705]
