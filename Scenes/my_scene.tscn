@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvyc0edbqtk2w" path="res://Scenes/Enemies/pursuer_water.tscn" id="6_kdlp7"]
 [ext_resource type="PackedScene" uid="uid://dj8kmvxwrn3w2" path="res://Scenes/Objects/button.tscn" id="7_ixugv"]
 [ext_resource type="PackedScene" uid="uid://cp8jr1pfygg8p" path="res://Scenes/Objects/door.tscn" id="8_r75xb"]
+[ext_resource type="PackedScene" uid="uid://piqglv83hmq8" path="res://Scenes/Objects/target_plataform.tscn" id="9_x5sfu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(1159, 72.25)
@@ -53,7 +54,7 @@ collision_mask = 62
 position = Vector2(174, 191)
 
 [node name="pursuer" parent="." unique_id=2031184125 instance=ExtResource("5_hua3f")]
-position = Vector2(2494, 459)
+position = Vector2(2686, 671)
 
 [node name="pursuer_water" parent="." unique_id=803863473 instance=ExtResource("6_kdlp7")]
 position = Vector2(307, 211)
@@ -66,6 +67,9 @@ position = Vector2(876, 534)
 
 [node name="Door" parent="." unique_id=1263449903 instance=ExtResource("8_r75xb")]
 position = Vector2(1008, 191)
+
+[node name="Target_Plataform" parent="." unique_id=1359122803 instance=ExtResource("9_x5sfu")]
+position = Vector2(2521, 498)
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
 [connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]
