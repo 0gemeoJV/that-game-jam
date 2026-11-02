@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b5vecbpmyxxcm" path="res://Sprites/roball26x20.png" id="2_cvnsp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(60, 96)
+size = Vector2(65, 89)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("2_cvnsp")
@@ -851,9 +851,10 @@ graph_offset = Vector2(0, 32.190643)
 collision_layer = 2
 collision_mask = 61
 script = ExtResource("1_cvnsp")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=519868413]
-position = Vector2(-12, 6)
+position = Vector2(-13.5, 12.5)
 shape = SubResource("RectangleShape2D_xrivr")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1181285564]
@@ -884,4 +885,5 @@ parameters/run_shoot/TimeScale/scale = 20.0
 parameters/shoot/TimeScale/scale = 20.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=706479705]
+zoom = Vector2(0.6, 0.6)
 position_smoothing_enabled = true
