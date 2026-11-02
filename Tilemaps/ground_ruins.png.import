@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biw18pn27u03j"
-path="res://.godot/imported/pursuer.png-0450821ca08427380829bf01dca28cd3.ctex"
+uid="uid://dbtk231sj5u3p"
+path="res://.godot/imported/ground_ruins.png-e7d7b7e4b0a476efd68ff1da4c03507b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/pursuer.png"
-dest_files=["res://.godot/imported/pursuer.png-0450821ca08427380829bf01dca28cd3.ctex"]
+source_file="res://Tilemaps/ground_ruins.png"
+dest_files=["res://.godot/imported/ground_ruins.png-e7d7b7e4b0a476efd68ff1da4c03507b.ctex"]
 
 [params]
 

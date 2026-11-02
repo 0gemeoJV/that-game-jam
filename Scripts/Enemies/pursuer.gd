@@ -11,6 +11,11 @@ var player_ref: Node2D = null
 # A lista que armazena quem está na área de visão
 var targets_in_vision: Array[Node2D] = []
 
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var state_machine = animation_tree.get("parameters/playback")
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
+
 func _physics_process(delta: float) -> void:
 	
 	# Limpa da lista objetos que foram destruídos
@@ -38,7 +43,7 @@ func aplicar_movimento(delta: float) -> void:
 		target_velocity_x = direction * SPEED
 		
 		if direction != 0:
-			$Sprite2D.scale.x = direction
+			animated_sprite.flip_h = direction < 0
 	#Derrapagem
 	velocity.x = move_toward(velocity.x, target_velocity_x, ACCELERATION * delta)
 	move_and_slide()
@@ -47,7 +52,7 @@ func aplicar_movimento(delta: float) -> void:
 func escolher_proximo_alvo() -> void:
 	var nova_bola: Node2D = null
 	var novo_player: Node2D = null
-	
+	state_machine.travel("walk_red")
 	for target in targets_in_vision:
 		if target.is_in_group("Ball"):
 			nova_bola = target
@@ -56,8 +61,11 @@ func escolher_proximo_alvo() -> void:
 			novo_player = target
 			
 	if nova_bola != null:
+		
 		current_target = nova_bola
 		is_chasing = true
+		
+		
 		#print("Novo alvo definido (Bola): ", current_target)
 	elif novo_player != null:
 		current_target = novo_player
@@ -66,6 +74,7 @@ func escolher_proximo_alvo() -> void:
 	else:
 		current_target = null
 		is_chasing = false
+		state_machine.travel("idle")
 		#print("Nenhum alvo restante na área. Voltando ao estado inicial.")
 
 # Conecte o sinal "body_entered" da VisionArea aqui
@@ -73,14 +82,15 @@ func _on_vision_area_body_entered(body: Node2D) -> void:
 	if (body.is_in_group("Player") or body.has_method("inside_water")) and not body in targets_in_vision:
 		targets_in_vision.append(body)
 		#print("-> ENTROU NA ÁREA: ", body, " | Lista atual: ", targets_in_vision)
-		
 		if body.is_in_group("Player"):
+			state_machine.travel("walk_red")
 			player_ref = body
 			if current_target == null:
 				current_target = body
 				is_chasing = true
 				#print("Foco inicial no Player.")
 		elif body.has_method("inside_water"):
+			state_machine.travel("walk_yellow")
 			#print("Bolaaa detectada!! Roubando o foco.")
 			current_target = body
 			is_chasing = true
