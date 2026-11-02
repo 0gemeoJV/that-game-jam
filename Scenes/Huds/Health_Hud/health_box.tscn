@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bvdldfcgcfmtw"]
+
+[ext_resource type="Texture2D" uid="uid://ma235gfm73s4" path="res://Huds/Hp_hud/hp_box.png" id="1_l3gb0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2dl4"]
+atlas = ExtResource("1_l3gb0")
+region = Rect2(0, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umans"]
+atlas = ExtResource("1_l3gb0")
+region = Rect2(32, 32, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2euu"]
+atlas = ExtResource("1_l3gb0")
+region = Rect2(0, 32, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2dl4")
+}],
+"loop": 1,
+"name": &"box",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umans")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2euu")
+}],
+"loop": 1,
+"name": &"trasition_decreasing",
+"speed": 5.0
+}]
+
+[node name="healthbox" type="Panel" unique_id=1691185650]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=272185210]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_xrivr")
+animation = &"box"
+centered = false

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b5pwp11glnasq"]
+
+[ext_resource type="Texture2D" uid="uid://bcfvnjojpfjol" path="res://Huds/Hp_hud/hp_hud.png" id="1_y0g61"]
+[ext_resource type="PackedScene" uid="uid://bvdldfcgcfmtw" path="res://Scenes/Huds/Health_Hud/health_box.tscn" id="2_3bjcr"]
+
+[node name="health_container" type="HBoxContainer" unique_id=1699835701]
+offset_transform_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=63896295]
+position = Vector2(96, 48)
+scale = Vector2(6, 6)
+texture = ExtResource("1_y0g61")
+
+[node name="healthbox" parent="." unique_id=1691185650 instance=ExtResource("2_3bjcr")]
+layout_mode = 2
+
+[node name="healthbox2" parent="." unique_id=858417396 instance=ExtResource("2_3bjcr")]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(50, 0)
+
+[node name="healthbox3" parent="." unique_id=1873731797 instance=ExtResource("2_3bjcr")]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 0)
