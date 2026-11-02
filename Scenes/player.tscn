@@ -716,6 +716,9 @@ _data = {
 &"shoot": SubResource("Animation_3smsa")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3smsa"]
+animation = &"Die"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1ek2"]
 animation = &"fall"
 
@@ -854,6 +857,8 @@ switch_mode = 2
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b1lj4"]
+states/Die/node = SubResource("AnimationNodeAnimation_3smsa")
+states/Die/position = Vector2(682.8, 297.8783)
 states/Start/position = Vector2(165.6, 55.839996)
 states/fall/node = SubResource("AnimationNodeBlendTree_gymyn")
 states/fall/position = Vector2(490, 178.4)
@@ -872,7 +877,7 @@ states/run_shoot/position = Vector2(663.6, 50.4)
 states/shoot/node = SubResource("AnimationNodeBlendTree_7dp3o")
 states/shoot/position = Vector2(166.16, 177.59999)
 transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_6t5aa"), "run", "run_shoot", SubResource("AnimationNodeStateMachineTransition_gymyn"), "run_shoot", "run", SubResource("AnimationNodeStateMachineTransition_pu2lt"), "jump", "jump_shoot", SubResource("AnimationNodeStateMachineTransition_ukyrk"), "jump_shoot", "jump", SubResource("AnimationNodeStateMachineTransition_7dp3o"), "fall", "fall_shoot", SubResource("AnimationNodeStateMachineTransition_qqcod"), "fall_shoot", "fall", SubResource("AnimationNodeStateMachineTransition_igrcy")]
-graph_offset = Vector2(0, 32.190643)
+graph_offset = Vector2(0, 103.47827)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(62, 83)
@@ -892,7 +897,7 @@ position = Vector2(80, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=812081602]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"idle"
+animation = &""
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1327391040]

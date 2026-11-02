@@ -3,7 +3,8 @@ extends CharacterBody2D
 const SPEED = 300.0
 var JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
-const BOUNCE_VELOCITY = -600.0
+const BOUNCE_VELOCITY = -900.0
+const DEATH_JUMP_FORCE = -400.0 
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -22,11 +23,15 @@ var marker_position_x: float
 var hurtbox_position_x: float
 var current_bullet: Node2D = null
 var direction: int = 1
-var player_life = 3
+var player_life = 1
+var is_dead = false
 
 # Variáveis para controlar o tempo dos tiros
 var shoot_timer: float = 0.0
 const SHOOT_DURATION: float = 0.2 # Ajuste conforme a duração da sua animação
+
+#Quando precisarmos usar o HUD
+#signal player_damage
 
 func _ready():
 	marker_position_x = marker.position.x
@@ -54,6 +59,15 @@ func out_water():
 	JUMP_VELOCITY = -600	
 	
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		velocity += get_gravity() * delta
+		move_and_slide()
+		
+		# Reinicia a cena quando cair completamente da tela (ajuste a altura se necessário)
+		if global_position.y > 1000:
+			get_tree().reload_current_scene()
+		return
+	
 	# 1. Gravidade
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -136,7 +150,9 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
-		if player_life < 0:
+		
+		if player_life  < 0:
+			die()
 			print('Morreu')
 		else:
 			# Descobre a direção com base na posição do inimigo em relação ao player
@@ -145,8 +161,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 				direction_x = 1 # Evita que seja zero caso estejam na mesma posição exata
 			# Aplica o knockback para o lado oposto ao inimigo (multiplicando a força pela direção)
 			take_damage(Vector2(2000 * direction_x, -200))
-			
-			print('Tomei dano')
+			#emit_signal('player_damage')
+			#print('Tomei dano')
 	pass # Replace with function body.
 
 #função para tomar dano
@@ -163,3 +179,22 @@ func follow_camera(camera):
 	var camera_path = camera.get_path()#pega o caminho da camera
 	remote_transform.remote_path = camera_path#recebe o caminho da camera
 	
+# Função principal de morte
+func die():
+	if is_dead:
+		return
+	is_dead = true
+	
+	# 1. Desativa a colisão com plataformas e a hurtbox para não tomar mais dano
+	collision_shape.set_deferred("disabled", true)
+	if hurtbox:
+		hurtbox.set_deferred("disabled", true)
+	
+	# 2. Desconecta a câmera para ela parar de seguir o player (o player some por baixo)
+	remote_transform.remote_path = NodePath("")
+	
+	# 3. Aplica o impulso inicial para cima e zera o eixo X
+	velocity.y = DEATH_JUMP_FORCE
+	velocity.x = 0
+	
+	state_machine.travel("Die")
