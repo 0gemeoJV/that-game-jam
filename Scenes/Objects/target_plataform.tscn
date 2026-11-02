@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://d16f8b8uui55w" path="res://Sprites/Objects/platforms.png" id="2_s1iaf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(114, 21)
+size = Vector2(26.000006, 196)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(32, 120)
+size = Vector2(53, 190)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bs21q"]
 atlas = ExtResource("2_s1iaf")
@@ -135,7 +135,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6, 47.5)]
+"values": [Vector2(2.000001, 77)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -147,7 +147,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.5707964]
 }
 
 [sub_resource type="Animation" id="Animation_xtp3i"]
@@ -188,7 +188,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-42, -1)]
+"values": [Vector2(-75, -14.5)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -200,12 +200,12 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-1.5707964]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_02nxh"]
 resource_name = "transition"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -240,7 +240,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.5707964]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -252,7 +252,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(6, 47.5)]
+"values": [Vector2(2.000001, 77)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b8g1f"]
@@ -302,13 +302,13 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_b8g1f")
 nodes/TimeScale/position = Vector2(304, 64)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5gh85"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b8g1f"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i5vta"]
 switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5gh85"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xrivr"]
@@ -318,28 +318,29 @@ states/red/node = SubResource("AnimationNodeBlendTree_xtp3i")
 states/red/position = Vector2(361.08008, 106.28496)
 states/transition/node = SubResource("AnimationNodeBlendTree_i5vta")
 states/transition/position = Vector2(539.4801, 106.28496)
-transitions = ["Start", "red", SubResource("AnimationNodeStateMachineTransition_5gh85"), "red", "transition", SubResource("AnimationNodeStateMachineTransition_b8g1f"), "transition", "green", SubResource("AnimationNodeStateMachineTransition_i5vta")]
+transitions = ["red", "transition", SubResource("AnimationNodeStateMachineTransition_b8g1f"), "transition", "green", SubResource("AnimationNodeStateMachineTransition_i5vta"), "Start", "red", SubResource("AnimationNodeStateMachineTransition_5gh85")]
 graph_offset = Vector2(128.68008, -10.515044)
 
 [node name="Target_Plataform" type="StaticBody2D" unique_id=1359122803]
 collision_mask = 18
 script = ExtResource("1_s1iaf")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1749397341]
+position = Vector2(2.000001, 77)
+rotation = 1.5707964
 shape = SubResource("RectangleShape2D_xrivr")
 
 [node name="AreaCollision" type="Area2D" parent="." unique_id=1195902201]
 collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaCollision" unique_id=92605564]
-position = Vector2(-52, 1)
+position = Vector2(-85.5, -13)
 shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1534459714]
-scale = Vector2(3.5, 3.5)
+scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_13qdw")
-animation = &""
+animation = &"green"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=744945758]
