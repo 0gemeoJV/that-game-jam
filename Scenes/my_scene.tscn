@@ -70,6 +70,11 @@ position = Vector2(1008, 191)
 
 [node name="Target_Plataform" parent="." unique_id=1359122803 instance=ExtResource("9_x5sfu")]
 position = Vector2(2521, 498)
+metadata/_edit_group_ = true
+
+[node name="Target_Plataform2" parent="." unique_id=828486933 instance=ExtResource("9_x5sfu")]
+position = Vector2(2945, 510)
+metadata/_edit_group_ = true
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
 [connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]
