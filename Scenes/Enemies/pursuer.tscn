@@ -112,8 +112,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(115, 150)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
+radius = 42.0
+height = 150.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(1157, 254)
@@ -307,7 +308,6 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_4rvhr")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=243289639]
 scale = Vector2(6, 6)
@@ -315,8 +315,8 @@ sprite_frames = SubResource("SpriteFrames_xrivr")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1312390254]
-position = Vector2(2.5, 2)
-shape = SubResource("RectangleShape2D_xrivr")
+position = Vector2(10, 8)
+shape = SubResource("CapsuleShape2D_cvnsp")
 debug_color = Color(0.97275144, 0.14958304, 0.18940833, 0.41960785)
 
 [node name="VisionArea" type="Area2D" parent="." unique_id=250598081]

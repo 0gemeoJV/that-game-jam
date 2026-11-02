@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c3eljajfgncbg"]
 
+[ext_resource type="Script" uid="uid://djxhxsc6uu2av" path="res://Scripts/MyLevels/my_scene.gd" id="1_80p2j"]
 [ext_resource type="PackedScene" uid="uid://crhnrgwkssxrn" path="res://Scenes/player.tscn" id="1_nj2kq"]
 [ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="2_53g5h"]
 [ext_resource type="PackedScene" uid="uid://bqy5fxici1bny" path="res://wall.tscn" id="3_53g5h"]
@@ -14,6 +15,7 @@
 size = Vector2(1159, 72.25)
 
 [node name="MyScene" type="Node2D" unique_id=1393564109]
+script = ExtResource("1_80p2j")
 
 [node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
 position = Vector2(1524, 306)
@@ -75,6 +77,10 @@ metadata/_edit_group_ = true
 [node name="Target_Plataform2" parent="." unique_id=828486933 instance=ExtResource("9_x5sfu")]
 position = Vector2(2945, 510)
 metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=413919831]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
 [connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]

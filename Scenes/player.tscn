@@ -367,6 +367,35 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="Animation" id="Animation_gymyn"]
+resource_name = "Die"
+loop_mode = 1
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"damage"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_cvnsp"]
 length = 0.001
 tracks/0/type = "value"
@@ -675,6 +704,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8erm5"]
 _data = {
+&"Die": SubResource("Animation_gymyn"),
 &"RESET": SubResource("Animation_cvnsp"),
 &"fall": SubResource("Animation_8erm5"),
 &"fall_shoot": SubResource("Animation_tx1dd"),
@@ -791,9 +821,6 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_ukyrk")
 nodes/TimeScale/position = Vector2(272, 80)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8erm5"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f1ek2"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tx1dd"]
@@ -844,7 +871,7 @@ states/run_shoot/node = SubResource("AnimationNodeBlendTree_x3wgy")
 states/run_shoot/position = Vector2(663.6, 50.4)
 states/shoot/node = SubResource("AnimationNodeBlendTree_7dp3o")
 states/shoot/position = Vector2(166.16, 177.59999)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8erm5"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_6t5aa"), "run", "run_shoot", SubResource("AnimationNodeStateMachineTransition_gymyn"), "run_shoot", "run", SubResource("AnimationNodeStateMachineTransition_pu2lt"), "jump", "jump_shoot", SubResource("AnimationNodeStateMachineTransition_ukyrk"), "jump_shoot", "jump", SubResource("AnimationNodeStateMachineTransition_7dp3o"), "fall", "fall_shoot", SubResource("AnimationNodeStateMachineTransition_qqcod"), "fall_shoot", "fall", SubResource("AnimationNodeStateMachineTransition_igrcy")]
+transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_6t5aa"), "run", "run_shoot", SubResource("AnimationNodeStateMachineTransition_gymyn"), "run_shoot", "run", SubResource("AnimationNodeStateMachineTransition_pu2lt"), "jump", "jump_shoot", SubResource("AnimationNodeStateMachineTransition_ukyrk"), "jump_shoot", "jump", SubResource("AnimationNodeStateMachineTransition_7dp3o"), "fall", "fall_shoot", SubResource("AnimationNodeStateMachineTransition_qqcod"), "fall_shoot", "fall", SubResource("AnimationNodeStateMachineTransition_igrcy")]
 graph_offset = Vector2(0, 32.190643)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
@@ -886,10 +913,6 @@ parameters/run/TimeScale/scale = 10.0
 parameters/run_shoot/TimeScale/scale = 20.0
 parameters/shoot/TimeScale/scale = 20.0
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=706479705]
-zoom = Vector2(0.6, 0.6)
-position_smoothing_enabled = true
-
 [node name="hurtbox" type="Area2D" parent="." unique_id=1922650967]
 collision_layer = 0
 collision_mask = 12
@@ -897,5 +920,7 @@ collision_mask = 12
 [node name="HurtCollision" type="CollisionShape2D" parent="hurtbox" unique_id=1389180144]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="remote" type="RemoteTransform2D" parent="." unique_id=53512148]
 
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

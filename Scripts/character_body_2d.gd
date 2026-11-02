@@ -8,6 +8,8 @@ const BOUNCE_VELOCITY = -600.0
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 
+@onready var remote_transform := $remote as RemoteTransform2D
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
 @onready var marker: Marker2D = $Marker2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D # Ajuste o caminho caso o nó tenha outro nome
@@ -156,3 +158,8 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 		knoback_tween.tween_property(self, "knockback_vector",Vector2.ZERO, duration)
 		animated_sprite.modulate = Color(1,0,0,1)
 		knoback_tween.tween_property(animated_sprite, "modulate", Color(1,1,1,1), duration)
+
+func follow_camera(camera):
+	var camera_path = camera.get_path()#pega o caminho da camera
+	remote_transform.remote_path = camera_path#recebe o caminho da camera
+	
