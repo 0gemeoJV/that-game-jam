@@ -53,6 +53,9 @@ func _physics_process(delta: float) -> void:
 	# 2. Pulo
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	# Pulo variável: se soltar o botão de pulo enquanto ainda está subindo, corta a velocidade vertical
+	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
+		velocity.y *= 0.5 #
 	
 	# 3. Movimentação horizontal
 	var input_axis := Input.get_axis("ui_left", "ui_right")
