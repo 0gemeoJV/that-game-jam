@@ -11,11 +11,16 @@ const BOUNCE_VELOCITY = -600.0
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
 @onready var marker: Marker2D = $Marker2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D # Ajuste o caminho caso o nó tenha outro nome
+@onready var hurtbox: CollisionShape2D = $hurtbox/HurtCollision
+
+@onready var knockback_vector:= Vector2.ZERO
 
 var collision_position_x: float
 var marker_position_x: float
+var hurtbox_position_x: float
 var current_bullet: Node2D = null
 var direction: int = 1
+var player_life = 3
 
 # Variáveis para controlar o tempo dos tiros
 var shoot_timer: float = 0.0
@@ -24,6 +29,7 @@ const SHOOT_DURATION: float = 0.2 # Ajuste conforme a duração da sua animaçã
 func _ready():
 	marker_position_x = marker.position.x
 	collision_position_x = collision_shape.position.x
+	hurtbox_position_x = hurtbox.position.x
 
 # Função chamada diretamente PELA ANIMAÇÃO no frame correto do tiro
 func spawn_bullet():
@@ -65,6 +71,7 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = direction > 0
 		marker.position.x = marker_position_x * direction
 		collision_shape.position.x = collision_position_x * direction
+		hurtbox.position.x = hurtbox_position_x * direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
@@ -119,4 +126,33 @@ func _physics_process(delta: float) -> void:
 			else:
 				state_machine.travel("idle")
 
+	if knockback_vector != Vector2.ZERO:
+		velocity = knockback_vector
 	move_and_slide()
+
+ # Replace with function body.
+
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):
+		if player_life < 0:
+			print('Morreu')
+		else:
+			# Descobre a direção com base na posição do inimigo em relação ao player
+			var direction_x = sign(global_position.x - body.global_position.x)
+			if direction_x == 0:
+				direction_x = 1 # Evita que seja zero caso estejam na mesma posição exata
+			
+			# Aplica o knockback para o lado oposto ao inimigo (multiplicando a força pela direção)
+			take_damage(Vector2(2000 * direction_x, -200))
+			print('Tomei dano')
+	pass # Replace with function body.
+
+#função para tomar dano
+func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
+	player_life -= 1
+	if knockback_force != Vector2.ZERO:
+		knockback_vector = knockback_force
+		var knoback_tween = get_tree().create_tween()
+		knoback_tween.tween_property(self, "knockback_vector",Vector2.ZERO, duration)
+	pass
