@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b5vecbpmyxxcm" path="res://Sprites/roball26x20.png" id="2_cvnsp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(65, 89)
+size = Vector2(31, 89)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("2_cvnsp")
@@ -854,7 +854,7 @@ script = ExtResource("1_cvnsp")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=519868413]
-position = Vector2(-13.5, 12.5)
+position = Vector2(-6.5, 12.5)
 shape = SubResource("RectangleShape2D_xrivr")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1181285564]

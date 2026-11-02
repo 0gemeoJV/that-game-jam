@@ -10,7 +10,9 @@ const BOUNCE_VELOCITY = -600.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
 @onready var marker: Marker2D = $Marker2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D # Ajuste o caminho caso o nó tenha outro nome
 
+var collision_position_x: float
 var marker_position_x: float
 var current_bullet: Node2D = null
 var direction: int = 1
@@ -21,6 +23,7 @@ const SHOOT_DURATION: float = 0.2 # Ajuste conforme a duração da sua animaçã
 
 func _ready():
 	marker_position_x = marker.position.x
+	collision_position_x = collision_shape.position.x
 
 # Função chamada diretamente PELA ANIMAÇÃO no frame correto do tiro
 func spawn_bullet():
@@ -58,6 +61,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = input_axis * SPEED
 		animated_sprite.flip_h = direction > 0
 		marker.position.x = marker_position_x * direction
+		collision_shape.position.x = collision_position_x * direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 

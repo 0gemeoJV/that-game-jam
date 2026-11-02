@@ -16,7 +16,7 @@ size = Vector2(1159, 72.25)
 [node name="MyScene" type="Node2D" unique_id=1393564109]
 
 [node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
-position = Vector2(796, 319)
+position = Vector2(1524, 306)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1901407927]
 position = Vector2(2, 608)
@@ -63,7 +63,7 @@ position = Vector2(307, 211)
 position = Vector2(1307, 534)
 
 [node name="Button2" parent="." unique_id=682456145 instance=ExtResource("7_ixugv")]
-position = Vector2(876, 534)
+position = Vector2(881, 530)
 
 [node name="Door" parent="." unique_id=1263449903 instance=ExtResource("8_r75xb")]
 position = Vector2(1008, 191)
