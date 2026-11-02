@@ -132,7 +132,6 @@ func _physics_process(delta: float) -> void:
 
  # Replace with function body.
 
-
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		if player_life < 0:
@@ -142,9 +141,9 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 			var direction_x = sign(global_position.x - body.global_position.x)
 			if direction_x == 0:
 				direction_x = 1 # Evita que seja zero caso estejam na mesma posição exata
-			
 			# Aplica o knockback para o lado oposto ao inimigo (multiplicando a força pela direção)
 			take_damage(Vector2(2000 * direction_x, -200))
+			
 			print('Tomei dano')
 	pass # Replace with function body.
 
@@ -155,4 +154,5 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 		knockback_vector = knockback_force
 		var knoback_tween = get_tree().create_tween()
 		knoback_tween.tween_property(self, "knockback_vector",Vector2.ZERO, duration)
-	pass
+		animated_sprite.modulate = Color(1,0,0,1)
+		knoback_tween.tween_property(animated_sprite, "modulate", Color(1,1,1,1), duration)
