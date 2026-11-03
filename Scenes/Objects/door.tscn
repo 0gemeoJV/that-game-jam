@@ -218,6 +218,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"upper_green"]
+}
 
 [sub_resource type="Animation" id="Animation_yjvgs"]
 resource_name = "door_closed"
@@ -251,7 +263,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_ynea2"]
 resource_name = "door_opened"
 length = 4.8
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -291,7 +302,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"upper_red"]
+"values": [&"upper_green"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -344,6 +355,95 @@ _data = {
 &"upper_red": SubResource("Animation_l0b71")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bw412"]
+animation = &"door_closed"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_bw412"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_l0b71"]
+nodes/output/position = Vector2(512, 96)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_bw412")
+nodes/Animation/position = Vector2(96, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_bw412")
+nodes/TimeScale/position = Vector2(320, 64)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gc7pt"]
+animation = &"door_opened"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_153u2"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_mnli5"]
+nodes/output/position = Vector2(544, 144)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_gc7pt")
+nodes/Animation/position = Vector2(96, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_153u2")
+nodes/TimeScale/position = Vector2(336, 96)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ynea2"]
+animation = &"upper_green"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gc7pt"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_153u2"]
+graph_offset = Vector2(-306.5048, 0)
+nodes/output/position = Vector2(320, 112)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_ynea2")
+nodes/Animation/position = Vector2(-80, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_gc7pt")
+nodes/TimeScale/position = Vector2(128, 80)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l0b71"]
+animation = &"upper_red"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ynea2"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_gc7pt"]
+nodes/output/position = Vector2(464, 112)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_l0b71")
+nodes/Animation/position = Vector2(80, 64)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_ynea2")
+nodes/TimeScale/position = Vector2(272, 80)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bw412"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l0b71"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mnli5"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6qaid"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ynea2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gc7pt"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3wir2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uciqq"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u3wso"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_unqlf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6bd8f"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6uxtr"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xrivr"]
+states/door_closed/node = SubResource("AnimationNodeBlendTree_l0b71")
+states/door_closed/position = Vector2(358.8, 80)
+states/door_opened/node = SubResource("AnimationNodeBlendTree_mnli5")
+states/door_opened/position = Vector2(473.2, -36.399986)
+states/upper_green/node = SubResource("AnimationNodeBlendTree_153u2")
+states/upper_green/position = Vector2(473.58398, 186.4)
+states/upper_red/node = SubResource("AnimationNodeBlendTree_gc7pt")
+states/upper_red/position = Vector2(638, 79.36)
+transitions = ["door_closed", "upper_red", SubResource("AnimationNodeStateMachineTransition_bw412"), "upper_red", "door_closed", SubResource("AnimationNodeStateMachineTransition_l0b71"), "door_closed", "upper_green", SubResource("AnimationNodeStateMachineTransition_mnli5"), "upper_green", "door_closed", SubResource("AnimationNodeStateMachineTransition_6qaid"), "upper_green", "upper_red", SubResource("AnimationNodeStateMachineTransition_ynea2"), "upper_red", "upper_green", SubResource("AnimationNodeStateMachineTransition_gc7pt"), "door_opened", "door_closed", SubResource("AnimationNodeStateMachineTransition_3wir2"), "door_closed", "door_opened", SubResource("AnimationNodeStateMachineTransition_uciqq"), "door_opened", "upper_red", SubResource("AnimationNodeStateMachineTransition_u3wso"), "upper_red", "door_opened", SubResource("AnimationNodeStateMachineTransition_unqlf"), "door_opened", "upper_green", SubResource("AnimationNodeStateMachineTransition_6bd8f"), "upper_green", "door_opened", SubResource("AnimationNodeStateMachineTransition_6uxtr")]
+graph_offset = Vector2(0, -33.297634)
+
 [node name="Door" type="StaticBody2D" unique_id=1263449903]
 collision_mask = 30
 script = ExtResource("1_bw412")
@@ -356,9 +456,18 @@ debug_color = Color(0.69227254, 0.49720794, 0, 0.41960785)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1340040924]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"door_opened"
+animation = &"upper_green"
+frame = 1
 speed_scale = 3.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=793979492]
 libraries/ = SubResource("AnimationLibrary_t6gyq")
 speed_scale = 2.0
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1609338975]
+tree_root = SubResource("AnimationNodeStateMachine_xrivr")
+anim_player = NodePath("../AnimationPlayer")
+parameters/door_closed/TimeScale/scale = 2.0
+parameters/door_opened/TimeScale/scale = 3.0
+parameters/upper_green/TimeScale/scale = 2.0
+parameters/upper_red/TimeScale/scale = 2.0
