@@ -8,11 +8,20 @@ var force_float : float = 350.0
 # Variável para guardar o limite de altura da água
 var water_surface_y: float = 0.0
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+#@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var rayDown: RayCast2D = $RayDown
+@onready var rayRight: RayCast2D = $RayRight
+@onready var rayUp: RayCast2D = $RayUp
+@onready var rayLeft: RayCast2D = $RayLeft
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+
 
 func _ready() -> void:
 	# Aplica o impulso inicial assim que a bala nasce
 	# O eixo Y começa em 0 para ela ir reto, e a gravidade cuida de fazê-la cair depois
+	animation_tree.active = true
+	state_machine.travel(&"ball_rolling")
 	apply_central_impulse(Vector2(bullet_speed * direction, 0))
 	
 
@@ -25,6 +34,31 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		# Chama uma função de impulso no player que vamos criar agora
 		#print("PLayer aki :D")
+		rayDown.force_raycast_update()
+		rayRight.force_raycast_update()
+		rayUp.force_raycast_update()
+		rayLeft.force_raycast_update()
+
+		var hit_from_top_or_bottom := rayDown.get_collider() == body or rayUp.get_collider() == body
+		var hit_from_left_or_right := rayRight.get_collider() == body or rayLeft.get_collider() == body
+
+		if hit_from_top_or_bottom and hit_from_left_or_right:
+			var player_offset := body.global_position - global_position
+			if absf(player_offset.y) >= absf(player_offset.x):
+				state_machine.start(&"ball_horizontal", true)
+			else:
+				state_machine.start(&"ball_vertical", true)
+		elif hit_from_top_or_bottom:
+			state_machine.start(&"ball_horizontal", true)
+		elif hit_from_left_or_right:
+			state_machine.start(&"ball_vertical", true)
+		else:
+			var player_offset := body.global_position - global_position
+			if absf(player_offset.y) >= absf(player_offset.x):
+				state_machine.start(&"ball_horizontal", true)
+			else:
+				state_machine.start(&"ball_vertical", true)
+
 		if body.has_method("bounce"):
 			body.bounce() 
 	if body.name == "pursuer_water":

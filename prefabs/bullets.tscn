@@ -90,19 +90,174 @@ animations = [{
 radius = 4428318.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nner1"]
-radius = 52.002403
+radius = 48.023434
 
 [sub_resource type="Animation" id="Animation_uo5t8"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_n4f4f"]
 resource_name = "ball"
+length = 1.5
+
+[sub_resource type="Animation" id="Animation_cjqtg"]
+resource_name = "ball_horizontal"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ball_horizontal"]
+}
+
+[sub_resource type="Animation" id="Animation_ymq2x"]
+resource_name = "ball_rolling"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ball_vertical"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_cdsys"]
+resource_name = "ball_vertical"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ball_vertical"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cjqtg"]
 _data = {
 &"RESET": SubResource("Animation_uo5t8"),
-&"ball": SubResource("Animation_n4f4f")
+&"ball": SubResource("Animation_n4f4f"),
+&"ball_horizontal": SubResource("Animation_cjqtg"),
+&"ball_rolling": SubResource("Animation_ymq2x"),
+&"ball_vertical": SubResource("Animation_cdsys")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uo5t8"]
+animation = &"ball_horizontal"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_n4f4f"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_cjqtg"]
+nodes/output/position = Vector2(576, 128)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_uo5t8")
+nodes/Animation/position = Vector2(144, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_n4f4f")
+nodes/TimeScale/position = Vector2(368, 80)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f8mtq"]
+animation = &"ball_rolling"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nr6bw"]
+nodes/output/position = Vector2(352, 112)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_f8mtq")
+nodes/Animation/position = Vector2(112, 96)
+node_connections = [&"output", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cdsys"]
+animation = &"ball_vertical"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_ymq2x"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_f8mtq"]
+nodes/output/position = Vector2(560, 128)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_cdsys")
+nodes/Animation/position = Vector2(160, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_ymq2x")
+nodes/TimeScale/position = Vector2(384, 80)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5drpk"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4t6ub"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xs1qp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_krkkc"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eslmy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_chsou"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xrivr"]
+states/ball_horizontal/node = SubResource("AnimationNodeBlendTree_cjqtg")
+states/ball_horizontal/position = Vector2(368.4, 134.56)
+states/ball_rolling/node = SubResource("AnimationNodeBlendTree_nr6bw")
+states/ball_rolling/position = Vector2(504.40002, 40)
+states/ball_vertical/node = SubResource("AnimationNodeBlendTree_f8mtq")
+states/ball_vertical/position = Vector2(603.6, 135.2)
+transitions = ["ball_rolling", "ball_horizontal", SubResource("AnimationNodeStateMachineTransition_5drpk"), "ball_horizontal", "ball_vertical", SubResource("AnimationNodeStateMachineTransition_4t6ub"), "ball_rolling", "ball_vertical", SubResource("AnimationNodeStateMachineTransition_xs1qp"), "ball_vertical", "ball_rolling", SubResource("AnimationNodeStateMachineTransition_krkkc"), "ball_vertical", "ball_horizontal", SubResource("AnimationNodeStateMachineTransition_eslmy"), "ball_horizontal", "ball_rolling", SubResource("AnimationNodeStateMachineTransition_chsou")]
 
 [node name="bullets" type="RigidBody2D" unique_id=758352721]
 collision_layer = 16
@@ -113,7 +268,8 @@ script = ExtResource("1_uo5t8")
 position = Vector2(14, 18)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"ball_vertical"
+animation = &""
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=323270757 groups=["Ball"]]
 position = Vector2(20, 16)
@@ -135,6 +291,32 @@ shape = SubResource("CircleShape2D_nner1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=900162578]
 libraries/ = SubResource("AnimationLibrary_cjqtg")
+
+[node name="RayDown" type="RayCast2D" parent="." unique_id=590243433]
+position = Vector2(16, 14)
+target_position = Vector2(0, 120)
+collision_mask = 2
+
+[node name="RayRight" type="RayCast2D" parent="." unique_id=1097729142]
+position = Vector2(16, 14)
+target_position = Vector2(120, 0)
+collision_mask = 2
+
+[node name="RayUp" type="RayCast2D" parent="." unique_id=818610152]
+position = Vector2(16, 14)
+target_position = Vector2(0, -120)
+collision_mask = 2
+
+[node name="RayLeft" type="RayCast2D" parent="." unique_id=1241188837]
+position = Vector2(16, 14)
+target_position = Vector2(-120, 0)
+collision_mask = 2
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1000828680]
+tree_root = SubResource("AnimationNodeStateMachine_xrivr")
+anim_player = NodePath("../AnimationPlayer")
+parameters/ball_horizontal/TimeScale/scale = 4.0
+parameters/ball_vertical/TimeScale/scale = 4.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="JumpDetector" to="." method="_on_jump_detector_body_entered"]
