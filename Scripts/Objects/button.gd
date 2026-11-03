@@ -2,15 +2,18 @@ extends Area2D
 
 # Variável para verificar se o botão está apertado
 var pressed = false
+@onready var animation = $AnimationPlayer
 
 # Sinal para ativar a porta
 signal state_button(button_pressed: bool)
+
+func _ready() -> void:	
+	animation.play("idle_button")
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player") or body.name == "bullets":
 		pressed = true
 		emit_signal("state_button", pressed)
-
 
 func _on_body_exited(body: Node2D) -> void:
 	# Verificamos se quem saiu foi o Player ou a bola
