@@ -18,10 +18,10 @@ func Open_Door():
 		state_machine.travel("door_closed")
 	elif(button1 == true and button2 == false):
 		state_machine.travel("upper_red")
-		print('entrei aki')
+		#print('entrei aki')
 	elif (button1 == false and button2 == true):
 		#print('Entrei aki')
-		print('Button1:', button1,'|Button2:', button2)
+		#print('Button1:', button1,'|Button2:', button2)
 		state_machine.travel("upper_green")
 	elif (button1 and button2 == true):
 		is_opened = true

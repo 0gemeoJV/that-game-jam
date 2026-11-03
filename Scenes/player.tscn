@@ -881,7 +881,7 @@ transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_f
 graph_offset = Vector2(0, 103.47827)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(62, 83)
+size = Vector2(65, 74.5)
 
 [node name="player" type="CharacterBody2D" unique_id=1111961102 groups=["Player"]]
 collision_layer = 2
@@ -924,7 +924,7 @@ collision_layer = 0
 collision_mask = 12
 
 [node name="HurtCollision" type="CollisionShape2D" parent="hurtbox" unique_id=1389180144]
-position = Vector2(0, 5)
+position = Vector2(-1.5, 0.75)
 shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="remote" type="RemoteTransform2D" parent="." unique_id=53512148]
