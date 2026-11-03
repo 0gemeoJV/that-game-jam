@@ -933,4 +933,5 @@ shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="health_container" parent="HealthContainer" unique_id=1699835701 instance=ExtResource("3_6t5aa")]
 
+[connection signal="player_damage" from="." to="HealthContainer/health_container" method="_on_player_player_damage"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
