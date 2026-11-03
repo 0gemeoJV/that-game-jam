@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://coekt1ng2cpn" path="res://Scripts/water.gd" id="1_slmpt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(328, 411)
+size = Vector2(985, 411)
 
 [node name="water" type="Area2D" unique_id=90170645]
 collision_layer = 32
@@ -11,7 +11,7 @@ collision_mask = 26
 script = ExtResource("1_slmpt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1076434684]
-position = Vector2(154, 195.5)
+position = Vector2(196.5, 195.5)
 shape = SubResource("RectangleShape2D_xrivr")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
