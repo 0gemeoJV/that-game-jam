@@ -58,7 +58,7 @@ position = Vector2(174, 191)
 [node name="pursuer" parent="." unique_id=2031184125 instance=ExtResource("5_hua3f")]
 position = Vector2(2155, 514)
 
-[node name="pursuer_water" parent="." unique_id=803863473 instance=ExtResource("6_kdlp7")]
+[node name="pursuer_water" parent="." unique_id=803863473 groups=["enemies"] instance=ExtResource("6_kdlp7")]
 position = Vector2(307, 211)
 
 [node name="Button" parent="." unique_id=2017848668 instance=ExtResource("7_ixugv")]
