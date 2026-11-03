@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dj8kmvxwrn3w2" path="res://Scenes/Objects/button.tscn" id="7_ixugv"]
 [ext_resource type="PackedScene" uid="uid://cp8jr1pfygg8p" path="res://Scenes/Objects/door.tscn" id="8_r75xb"]
 [ext_resource type="PackedScene" uid="uid://piqglv83hmq8" path="res://Scenes/Objects/target_plataform.tscn" id="9_x5sfu"]
+[ext_resource type="PackedScene" uid="uid://bhkwtvj5o83d1" path="res://Scenes/water_node.tscn" id="11_dv1fo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(1159, 72.25)
@@ -81,6 +82,14 @@ metadata/_edit_group_ = true
 [node name="Camera2D" type="Camera2D" parent="." unique_id=413919831]
 zoom = Vector2(0.6, 0.6)
 position_smoothing_enabled = true
+
+[node name="WaterNode" parent="." unique_id=1450265754 instance=ExtResource("11_dv1fo")]
+position = Vector2(686, 413)
+water_size = Vector2(500, 500)
+water_physics_speed = 249.065
+wave_strength = 100.0
+surface_color = Color(0.38039216, 0.6117647, 0.7647059, 1)
+water_fill_color = Color(0.22352941, 0.4862745, 0.74509805, 1)
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
 [connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]

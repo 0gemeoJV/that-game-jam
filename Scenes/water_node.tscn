@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bhkwtvj5o83d1"]
+
+[ext_resource type="Script" uid="uid://cble1etotxsh5" path="res://Scripts/water_node.gd" id="1_301vd"]
+
+[node name="WaterNode" type="Node2D" unique_id=1450265754]
+script = ExtResource("1_301vd")
+water_size = Vector2(16, 16)
+surface_color = Color(0.5568628, 0.827451, 0.8627451, 1)
