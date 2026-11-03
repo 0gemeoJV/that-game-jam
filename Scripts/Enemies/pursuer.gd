@@ -52,12 +52,14 @@ func aplicar_movimento(delta: float) -> void:
 func escolher_proximo_alvo() -> void:
 	var nova_bola: Node2D = null
 	var novo_player: Node2D = null
-	state_machine.travel("walk_red")
+	#state_machine.travel("walk_red")
 	for target in targets_in_vision:
 		if target.is_in_group("Ball"):
 			nova_bola = target
+			state_machine.travel("walk_yellow")
 			break # Bola tem prioridade máxima
 		elif target.is_in_group("Player"):
+			state_machine.travel("walk_red")
 			novo_player = target
 			
 	if nova_bola != null:
@@ -83,9 +85,10 @@ func _on_vision_area_body_entered(body: Node2D) -> void:
 		targets_in_vision.append(body)
 		#print("-> ENTROU NA ÁREA: ", body, " | Lista atual: ", targets_in_vision)
 		if body.is_in_group("Player"):
-			state_machine.travel("walk_red")
+			#state_machine.travel("walk_red")
 			player_ref = body
 			if current_target == null:
+				state_machine.travel("walk_red")
 				current_target = body
 				is_chasing = true
 				#print("Foco inicial no Player.")
