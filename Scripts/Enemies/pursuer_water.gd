@@ -17,8 +17,9 @@ func _physics_process(delta: float) -> void:
 	
 	if is_chasing == true and player != null:
 		state_machine.travel("wake_up")
+		state_machine.travel("following")
 		if in_water == true:
-			state_machine.travel("following")
+			
 			position += (player.position - position) / SPEED
 		else:
 			position.x += (player.position.x - position.x) / SPEED 
