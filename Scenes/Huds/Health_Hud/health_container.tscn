@@ -28,3 +28,7 @@ offset_transform_position = Vector2(50, 0)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(100, 0)
+
+[connection signal="take_damage" from="." to="healthbox" method="_on_health_container_take_damage"]
+[connection signal="take_damage" from="." to="healthbox2" method="_on_health_container_take_damage"]
+[connection signal="take_damage" from="." to="healthbox3" method="_on_health_container_take_damage"]

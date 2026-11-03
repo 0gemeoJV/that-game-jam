@@ -30,8 +30,8 @@ var is_dead = false
 var shoot_timer: float = 0.0
 const SHOOT_DURATION: float = 0.2 # Ajuste conforme a duração da sua animação
 
-#Quando precisarmos usar o HUD
-#signal player_damage
+
+signal player_damage(player_life:int)
 
 func _ready():
 	marker_position_x = marker.position.x
@@ -150,7 +150,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
-		
+		emit_signal('player_damage',player_life)
 		if player_life  < 0:
 			die()
 			print('Morreu')
@@ -161,7 +161,6 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 				direction_x = 1 # Evita que seja zero caso estejam na mesma posição exata
 			# Aplica o knockback para o lado oposto ao inimigo (multiplicando a força pela direção)
 			take_damage(Vector2(2000 * direction_x, -200))
-			#emit_signal('player_damage')
 			#print('Tomei dano')
 	pass # Replace with function body.
 
