@@ -1,19 +1,364 @@
 [gd_scene format=3 uid="uid://cp8jr1pfygg8p"]
 
-[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="1_54mbb"]
 [ext_resource type="Script" uid="uid://28kk7e8twd4x" path="res://Scripts/Objects/door.gd" id="1_bw412"]
+[ext_resource type="Texture2D" uid="uid://bfyq5sm0hvbuw" path="res://Sprites/Objects/door.png" id="2_bw412"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(125, 130)
+size = Vector2(75, 186)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0b71"]
+atlas = ExtResource("2_bw412")
+region = Rect2(0, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynea2"]
+atlas = ExtResource("2_bw412")
+region = Rect2(16, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc7pt"]
+atlas = ExtResource("2_bw412")
+region = Rect2(32, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_153u2"]
+atlas = ExtResource("2_bw412")
+region = Rect2(48, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnli5"]
+atlas = ExtResource("2_bw412")
+region = Rect2(64, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qaid"]
+atlas = ExtResource("2_bw412")
+region = Rect2(80, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wir2"]
+atlas = ExtResource("2_bw412")
+region = Rect2(96, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uciqq"]
+atlas = ExtResource("2_bw412")
+region = Rect2(112, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3wso"]
+atlas = ExtResource("2_bw412")
+region = Rect2(128, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unqlf"]
+atlas = ExtResource("2_bw412")
+region = Rect2(144, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bd8f"]
+atlas = ExtResource("2_bw412")
+region = Rect2(160, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uxtr"]
+atlas = ExtResource("2_bw412")
+region = Rect2(176, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xw13"]
+atlas = ExtResource("2_bw412")
+region = Rect2(192, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3th4"]
+atlas = ExtResource("2_bw412")
+region = Rect2(208, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va4av"]
+atlas = ExtResource("2_bw412")
+region = Rect2(224, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq80b"]
+atlas = ExtResource("2_bw412")
+region = Rect2(240, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqm4r"]
+atlas = ExtResource("2_bw412")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3uco"]
+atlas = ExtResource("2_bw412")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqetw"]
+atlas = ExtResource("2_bw412")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06rt5"]
+atlas = ExtResource("2_bw412")
+region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p26xv"]
+atlas = ExtResource("2_bw412")
+region = Rect2(16, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vhhy"]
+atlas = ExtResource("2_bw412")
+region = Rect2(32, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lr4xl"]
+atlas = ExtResource("2_bw412")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmeun"]
+atlas = ExtResource("2_bw412")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eslmt"]
+atlas = ExtResource("2_bw412")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0b71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynea2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc7pt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_153u2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnli5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qaid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wir2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uciqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3wso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unqlf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bd8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uxtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xw13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3th4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va4av")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq80b")
+}],
+"loop": 1,
+"name": &"door_opened",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqm4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3uco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqetw")
+}],
+"loop": 1,
+"name": &"door_red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06rt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p26xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vhhy")
+}],
+"loop": 1,
+"name": &"upper_green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lr4xl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmeun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eslmt")
+}],
+"loop": 1,
+"name": &"upper_red",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fnmws"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_yjvgs"]
+resource_name = "door_closed"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"door_red"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_ynea2"]
+resource_name = "door_opened"
+length = 4.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"door_opened"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4, 2.7, 3, 3.3, 3.6, 3.9, 4.2, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_bw412"]
+resource_name = "upper_green"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"upper_red"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_l0b71"]
+resource_name = "upper_red"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"upper_red"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t6gyq"]
+_data = {
+&"RESET": SubResource("Animation_fnmws"),
+&"door_closed": SubResource("Animation_yjvgs"),
+&"door_opened": SubResource("Animation_ynea2"),
+&"upper_green": SubResource("Animation_bw412"),
+&"upper_red": SubResource("Animation_l0b71")
+}
 
 [node name="Door" type="StaticBody2D" unique_id=1263449903]
 collision_mask = 30
 script = ExtResource("1_bw412")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=352621036]
-texture = ExtResource("1_54mbb")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813337837]
-position = Vector2(0.5, 0)
+position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_xrivr")
 debug_color = Color(0.69227254, 0.49720794, 0, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1340040924]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_xrivr")
+animation = &"door_opened"
+speed_scale = 3.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=793979492]
+libraries/ = SubResource("AnimationLibrary_t6gyq")
+speed_scale = 2.0
