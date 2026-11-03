@@ -13,8 +13,8 @@ class_name water
 @export_range(1, 64) var wave_spread_updates: int = 8
 
 @export var surface_line_thickness: float = 1.0
-@export var surface_color: Color = Color("3ce1da")
-@export var water_fill_color: Color = Color("37b0c5")
+@export var surface_color: Color = Color("8ed3dca9", 0.8)
+@export var water_fill_color: Color = Color("37b0c5a9", 0.5)
 
 var segment_data: PackedFloat32Array = PackedFloat32Array()
 var segment_velocities: PackedFloat32Array = PackedFloat32Array()

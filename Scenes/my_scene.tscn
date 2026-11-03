@@ -84,6 +84,7 @@ zoom = Vector2(0.6, 0.6)
 position_smoothing_enabled = true
 
 [node name="WaterNode" parent="." unique_id=1450265754 instance=ExtResource("11_dv1fo")]
+modulate = Color(1, 1, 1, 0.5176471)
 position = Vector2(686, 413)
 water_size = Vector2(500, 500)
 water_physics_speed = 249.065
