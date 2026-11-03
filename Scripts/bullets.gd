@@ -28,7 +28,6 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 		#print("Estouro")
 		#A bola irá ser exluída, pois chamamos a função timeout
 		_on_timer_timeout()
-		body.dizzy()
 
 func _physics_process(delta: float) -> void:
 	if in_water:
