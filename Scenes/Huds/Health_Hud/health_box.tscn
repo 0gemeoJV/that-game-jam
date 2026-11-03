@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bvdldfcgcfmtw"]
 
+[ext_resource type="Script" uid="uid://qv6mn5nu7kht" path="res://Scripts/Huds/Health_Huds/health_box.gd" id="1_c2dl4"]
 [ext_resource type="Texture2D" uid="uid://ma235gfm73s4" path="res://Huds/Hp_hud/hp_box.png" id="1_l3gb0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c2dl4"]
@@ -37,6 +38,7 @@ animations = [{
 }]
 
 [node name="healthbox" type="Panel" unique_id=1691185650]
+script = ExtResource("1_c2dl4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=272185210]
 scale = Vector2(6, 6)

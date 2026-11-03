@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bplu0st6grbnu" path="res://Scripts/character_body_2d.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b5vecbpmyxxcm" path="res://Sprites/roball26x20.png" id="2_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://b5pwp11glnasq" path="res://Scenes/Huds/Health_Hud/health_container.tscn" id="3_6t5aa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(27, 89)
@@ -927,5 +928,9 @@ position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="remote" type="RemoteTransform2D" parent="." unique_id=53512148]
+
+[node name="HealthContainer" type="CanvasLayer" parent="." unique_id=710312974]
+
+[node name="health_container" parent="HealthContainer" unique_id=1699835701 instance=ExtResource("3_6t5aa")]
 
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
