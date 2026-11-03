@@ -8,10 +8,13 @@ var force_float : float = 350.0
 # Variável para guardar o limite de altura da água
 var water_surface_y: float = 0.0
 
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 func _ready() -> void:
 	# Aplica o impulso inicial assim que a bala nasce
 	# O eixo Y começa em 0 para ela ir reto, e a gravidade cuida de fazê-la cair depois
 	apply_central_impulse(Vector2(bullet_speed * direction, 0))
+	
 
 func _on_timer_timeout() -> void:
 	queue_free()
