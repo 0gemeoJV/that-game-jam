@@ -93,6 +93,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"button"]
+}
 
 [sub_resource type="Animation" id="Animation_0k4t2"]
 resource_name = "pressed_button"
@@ -110,6 +122,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"pressed_button"]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0k4t2"]
 _data = {
@@ -118,12 +142,14 @@ _data = {
 &"pressed_button": SubResource("Animation_0k4t2")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(19.333334, 5.3333335)
+
 [node name="Button" type="Area2D" unique_id=2017848668]
 scale = Vector2(6, 6)
 collision_layer = 64
 collision_mask = 18
 script = ExtResource("1_3ug5e")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1372662224]
 position = Vector2(0.08333373, -0.25000024)
@@ -138,5 +164,12 @@ speed_scale = 2.0
 libraries/ = SubResource("AnimationLibrary_0k4t2")
 speed_scale = 2.0
 
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1440713806]
+collision_layer = 65
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=382258984]
+position = Vector2(2.3841858e-07, 5.000001)
+shape = SubResource("RectangleShape2D_13qdw")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
