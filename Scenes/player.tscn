@@ -924,6 +924,16 @@ graph_offset = Vector2(39.82955, 131.11708)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(65, 74.5)
 
+[sub_resource type="Gradient" id="Gradient_vgqql"]
+offsets = PackedFloat32Array(0.0024038462, 0.17067307, 0.19951923, 0.32451922, 0.37740386, 0.52163464, 0.78125, 0.81490386, 0.8629808)
+colors = PackedColorArray(1, 1, 1, 1, 0.85997677, 0.85997677, 0.85997677, 1, 0.79288226, 0.79288226, 0.79288226, 1, 0.7067029, 0.7067029, 0.7067029, 1, 0.6262688, 0.6262688, 0.6262688, 1, 0.41729605, 0.41729605, 0.41729605, 1, 0.20111734, 0.20111734, 0.20111734, 1, 0.33271185, 0.33271185, 0.33271185, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fkybt"]
+gradient = SubResource("Gradient_vgqql")
+fill = 1
+fill_from = Vector2(0.5052083, 0.4809028)
+fill_to = Vector2(0.9010417, 0.09548611)
+
 [node name="player" type="CharacterBody2D" unique_id=1111961102 groups=["Player"]]
 collision_layer = 2
 collision_mask = 61
@@ -939,7 +949,7 @@ position = Vector2(80, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=812081602]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"idle"
+animation = &""
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1327391040]
@@ -976,6 +986,13 @@ shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="BallContainer" parent="HealthContainer" unique_id=152660347 instance=ExtResource("4_vgqql")]
 offset_transform_position = Vector2(200, 20)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=810712720]
+color = Color(0.38039216, 0.6117647, 0.7647059, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_fkybt")
+texture_scale = 12.0
+height = 65.0
 
 [connection signal="_recharging" from="." to="HealthContainer/BallContainer" method="_on_player__recharging"]
 [connection signal="life_charging" from="." to="HealthContainer/health_container" method="_on_player_life_charging"]
