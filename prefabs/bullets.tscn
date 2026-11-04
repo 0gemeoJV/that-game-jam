@@ -261,7 +261,7 @@ transitions = ["ball_rolling", "ball_horizontal", SubResource("AnimationNodeStat
 
 [node name="bullets" type="RigidBody2D" unique_id=758352721]
 collision_layer = 16
-collision_mask = 11
+collision_mask = 267
 script = ExtResource("1_uo5t8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1321515753]
@@ -283,7 +283,7 @@ autostart = true
 
 [node name="JumpDetector" type="Area2D" parent="." unique_id=925928970 groups=["Ball"]]
 collision_layer = 16
-collision_mask = 11
+collision_mask = 267
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDetector" unique_id=1457856243 groups=["Ball"]]
 position = Vector2(18, 16.5)

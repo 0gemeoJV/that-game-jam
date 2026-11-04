@@ -64,7 +64,7 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 
 		if body.has_method("bounce"):
 			body.bounce() 
-	if body.name == "pursuer_water":
+	if body.name == "pursuer_water" or body.is_in_group("Spikes"):
 		if not has_exploded:
 			has_exploded = true
 			var explosion_instance: GPUParticles2D = explosion.instantiate()
