@@ -14,12 +14,14 @@ func _ready() -> void:
 func _on_player_player_damage(player_life) -> void:
 	print(player_life)
 	
-	if player_life == 1:
+	if player_life < 3:
 		healthbox3.visible = false
-	elif player_life == 0:
+	if player_life < 2:
+		print('ENTREI AKI')
 		healthbox2.visible =false
-	elif player_life == -1:
+	if player_life < 1:
 		healthbox1.visible = false
+	
 	emit_signal("take_damage")
 	
 	

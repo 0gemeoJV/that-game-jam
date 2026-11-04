@@ -23,7 +23,7 @@ var marker_position_x: float
 var hurtbox_position_x: float
 var current_bullet: Node2D = null
 var direction: int = 1
-var player_life = 1
+var player_life = 3
 var is_dead = false
 
 # Variáveis para controlar o tempo dos tiros
@@ -152,8 +152,9 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
+		player_life -= 1
 		emit_signal('player_damage',player_life)
-		if player_life  < 0:
+		if player_life  < 1:
 			die()
 			print('Morreu')
 		else:
@@ -168,7 +169,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 #função para tomar dano
 func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
-	player_life -= 1
+	
+	
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force
 		var knoback_tween = get_tree().create_tween()
@@ -199,3 +201,10 @@ func die():
 	velocity.x = 0
 	
 	state_machine.travel("Die")
+
+
+func _on_life_item_life_charge() -> void:
+	if player_life < 3:
+		player_life += 1
+		print("AKIII")
+	pass # Replace with function body.

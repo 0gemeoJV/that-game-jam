@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ithgnakcjak7"]
+
+[ext_resource type="Script" uid="uid://k7qxtukbnc0" path="res://Scripts/Items/life_item.gd" id="1_0lj7e"]
+[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="1_3umia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(118, 119)
+
+[node name="Life_Item" type="Area2D" unique_id=1477277574]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("1_0lj7e")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1597652937]
+texture = ExtResource("1_3umia")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2061085399]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_xrivr")
+debug_color = Color(0, 0.6375279, 0.3950043, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
