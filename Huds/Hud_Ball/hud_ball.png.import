@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmiik60euhe52"
-path="res://.godot/imported/charge_ball.png-f6ad6ee192e4b991e05d7e8f1eaf5c37.ctex"
+uid="uid://g2s2hy2jd07s"
+path="res://.godot/imported/hud_ball.png-01dbec551c86ca5551e59236183d4c1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scripts/Huds/Hud_Ball/charge_ball.png"
-dest_files=["res://.godot/imported/charge_ball.png-f6ad6ee192e4b991e05d7e8f1eaf5c37.ctex"]
+source_file="res://Huds/Hud_Ball/hud_ball.png"
+dest_files=["res://.godot/imported/hud_ball.png-01dbec551c86ca5551e59236183d4c1a.ctex"]
 
 [params]
 

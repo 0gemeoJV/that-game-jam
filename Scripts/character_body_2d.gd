@@ -32,6 +32,7 @@ const SHOOT_DURATION: float = 0.2 # Ajuste conforme a duração da sua animaçã
 
 
 signal player_damage(player_life:int)
+signal _recharging
 
 func _ready():
 	marker_position_x = marker.position.x
@@ -47,6 +48,7 @@ func spawn_bullet():
 	bullet_instance.global_position = marker.global_position
 	get_parent().add_child(bullet_instance)
 	current_bullet = bullet_instance
+	emit_signal("_recharging")
 
 func bounce():
 	velocity.y = BOUNCE_VELOCITY
