@@ -19,33 +19,45 @@
 script = ExtResource("1_80p2j")
 
 [node name="Background" type="Parallax2D" parent="." unique_id=1447470874]
+scroll_scale = Vector2(0.1, 0)
+repeat_size = Vector2(1920, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=105386792]
-position = Vector2(-8, -5)
+position = Vector2(0, -231)
 scale = Vector2(6, 6)
 texture = ExtResource("2_dv1fo")
 centered = false
 
 [node name="Purple_Pillars" type="Parallax2D" parent="." unique_id=70403094]
+scroll_scale = Vector2(0.25, 0)
+repeat_size = Vector2(1920, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Purple_Pillars" unique_id=945956022]
-position = Vector2(10, 0)
+position = Vector2(10, -231)
 scale = Vector2(6, 6)
 texture = ExtResource("3_tv4bj")
 centered = false
 
 [node name="Silver_Pillars" type="Parallax2D" parent="." unique_id=140695691]
+scroll_scale = Vector2(0.5, 0)
+repeat_size = Vector2(1920, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Silver_Pillars" unique_id=1622360202]
-position = Vector2(3.000001, 2)
+position = Vector2(-5, -237)
 scale = Vector2(6, 6)
 texture = ExtResource("4_c50ne")
 centered = false
 
 [node name="Bush" type="Parallax2D" parent="." unique_id=74539329]
+scroll_scale = Vector2(0.8, 0)
+repeat_size = Vector2(1920, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Bush" unique_id=777530223]
-position = Vector2(3.000001, 2)
+position = Vector2(-1, -216)
 scale = Vector2(6, 6)
 texture = ExtResource("5_i2dar")
 centered = false
