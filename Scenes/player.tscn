@@ -925,7 +925,7 @@ graph_offset = Vector2(39.82955, 131.11708)
 size = Vector2(65, 74.5)
 
 [sub_resource type="Gradient" id="Gradient_vgqql"]
-offsets = PackedFloat32Array(0.0024038462, 0.17067307, 0.19951923, 0.32451922, 0.37740386, 0.52163464, 0.78125, 0.81490386, 0.8629808)
+offsets = PackedFloat32Array(0.15625, 0.17067307, 0.31009614, 0.32451922, 0.46394232, 0.56009614, 0.78125, 0.81490386, 0.8629808)
 colors = PackedColorArray(1, 1, 1, 1, 0.85997677, 0.85997677, 0.85997677, 1, 0.79288226, 0.79288226, 0.79288226, 1, 0.7067029, 0.7067029, 0.7067029, 1, 0.6262688, 0.6262688, 0.6262688, 1, 0.41729605, 0.41729605, 0.41729605, 1, 0.20111734, 0.20111734, 0.20111734, 1, 0.33271185, 0.33271185, 0.33271185, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fkybt"]
@@ -988,7 +988,7 @@ shape = SubResource("RectangleShape2D_13qdw")
 offset_transform_position = Vector2(200, 20)
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=810712720]
-color = Color(0.38039216, 0.6117647, 0.7647059, 1)
+color = Color(0.25980306, 0.46326113, 0.59525526, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_fkybt")
 texture_scale = 12.0
