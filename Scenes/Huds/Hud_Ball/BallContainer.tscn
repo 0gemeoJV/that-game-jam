@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b1p1gs8kglsdr"]
+
+[ext_resource type="Script" uid="uid://do8nwj14i0l6o" path="res://Scripts/Huds/ball_container.gd" id="1_7oqy7"]
+[ext_resource type="Texture2D" uid="uid://g2s2hy2jd07s" path="res://Huds/Hud_Ball/hud_ball.png" id="1_og2xm"]
+[ext_resource type="PackedScene" uid="uid://bajuxapw6tm00" path="res://Scenes/Huds/Hud_Ball/BallCharge.tscn" id="2_4supd"]
+
+[node name="BallContainer" type="Control" unique_id=152660347]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+script = ExtResource("1_7oqy7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=144830203]
+scale = Vector2(6, 6)
+texture = ExtResource("1_og2xm")
+centered = false
+
+[node name="BallCharge" parent="." unique_id=85562253 instance=ExtResource("2_4supd")]
+layout_mode = 0
