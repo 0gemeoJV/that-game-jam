@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://djxhxsc6uu2av" path="res://Scripts/MyLevels/my_scene.gd" id="1_80p2j"]
 [ext_resource type="PackedScene" uid="uid://crhnrgwkssxrn" path="res://Scenes/player.tscn" id="1_nj2kq"]
+[ext_resource type="Texture2D" uid="uid://cgf5yxw1kiekf" path="res://Backgrounds/background.png" id="2_dv1fo"]
+[ext_resource type="Texture2D" uid="uid://c1ae0v74nldnq" path="res://Backgrounds/purple_pillars_background.png" id="3_tv4bj"]
+[ext_resource type="Texture2D" uid="uid://c77jilr7lhle2" path="res://Backgrounds/silver_pillars_background.png" id="4_c50ne"]
 [ext_resource type="PackedScene" uid="uid://lfia5vmdc30i" path="res://Scenes/water.tscn" id="4_wnxh6"]
 [ext_resource type="PackedScene" uid="uid://cw8a8qn5f1sc1" path="res://Scenes/Enemies/pursuer.tscn" id="5_hua3f"]
+[ext_resource type="Texture2D" uid="uid://dcv18fguvo52r" path="res://Backgrounds/bush_background.png" id="5_i2dar"]
 [ext_resource type="PackedScene" uid="uid://dvyc0edbqtk2w" path="res://Scenes/Enemies/pursuer_water.tscn" id="6_kdlp7"]
 [ext_resource type="PackedScene" uid="uid://dj8kmvxwrn3w2" path="res://Scenes/Objects/button.tscn" id="7_ixugv"]
 [ext_resource type="PackedScene" uid="uid://cp8jr1pfygg8p" path="res://Scenes/Objects/door.tscn" id="8_r75xb"]
@@ -13,6 +17,46 @@
 
 [node name="MyScene" type="Node2D" unique_id=1393564109]
 script = ExtResource("1_80p2j")
+
+[node name="Background" type="Parallax2D" parent="." unique_id=1447470874]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=105386792]
+position = Vector2(-8, -5)
+scale = Vector2(6, 6)
+texture = ExtResource("2_dv1fo")
+centered = false
+
+[node name="Purple_Pillars" type="Parallax2D" parent="." unique_id=70403094]
+
+[node name="Sprite2D" type="Sprite2D" parent="Purple_Pillars" unique_id=945956022]
+position = Vector2(10, 0)
+scale = Vector2(6, 6)
+texture = ExtResource("3_tv4bj")
+centered = false
+
+[node name="Silver_Pillars" type="Parallax2D" parent="." unique_id=140695691]
+
+[node name="Sprite2D" type="Sprite2D" parent="Silver_Pillars" unique_id=1622360202]
+position = Vector2(3.000001, 2)
+scale = Vector2(6, 6)
+texture = ExtResource("4_c50ne")
+centered = false
+
+[node name="Bush" type="Parallax2D" parent="." unique_id=74539329]
+
+[node name="Sprite2D" type="Sprite2D" parent="Bush" unique_id=777530223]
+position = Vector2(3.000001, 2)
+scale = Vector2(6, 6)
+texture = ExtResource("5_i2dar")
+centered = false
+
+[node name="Button" parent="." unique_id=2017848668 instance=ExtResource("7_ixugv")]
+position = Vector2(1250, 630)
+metadata/_edit_group_ = true
+
+[node name="Button2" parent="." unique_id=682456145 instance=ExtResource("7_ixugv")]
+position = Vector2(888.00006, 628)
+metadata/_edit_group_ = true
 
 [node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
 position = Vector2(1524, 306)
@@ -25,14 +69,6 @@ position = Vector2(2155, 514)
 
 [node name="pursuer_water" parent="." unique_id=803863473 groups=["enemies"] instance=ExtResource("6_kdlp7")]
 position = Vector2(307, 211)
-
-[node name="Button" parent="." unique_id=2017848668 instance=ExtResource("7_ixugv")]
-position = Vector2(1250, 630)
-metadata/_edit_group_ = true
-
-[node name="Button2" parent="." unique_id=682456145 instance=ExtResource("7_ixugv")]
-position = Vector2(888.00006, 628)
-metadata/_edit_group_ = true
 
 [node name="Door" parent="." unique_id=1263449903 instance=ExtResource("8_r75xb")]
 position = Vector2(1008, 191)
