@@ -1,8 +1,11 @@
 extends RigidBody2D
 
+const explosion = preload("res://prefabs/explosion.tscn")
+
 var bullet_speed := 900.0
 var direction : int = 1
 var in_water : bool = false
+var has_exploded := false
 var force_float : float = 350.0
 #var has_fired := false
 # Variável para guardar o limite de altura da água
@@ -62,9 +65,13 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 		if body.has_method("bounce"):
 			body.bounce() 
 	if body.name == "pursuer_water":
-		#print("Estouro")
-		#A bola irá ser exluída, pois chamamos a função timeout
-		_on_timer_timeout()
+		if not has_exploded:
+			has_exploded = true
+			var explosion_instance: GPUParticles2D = explosion.instantiate()
+			get_tree().current_scene.add_child(explosion_instance)
+			explosion_instance.global_position = global_position
+			explosion_instance.emitting = true
+			_on_timer_timeout()
 
 func _physics_process(delta: float) -> void:
 	if in_water:
