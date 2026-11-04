@@ -12,17 +12,26 @@ func _ready() -> void:
 
 
 func _on_player_player_damage(player_life) -> void:
-	print(player_life)
+	#print(player_life)
 	
 	if player_life < 3:
-		healthbox3.visible = false
+		healthbox3.visible = false	
 	if player_life < 2:
-		print('ENTREI AKI')
-		healthbox2.visible =false
+		#print('ENTREI AKI')
+		healthbox2.visible =false	
 	if player_life < 1:
 		healthbox1.visible = false
 	
 	emit_signal("take_damage")
-	
-	
+
 	pass # Replace with function body.
+
+
+func _on_player_life_charging(player_life: int) -> void:
+	if player_life == 3:
+		healthbox3.visible = true	
+	if player_life == 2:
+		#print('ENTREI AKI')
+		healthbox2.visible = true	
+	if player_life == 1:
+		healthbox1.visible = true

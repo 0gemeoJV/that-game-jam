@@ -33,6 +33,8 @@ const SHOOT_DURATION: float = 0.2 # Ajuste conforme a duração da sua animaçã
 
 signal player_damage(player_life:int)
 signal _recharging
+signal life_charging(player_life: int)
+
 
 func _ready():
 	marker_position_x = marker.position.x
@@ -206,5 +208,6 @@ func die():
 func _on_life_item_life_charge() -> void:
 	if player_life < 3:
 		player_life += 1
-		print("AKIII")
+		emit_signal('life_charging',player_life)
+		
 	pass # Replace with function body.
