@@ -5,10 +5,6 @@ var JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
 const BOUNCE_VELOCITY = -900.0
 const DEATH_JUMP_FORCE = -400.0 
-const ENDING_MESSAGE = "Thanks for playing"
-const ENDING_LETTER_INTERVAL = 0.25
-const ENDING_ANIMATION_DURATION = 5.0
-const ENDING_FADE_DURATION = 2.0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -229,61 +225,25 @@ func _on_life_item_life_charge() -> void:
 	pass # Replace with function body.
 
 
-func _on_final_goal_next_stage() -> void:
+func prepare_for_ending() -> bool:
 	if is_dead or is_completing:
-		return
+		return false
 	if not animation_player.has_animation("desligando"):
 		push_error("A animação 'desligando' não foi encontrada no AnimationPlayer do jogador.")
-		return
+		return false
 
 	is_completing = true
 	velocity = Vector2.ZERO
 	collision_shape.set_deferred("disabled", true)
 	hurtbox.set_deferred("disabled", true)
 	state_machine.travel("idle")
+	return true
 
-	var ending_canvas := CanvasLayer.new()
-	ending_canvas.layer = 10
-	get_tree().root.add_child(ending_canvas)
 
-	var message_label := Label.new()
-	message_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	message_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	message_label.add_theme_font_size_override("font_size", 48)
-	message_label.size = Vector2(800, 80)
-	ending_canvas.add_child(message_label)
-
-	var fade_rect := ColorRect.new()
-	fade_rect.color = Color(0, 0, 0, 0)
-	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	fade_rect.z_index = 1
-	ending_canvas.add_child(fade_rect)
-	fade_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-
-	for character_index in range(ENDING_MESSAGE.length()):
-		_update_ending_label_position(message_label)
-		message_label.text += ENDING_MESSAGE.substr(character_index, 1)
-		if character_index < ENDING_MESSAGE.length() - 1:
-			var elapsed := 0.0
-			while elapsed < ENDING_LETTER_INTERVAL:
-				await get_tree().process_frame
-				elapsed += get_process_delta_time()
-				_update_ending_label_position(message_label)
-
+func play_shutdown_animation(duration: float) -> void:
 	animation_tree.active = false
 	var previous_speed_scale := animation_player.speed_scale
-	animation_player.speed_scale = (
-		animation_player.get_animation("desligando").length / ENDING_ANIMATION_DURATION
-	)
+	animation_player.speed_scale = animation_player.get_animation("desligando").length / duration
 	animation_player.play("desligando")
 	await animation_player.animation_finished
 	animation_player.speed_scale = previous_speed_scale
-
-	var fade_tween := create_tween()
-	fade_tween.tween_property(fade_rect, "color", Color(0, 0, 0, 1), ENDING_FADE_DURATION)
-	await fade_tween.finished
-
-
-func _update_ending_label_position(label: Label) -> void:
-	var player_screen_position := get_viewport().get_canvas_transform() * global_position
-	label.position = player_screen_position - Vector2(label.size.x / 2.0, 125)
