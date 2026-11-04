@@ -413,6 +413,34 @@ tracks/0/keys = {
 "values": [1]
 }
 
+[sub_resource type="Animation" id="Animation_pu2lt"]
+resource_name = "desligando"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10]
+}
+
 [sub_resource type="Animation" id="Animation_8erm5"]
 resource_name = "fall"
 length = 2.0
@@ -708,6 +736,7 @@ tracks/2/keys = {
 _data = {
 &"Die": SubResource("Animation_gymyn"),
 &"RESET": SubResource("Animation_cvnsp"),
+&"desligando": SubResource("Animation_pu2lt"),
 &"fall": SubResource("Animation_8erm5"),
 &"fall_shoot": SubResource("Animation_tx1dd"),
 &"idle": SubResource("Animation_6t5aa"),
@@ -720,6 +749,15 @@ _data = {
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3smsa"]
 animation = &"Die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukyrk"]
+animation = &"desligando"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_h4iuc"]
+nodes/output/position = Vector2(416, 144)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_ukyrk")
+nodes/Animation/position = Vector2(208, 80)
+node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1ek2"]
 animation = &"fall"
@@ -862,6 +900,8 @@ switch_mode = 2
 states/Die/node = SubResource("AnimationNodeAnimation_3smsa")
 states/Die/position = Vector2(682.8, 297.8783)
 states/Start/position = Vector2(165.6, 55.839996)
+states/desligando/node = SubResource("AnimationNodeBlendTree_h4iuc")
+states/desligando/position = Vector2(515.42957, 307.11707)
 states/fall/node = SubResource("AnimationNodeBlendTree_gymyn")
 states/fall/position = Vector2(490, 178.4)
 states/fall_shoot/node = SubResource("AnimationNodeBlendTree_8erm5")
@@ -879,7 +919,7 @@ states/run_shoot/position = Vector2(663.6, 50.4)
 states/shoot/node = SubResource("AnimationNodeBlendTree_7dp3o")
 states/shoot/position = Vector2(166.16, 177.59999)
 transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_3smsa"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "idle", "shoot", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_6t5aa"), "run", "run_shoot", SubResource("AnimationNodeStateMachineTransition_gymyn"), "run_shoot", "run", SubResource("AnimationNodeStateMachineTransition_pu2lt"), "jump", "jump_shoot", SubResource("AnimationNodeStateMachineTransition_ukyrk"), "jump_shoot", "jump", SubResource("AnimationNodeStateMachineTransition_7dp3o"), "fall", "fall_shoot", SubResource("AnimationNodeStateMachineTransition_qqcod"), "fall_shoot", "fall", SubResource("AnimationNodeStateMachineTransition_igrcy")]
-graph_offset = Vector2(0, 103.47827)
+graph_offset = Vector2(39.82955, 131.11708)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(65, 74.5)
@@ -899,7 +939,7 @@ position = Vector2(80, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=812081602]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &""
+animation = &"idle"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1327391040]

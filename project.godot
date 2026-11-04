@@ -38,6 +38,7 @@ Shoot={
 2d_physics/layer_7="button"
 2d_physics/layer_8="Items"
 2d_physics/layer_9="Spikes"
+2d_physics/layer_10="Final_Goal"
 
 [physics]
 
