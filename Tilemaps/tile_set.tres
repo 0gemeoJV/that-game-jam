@@ -103,10 +103,11 @@ texture = ExtResource("1_lylxj")
 3:7/0 = 0
 3:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:7/0/physics_layer_0/polygon_1/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:4/0 = 0
 
 [resource]
-physics_layer_0/collision_layer = 127
-physics_layer_0/collision_mask = 127
+physics_layer_0/collision_layer = 255
+physics_layer_0/collision_mask = 16
 terrain_set_0/mode = 1
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.62898165, 0.00032391996, 0.63710475, 1)

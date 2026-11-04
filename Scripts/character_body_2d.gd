@@ -153,6 +153,10 @@ func _physics_process(delta: float) -> void:
  # Replace with function body.
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Spikes"):
+		player_life = 0
+		emit_signal('player_damage',player_life)
+		die()
 	if body.is_in_group("enemies"):
 		player_life -= 1
 		emit_signal('player_damage',player_life)
