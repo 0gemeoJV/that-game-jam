@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bs2gd7kss15jv" path="res://Scripts/Enemies/pursuer.gd" id="1_4rvhr"]
 [ext_resource type="Texture2D" uid="uid://biw18pn27u03j" path="res://Sprites/Enemies/pursuer26x26.png" id="2_4rvhr"]
+[ext_resource type="AudioStream" uid="uid://bvsa6hcqgkdg" path="res://SoundEffects/mixkit-sci-fi-positive-notification-266.wav" id="3_wyt7f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wyt7f"]
 atlas = ExtResource("2_4rvhr")
@@ -337,6 +338,11 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/idle/TimeScale/scale = 2.0
 parameters/walk_red/TimeScale/scale = 2.0
 parameters/walk_yellow/TimeScale/scale = 2.0
+
+[node name="Audio" type="Node2D" parent="." unique_id=1935181137]
+
+[node name="PlayerDetected" type="AudioStreamPlayer2D" parent="Audio" unique_id=1122187526]
+stream = ExtResource("3_wyt7f")
 
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
