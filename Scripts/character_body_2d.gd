@@ -3,7 +3,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 var JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
-const BOUNCE_VELOCITY = -900.0
+const BOUNCE_VELOCITY = -1000.0
 const DEATH_JUMP_FORCE = -400.0 
 const ENVIRONMENT_COLLISION_MASK = 1
 const WALL_CONTACT_TOLERANCE = 2.0
