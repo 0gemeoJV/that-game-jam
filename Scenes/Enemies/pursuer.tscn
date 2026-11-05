@@ -118,7 +118,7 @@ radius = 42.0
 height = 150.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(1157, 254)
+size = Vector2(1133.125, 298)
 
 [sub_resource type="Animation" id="Animation_4rvhr"]
 length = 0.001
@@ -325,7 +325,7 @@ collision_layer = 4
 collision_mask = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=234486157]
-position = Vector2(0.5, -117)
+position = Vector2(9.4375, -29)
 shape = SubResource("RectangleShape2D_13qdw")
 debug_color = Color(0.9929804, 0.031836376, 0.2021519, 0.41960785)
 
