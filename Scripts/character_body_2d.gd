@@ -5,6 +5,9 @@ var JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
 const BOUNCE_VELOCITY = -900.0
 const DEATH_JUMP_FORCE = -400.0 
+const ENVIRONMENT_COLLISION_MASK = 1
+const WALL_CONTACT_TOLERANCE = 2.0
+const BULLET_WALL_CLEARANCE = 2.0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -27,6 +30,8 @@ const DEATH_JUMP_FORCE = -400.0
 var collision_position_x: float
 var marker_position_x: float
 var hurtbox_position_x: float
+var bullet_forward_extent_right: float
+var bullet_forward_extent_left: float
 var current_bullet: Node2D = null
 var direction: int = 1
 var player_life = 3
@@ -47,6 +52,49 @@ func _ready():
 	marker_position_x = marker.position.x
 	collision_position_x = collision_shape.position.x
 	hurtbox_position_x = hurtbox.position.x
+	_cache_bullet_collision_extents()
+
+func _cache_bullet_collision_extents() -> void:
+	var bullet_template := BULLET_SCENE.instantiate() as Node2D
+	if bullet_template == null:
+		push_error("The bullet scene root must be a Node2D.")
+		return
+
+	var bullet_collision_shape := bullet_template.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if bullet_collision_shape == null or bullet_collision_shape.shape == null:
+		push_error("The bullet scene must have a CollisionShape2D with a shape.")
+		bullet_template.free()
+		return
+
+	var bounds := bullet_collision_shape.shape.get_rect()
+	var half_width := bounds.size.x * absf(bullet_collision_shape.scale.x) * 0.5
+	bullet_forward_extent_right = bullet_collision_shape.position.x + half_width
+	bullet_forward_extent_left = -bullet_collision_shape.position.x + half_width
+	bullet_template.free()
+
+func _update_marker_for_wall() -> void:
+	marker.position.x = marker_position_x * direction
+
+	var ray_length := absf(marker_position_x) + maxf(bullet_forward_extent_right, bullet_forward_extent_left) + 10.0
+	var ray_start := global_position
+	var ray_end := ray_start + Vector2(direction * ray_length, 0.0)
+	var query := PhysicsRayQueryParameters2D.create(ray_start, ray_end, ENVIRONMENT_COLLISION_MASK)
+	query.exclude = [get_rid()]
+	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return
+
+	var hit_position: Vector2 = hit["position"]
+	var shape_bounds := collision_shape.shape.get_rect()
+	var player_half_width: float = shape_bounds.size.x * absf(collision_shape.global_scale.x) * 0.5
+	var player_front_edge_x: float = collision_shape.global_position.x + direction * player_half_width
+	var distance_to_wall: float = direction * (hit_position.x - player_front_edge_x)
+	if absf(distance_to_wall) > WALL_CONTACT_TOLERANCE:
+		return
+
+	var bullet_forward_extent: float = bullet_forward_extent_right if direction > 0 else bullet_forward_extent_left
+	var safe_marker_x: float = hit_position.x - direction * (bullet_forward_extent + BULLET_WALL_CLEARANCE)
+	marker.global_position = Vector2(safe_marker_x, marker.global_position.y)
 
 # Função chamada diretamente PELA ANIMAÇÃO no frame correto do tiro
 func spawn_bullet():
@@ -54,6 +102,7 @@ func spawn_bullet():
 		return
 	var bullet_instance = BULLET_SCENE.instantiate() as Node2D
 	bullet_instance.direction = direction
+	_update_marker_for_wall()
 	bullet_instance.global_position = marker.global_position
 	get_parent().add_child(bullet_instance)
 	current_bullet = bullet_instance
@@ -166,6 +215,7 @@ func _physics_process(delta: float) -> void:
 	if knockback_vector != Vector2.ZERO:
 		velocity = knockback_vector
 	move_and_slide()
+	_update_marker_for_wall()
 
  # Replace with function body.
 
