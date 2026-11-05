@@ -1,25 +1,6 @@
 [gd_scene format=3 uid="uid://b34c1o6xb0mg1"]
 
-[sub_resource type="FontFile" id="FontFile_wi6ju"]
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
+[ext_resource type="FontFile" uid="uid://dm38ihq4qyto5" path="res://fonts/DotGothic16-Regular.ttf" id="1_wdcup"]
 
 [node name="TitleScreen" type="Control" unique_id=1904362507]
 layout_mode = 3
@@ -46,21 +27,25 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1375879862]
 layout_mode = 2
-theme_override_fonts/font = SubResource("FontFile_wi6ju")
+theme_override_fonts/font = ExtResource("1_wdcup")
 theme_override_font_sizes/font_size = 50
 text = "Bounce Garden"
 
 [node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=18091424]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_wdcup")
 theme_override_font_sizes/font_size = 25
 text = "Start"
 
 [node name="ControlsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1447860762]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_wdcup")
 theme_override_font_sizes/font_size = 25
 text = "Controls"
 
 [node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1872964446]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8124052, 0.8124057, 0.8124053, 1)
+theme_override_fonts/font = ExtResource("1_wdcup")
 theme_override_font_sizes/font_size = 25
 text = "Credits"
