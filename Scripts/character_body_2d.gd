@@ -19,6 +19,11 @@ const DEATH_JUMP_FORCE = -400.0
 
 @onready var knockback_vector:= Vector2.ZERO
 
+@onready var audioJump: AudioStreamPlayer2D = $Audio/AudioJump
+@onready var audioRecover: AudioStreamPlayer2D = $Audio/RecoverLife
+@onready var audioBall: AudioStreamPlayer2D = $Audio/AudioBall
+@onready var audioDie: AudioStreamPlayer2D = $Audio/AudioDie
+
 var collision_position_x: float
 var marker_position_x: float
 var hurtbox_position_x: float
@@ -56,10 +61,16 @@ func spawn_bullet():
 
 func bounce():
 	velocity.y = BOUNCE_VELOCITY
+	play_sound(audioBall)
 
 func inside_water(surface_y: float):
 	#print("Dentro da água")
 	JUMP_VELOCITY = -800
+	
+func play_sound(stream_player: AudioStreamPlayer2D) -> void:
+	# Aplica uma leve variação aleatória de pitch antes de tocar
+	stream_player.pitch_scale = randf_range(0.9, 1.1)
+	stream_player.play()
 
 func out_water():
 	JUMP_VELOCITY = -600	
@@ -84,6 +95,7 @@ func _physics_process(delta: float) -> void:
 	# 2. Pulo
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		play_sound(audioJump)
 	# Pulo variável: se soltar o botão de pulo enquanto ainda está subindo, corta a velocidade vertical
 	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
 		velocity.y *= 0.5 #
@@ -213,7 +225,7 @@ func die():
 	# 3. Aplica o impulso inicial para cima e zera o eixo X
 	velocity.y = DEATH_JUMP_FORCE
 	velocity.x = 0
-	
+	play_sound(audioDie)
 	state_machine.travel("Die")
 
 
@@ -221,6 +233,7 @@ func _on_life_item_life_charge() -> void:
 	if player_life < 3:
 		player_life += 1
 		emit_signal('life_charging',player_life)
+		play_sound(audioRecover)
 		
 	pass # Replace with function body.
 

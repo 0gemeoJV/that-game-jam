@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://b5vecbpmyxxcm" path="res://Sprites/roball26x20.png" id="2_cvnsp"]
 [ext_resource type="PackedScene" uid="uid://b5pwp11glnasq" path="res://Scenes/Huds/Health_Hud/health_container.tscn" id="3_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://b1p1gs8kglsdr" path="res://Scenes/Huds/Hud_Ball/BallContainer.tscn" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://ds3ajgawnrcmi" path="res://SoundEffects/mixkit-quick-jump-arcade-game-239.wav" id="5_fkybt"]
+[ext_resource type="AudioStream" uid="uid://d0igqvjtv71ap" path="res://SoundEffects/mixkit-extra-bonus-in-a-video-game-2045.wav" id="6_x3wgy"]
+[ext_resource type="AudioStream" uid="uid://c0hjj8lnbvbjn" path="res://SoundEffects/mixkit-squeak-notification-1017.wav" id="7_3smsa"]
+[ext_resource type="AudioStream" uid="uid://gkc6ep1jnpxk" path="res://SoundEffects/mixkit-robot-small-malfunction-1409.wav" id="8_8erm5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(27, 89)
@@ -993,6 +997,20 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_fkybt")
 texture_scale = 12.0
 height = 65.0
+
+[node name="Audio" type="Node2D" parent="." unique_id=1606776381]
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="Audio" unique_id=1544121203]
+stream = ExtResource("5_fkybt")
+
+[node name="RecoverLife" type="AudioStreamPlayer2D" parent="Audio" unique_id=1848432238]
+stream = ExtResource("6_x3wgy")
+
+[node name="AudioBall" type="AudioStreamPlayer2D" parent="Audio" unique_id=978216811]
+stream = ExtResource("7_3smsa")
+
+[node name="AudioDie" type="AudioStreamPlayer2D" parent="Audio" unique_id=159115118]
+stream = ExtResource("8_8erm5")
 
 [connection signal="_recharging" from="." to="HealthContainer/BallContainer" method="_on_player__recharging"]
 [connection signal="life_charging" from="." to="HealthContainer/health_container" method="_on_player_life_charging"]

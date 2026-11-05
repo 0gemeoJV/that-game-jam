@@ -108,10 +108,12 @@ position = Vector2(888.00006, 628)
 metadata/_edit_group_ = true
 
 [node name="Life_Item" parent="." unique_id=1477277574 instance=ExtResource("7_ipahi")]
-position = Vector2(3870, 611)
+position = Vector2(1513, 623)
+metadata/_edit_group_ = true
 
 [node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
-position = Vector2(1524, 306)
+position = Vector2(1504, 51)
+metadata/_edit_group_ = true
 
 [node name="water" parent="." unique_id=90170645 instance=ExtResource("4_wnxh6")]
 position = Vector2(174, 191)
