@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ccawsvp2nj4jk" path="res://Scripts/Area_points/checkpoint.gd" id="1_rqxw7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(20, 129.83334)
 
 [node name="Checkpoint" type="Area2D" unique_id=36469689 node_paths=PackedStringArray("spawn_marker")]
 scale = Vector2(6, 6)
@@ -12,6 +13,7 @@ script = ExtResource("1_rqxw7")
 spawn_marker = NodePath("SpawnMarker")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2048844006]
+position = Vector2(0, -38.583336)
 shape = SubResource("RectangleShape2D_xrivr")
 
 [node name="SpawnMarker" type="Marker2D" parent="." unique_id=1648179878]

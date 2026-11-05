@@ -185,7 +185,7 @@ occluder = SubResource("OccluderPolygon2D_xrivr")
 [node name="TitleScreen" parent="." unique_id=461404952 instance=ExtResource("18_title_screen")]
 
 [node name="Checkpoint" parent="." unique_id=36469689 instance=ExtResource("18_25ers")]
-position = Vector2(1536, 511.00003)
+position = Vector2(1534, -1281)
 metadata/_edit_group_ = true
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
