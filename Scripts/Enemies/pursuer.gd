@@ -15,6 +15,7 @@ var targets_in_vision: Array[Node2D] = []
 @onready var state_machine = animation_tree.get("parameters/playback")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
+@onready var audiodetected: AudioStreamPlayer2D= $Audio/PlayerDetected
 
 func _physics_process(delta: float) -> void:
 	
@@ -48,6 +49,11 @@ func aplicar_movimento(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, target_velocity_x, ACCELERATION * delta)
 	move_and_slide()
 
+func play_sound(stream_player: AudioStreamPlayer2D) -> void:
+	# Aplica uma leve variação aleatória de pitch antes de tocar
+	stream_player.pitch_scale = randf_range(0.9, 1.1)
+	stream_player.play()
+
 # Função auxiliar para olhar a lista e definir quem perseguir (Prioridade: Bola > Player)
 func escolher_proximo_alvo() -> void:
 	var nova_bola: Node2D = null
@@ -59,6 +65,7 @@ func escolher_proximo_alvo() -> void:
 			state_machine.travel("walk_yellow")
 			break # Bola tem prioridade máxima
 		elif target.is_in_group("Player"):
+			play_sound(audiodetected)
 			state_machine.travel("walk_red")
 			novo_player = target
 			
@@ -88,6 +95,7 @@ func _on_vision_area_body_entered(body: Node2D) -> void:
 			#state_machine.travel("walk_red")
 			player_ref = body
 			if current_target == null:
+				play_sound(audiodetected)
 				state_machine.travel("walk_red")
 				current_target = body
 				is_chasing = true
