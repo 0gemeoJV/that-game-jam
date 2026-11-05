@@ -1,8 +1,16 @@
-[gd_scene format=3 uid="uid://b34c1o6xb0mg1"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="FontFile" uid="uid://dm38ihq4qyto5" path="res://fonts/DotGothic16-Regular.ttf" id="1_wdcup"]
+[ext_resource type="FontFile" uid="uid://dm38ihq4qyto5" path="res://fonts/DotGothic16-Regular.ttf" id="1_font"]
+[ext_resource type="Script" path="res://Scripts/Menus/title_screen.gd" id="2_script"]
 
-[node name="TitleScreen" type="Control" unique_id=1904362507]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_transparent"]
+
+[node name="TitleScreen" type="CanvasLayer"]
+layer = 10
+process_mode = 3
+script = ExtResource("2_script")
+
+[node name="Screen" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,42 +18,154 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=936586015]
+[node name="CenterContainer" type="CenterContainer" parent="Screen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=482570886]
+[node name="Content" type="VBoxContainer" parent="Screen/CenterContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme_override_constants/separation = 28
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1375879862]
+[node name="TitleLabel" type="Label" parent="Screen/CenterContainer/Content"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_wdcup")
+theme_override_colors/font_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 50
 text = "Bounce Garden"
+horizontal_alignment = 1
 
-[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=18091424]
+[node name="MainMenu" type="VBoxContainer" parent="Screen/CenterContainer/Content"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_wdcup")
+theme_override_constants/separation = 8
+
+[node name="StartButton" type="Button" parent="Screen/CenterContainer/Content/MainMenu"]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ControlsButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
+focus_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_colors/font_focus_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
+flat = true
 text = "Start"
 
-[node name="ControlsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1447860762]
+[node name="CreditsButton" type="Button" parent="Screen/CenterContainer/Content/MainMenu"]
+custom_minimum_size = Vector2(320, 52)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_wdcup")
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../ControlsButton")
+focus_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_colors/font_focus_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
+flat = true
+text = "Credits"
+
+[node name="ControlsButton" type="Button" parent="Screen/CenterContainer/Content/MainMenu"]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+focus_neighbor_top = NodePath("../CreditsButton")
+focus_neighbor_bottom = NodePath("../StartButton")
+focus_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_colors/font_focus_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
+flat = true
 text = "Controls"
 
-[node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1872964446]
+[node name="CreditsPage" type="VBoxContainer" parent="Screen/CenterContainer/Content"]
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8124052, 0.8124057, 0.8124053, 1)
-theme_override_fonts/font = ExtResource("1_wdcup")
-theme_override_font_sizes/font_size = 25
+theme_override_constants/separation = 16
+
+[node name="CreditsTitle" type="Label" parent="Screen/CenterContainer/Content/CreditsPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 32
 text = "Credits"
+horizontal_alignment = 1
+
+[node name="CreditsText" type="Label" parent="Screen/CenterContainer/Content/CreditsPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 19
+text = "Pixel Artist: Pedro Enrique\nProgrammers: João Vítor and Pedro Enrique\nMade with Godot with AI assistance\nSound effects from Mixkit"
+horizontal_alignment = 1
+
+[node name="CreditsBackButton" type="Button" parent="Screen/CenterContainer/Content/CreditsPage"]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+focus_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_colors/font_focus_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
+flat = true
+text = "Back"
+
+[node name="ControlsPage" type="VBoxContainer" parent="Screen/CenterContainer/Content"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ControlsTitle" type="Label" parent="Screen/CenterContainer/Content/ControlsPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 32
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="ControlsText" type="Label" parent="Screen/CenterContainer/Content/ControlsPage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 19
+text = "Move: Left / Right Arrow or A / D\nJump: Space / Enter\nShoot: X"
+horizontal_alignment = 1
+
+[node name="ControlsBackButton" type="Button" parent="Screen/CenterContainer/Content/ControlsPage"]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+focus_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_colors/font_focus_color = Color(1, 0.843137, 0.376471, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
+flat = true
+text = "Back"

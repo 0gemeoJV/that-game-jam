@@ -1,7 +1,5 @@
 extends RigidBody2D
 
-const explosion = preload("res://prefabs/explosion.tscn")
-
 var bullet_speed := 900.0
 var direction : int = 1
 var in_water : bool = false
@@ -67,10 +65,11 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 	if body.name == "pursuer_water" or body.is_in_group("Spikes"):
 		if not has_exploded:
 			has_exploded = true
-			var explosion_instance: GPUParticles2D = explosion.instantiate()
-			get_tree().current_scene.add_child(explosion_instance)
-			explosion_instance.global_position = global_position
-			explosion_instance.emitting = true
+			var current_scene := get_tree().current_scene
+			if current_scene.has_method("spawn_explosion"):
+				current_scene.call("spawn_explosion", global_position)
+			else:
+				push_error("The current scene does not provide an explosion pool.")
 			_on_timer_timeout()
 
 func _physics_process(delta: float) -> void:
