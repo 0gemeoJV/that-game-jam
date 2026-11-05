@@ -26,6 +26,7 @@ const BULLET_WALL_CLEARANCE = 2.0
 @onready var audioRecover: AudioStreamPlayer2D = $Audio/RecoverLife
 @onready var audioBall: AudioStreamPlayer2D = $Audio/AudioBall
 @onready var audioDie: AudioStreamPlayer2D = $Audio/AudioDie
+@onready var spawn_marker: Marker2D = $SpawnPlayer
 
 var collision_position_x: float
 var marker_position_x: float
@@ -37,6 +38,7 @@ var direction: int = 1
 var player_life = 3
 var is_dead = false
 var is_completing = false
+var camera_path: NodePath
 
 # Variáveis para controlar o tempo dos tiros
 var shoot_timer: float = 0.0
@@ -52,6 +54,7 @@ func _ready():
 	marker_position_x = marker.position.x
 	collision_position_x = collision_shape.position.x
 	hurtbox_position_x = hurtbox.position.x
+	GameManager.set_spawn_position(spawn_marker.global_position)
 	_cache_bullet_collision_extents()
 
 func _cache_bullet_collision_extents() -> void:
@@ -132,9 +135,9 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 		move_and_slide()
 		
-		# Reinicia a cena quando cair completamente da tela (ajuste a altura se necessário)
+		# Respawns after the death animation has carried the player off-screen.
 		if global_position.y > 1000:
-			get_tree().reload_current_scene()
+			GameManager.respawn_player(self)
 		return
 	
 	# 1. Gravidade
@@ -255,8 +258,29 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 		knoback_tween.tween_property(animated_sprite, "modulate", Color(1,1,1,1), duration)
 
 func follow_camera(camera):
-	var camera_path = camera.get_path()#pega o caminho da camera
-	remote_transform.remote_path = camera_path#recebe o caminho da camera
+	camera_path = camera.get_path()
+	remote_transform.remote_path = camera_path
+
+
+func respawn_at(position: Vector2) -> void:
+	global_position = position
+	velocity = Vector2.ZERO
+	knockback_vector = Vector2.ZERO
+	player_life = 3
+	is_dead = false
+	direction = 1
+	animated_sprite.flip_h = false
+	animated_sprite.modulate = Color.WHITE
+	marker.position.x = marker_position_x
+	collision_shape.position.x = collision_position_x
+	hurtbox.position.x = hurtbox_position_x
+	collision_shape.set_deferred("disabled", false)
+	hurtbox.set_deferred("disabled", false)
+	remote_transform.remote_path = camera_path
+	animation_tree.active = true
+	state_machine.travel("idle")
+	audioDie.stop()
+	life_charging.emit(player_life)
 	
 # Função principal de morte
 func die():
@@ -277,7 +301,6 @@ func die():
 	velocity.x = 0
 	play_sound(audioDie)
 	state_machine.travel("Die")
-	GameManager.respawn_player(self)
 
 
 func _on_life_item_life_charge() -> void:
