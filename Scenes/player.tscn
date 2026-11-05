@@ -1012,6 +1012,8 @@ stream = ExtResource("7_3smsa")
 [node name="AudioDie" type="AudioStreamPlayer2D" parent="Audio" unique_id=159115118]
 stream = ExtResource("8_8erm5")
 
+[node name="SpawnPlayer" type="Marker2D" parent="." unique_id=1509314237]
+
 [connection signal="_recharging" from="." to="HealthContainer/BallContainer" method="_on_player__recharging"]
 [connection signal="life_charging" from="." to="HealthContainer/health_container" method="_on_player_life_charging"]
 [connection signal="player_damage" from="." to="HealthContainer/health_container" method="_on_player_player_damage"]

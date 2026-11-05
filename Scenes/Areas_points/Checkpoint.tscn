@@ -4,9 +4,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 
-[node name="Checkpoint" type="Area2D" unique_id=36469689]
+[node name="Checkpoint" type="Area2D" unique_id=36469689 node_paths=PackedStringArray("spawn_marker")]
 scale = Vector2(6, 6)
+collision_layer = 2048
+collision_mask = 2
 script = ExtResource("1_rqxw7")
+spawn_marker = NodePath("SpawnMarker")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2048844006]
 shape = SubResource("RectangleShape2D_xrivr")

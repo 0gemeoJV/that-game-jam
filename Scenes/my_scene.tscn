@@ -16,7 +16,8 @@
 [ext_resource type="TileSet" uid="uid://ebfwp5qhy85a" path="res://Tilemaps/tile_set.tres" id="12_tv4bj"]
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
-[ext_resource type="PackedScene" uid="uid://b34c1o6xb0mg1" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
+[ext_resource type="PackedScene" uid="uid://cure2amd00b1w" path="res://Scenes/Areas_points/Checkpoint.tscn" id="18_25ers"]
+[ext_resource type="PackedScene" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blol1"]
 texture = ExtResource("16_rc3n5")
@@ -182,6 +183,10 @@ color = Color(0.69500613, 0.67894477, 0.8770318, 1)
 occluder = SubResource("OccluderPolygon2D_xrivr")
 
 [node name="TitleScreen" parent="." unique_id=461404952 instance=ExtResource("18_title_screen")]
+
+[node name="Checkpoint" parent="." unique_id=36469689 instance=ExtResource("18_25ers")]
+position = Vector2(1536, 511.00003)
+metadata/_edit_group_ = true
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
 [connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]

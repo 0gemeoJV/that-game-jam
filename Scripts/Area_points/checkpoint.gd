@@ -1,19 +1,16 @@
 extends Area2D
 
-@export var spawn_marker: Marker2D # Arraste o Marker2D aqui no Inspector
+@export var spawn_marker: Marker2D
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		# Define a posição de respawn no seu GameManager global
-		var respawn_pos = spawn_marker.global_position if spawn_marker else global_position
-		GameManager.current_checkpoint_position = respawn_pos
+		var target_position = spawn_marker.global_position if spawn_marker else global_position
+		GameManager.set_checkpoint(target_position)
 		
-		# Feedback visual ou sonoro e desativa a área para não repetir
-		print("Checkpoint ativado!")
-		monitoring = false
+		print("Checkpoint ativado na posição: ", target_position)
 		
-		# Exemplo: se usar AnimatedSprite2D, mude para a animação "active"
-		# $AnimatedSprite2D.play("active")
+		# CORREÇÃO: Usa set_deferred para evitar o conflito com o sinal de física
+		set_deferred("monitoring", false)
