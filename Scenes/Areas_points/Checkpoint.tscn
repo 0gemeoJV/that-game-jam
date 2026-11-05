@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cure2amd00b1w"]
+
+[ext_resource type="Script" uid="uid://ccawsvp2nj4jk" path="res://Scripts/Area_points/checkpoint.gd" id="1_rqxw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+
+[node name="Checkpoint" type="Area2D" unique_id=36469689]
+scale = Vector2(6, 6)
+script = ExtResource("1_rqxw7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2048844006]
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="SpawnMarker" type="Marker2D" parent="." unique_id=1648179878]

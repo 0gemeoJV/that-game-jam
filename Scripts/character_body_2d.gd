@@ -277,6 +277,7 @@ func die():
 	velocity.x = 0
 	play_sound(audioDie)
 	state_machine.travel("Die")
+	GameManager.respawn_player(self)
 
 
 func _on_life_item_life_charge() -> void:
