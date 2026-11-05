@@ -17,6 +17,7 @@
 [ext_resource type="TileSet" uid="uid://ebfwp5qhy85a" path="res://Tilemaps/tile_set.tres" id="12_tv4bj"]
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
+[ext_resource type="PackedScene" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blol1"]
 texture = ExtResource("16_rc3n5")
@@ -166,6 +167,8 @@ color = Color(0.8109889, 0.8050211, 0.92944896, 1)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=68710634]
 occluder = SubResource("OccluderPolygon2D_xrivr")
+
+[node name="TitleScreen" parent="." instance=ExtResource("18_title_screen")]
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
 [connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]

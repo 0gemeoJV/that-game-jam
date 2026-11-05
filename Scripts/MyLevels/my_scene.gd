@@ -1,6 +1,7 @@
 extends Node2D
 
 const EXPLOSION_SCENE = preload("res://prefabs/explosion.tscn")
+const EXPLOSION_POOL_SIZE := 8
 const ENDING_MESSAGE = "Thanks for playing"
 const ENDING_LETTER_INTERVAL = 0.25
 const ENDING_ANIMATION_DURATION = 5.0
@@ -10,20 +11,56 @@ const ENDING_FADE_DURATION = 2.0
 @onready var camera := $Camera2D as Camera2D
 
 var is_ending := false
+var _available_explosions: Array[GPUParticles2D] = []
+var _warming_explosions: Array[GPUParticles2D] = []
 
 #var count_damage = 3
 
 func _ready() -> void:
 	player.follow_camera(camera)
-	_warm_up_explosion()
+	_create_explosion_pool()
 
 
-func _warm_up_explosion() -> void:
-	var warmup: GPUParticles2D = EXPLOSION_SCENE.instantiate()
-	add_child(warmup)
-	warmup.global_position = player.global_position
-	warmup.modulate.a = 0.0
-	warmup.emitting = true
+func _create_explosion_pool() -> void:
+	for _index in range(EXPLOSION_POOL_SIZE):
+		var explosion := EXPLOSION_SCENE.instantiate() as GPUParticles2D
+		add_child(explosion)
+		explosion.global_position = player.global_position
+		explosion.modulate.a = 0.0
+		explosion.process_mode = Node.PROCESS_MODE_ALWAYS
+		explosion.finished.connect(_on_explosion_finished.bind(explosion))
+		_available_explosions.append(explosion)
+		_warming_explosions.append(explosion)
+		explosion.emitting = true
+
+
+func spawn_explosion(world_position: Vector2) -> void:
+	var explosion: GPUParticles2D
+	if _available_explosions.is_empty():
+		explosion = EXPLOSION_SCENE.instantiate() as GPUParticles2D
+		add_child(explosion)
+		explosion.finished.connect(_on_explosion_finished.bind(explosion))
+	else:
+		explosion = _available_explosions.pop_back()
+		_warming_explosions.erase(explosion)
+
+	explosion.process_mode = Node.PROCESS_MODE_INHERIT
+	explosion.modulate.a = 1.0
+	explosion.global_position = world_position
+	explosion.emitting = true
+	explosion.restart()
+
+
+func _on_explosion_finished(explosion: GPUParticles2D) -> void:
+	if _warming_explosions.has(explosion):
+		_warming_explosions.erase(explosion)
+		explosion.modulate.a = 1.0
+		explosion.process_mode = Node.PROCESS_MODE_INHERIT
+		return
+
+	explosion.emitting = false
+	if not _available_explosions.has(explosion):
+		_available_explosions.append(explosion)
 
 
 func _on_final_goal_next_stage() -> void:
