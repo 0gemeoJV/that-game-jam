@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cyxucryrvm4s6"]
+
+[ext_resource type="Script" uid="uid://kkxx88jd7xm6" path="res://Scripts/Objects/door_coins.gd" id="1_hed5p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(39, 101)
+
+[node name="Door_Coins" type="StaticBody2D" unique_id=818254917]
+script = ExtResource("1_hed5p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=872706747]
+sprite_frames = SubResource("SpriteFrames_xrivr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=238470979]
+position = Vector2(9.5, 40.5)
+shape = SubResource("RectangleShape2D_xrivr")

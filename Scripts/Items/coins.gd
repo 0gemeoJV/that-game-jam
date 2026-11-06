@@ -1,6 +1,12 @@
 extends Area2D
 
-signal  colected
+signal coins
+signal  colected(count_coins: int)
+
+var count_coins = 1
+
+func _ready() -> void:
+	emit_signal('coins', count_coins)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
