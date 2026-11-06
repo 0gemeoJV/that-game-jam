@@ -1,7 +1,7 @@
 extends Node2D
 class_name water
 
-@export var water_size: Vector2 = Vector2(8.0, 16.0)
+var water_size: Vector2 = Vector2.ZERO
 @export_range(0.0, 1.0) var surface_pos_y: float = 0.0 # 0.0 faz a superfície começar no topo exato da área
 @export_range(2, 512) var segment_count: int = 64
 
@@ -19,8 +19,22 @@ class_name water
 var segment_data: PackedFloat32Array = PackedFloat32Array()
 var segment_velocities: PackedFloat32Array = PackedFloat32Array()
 var water_area: Area2D
+var source_collision_shape: CollisionShape2D
 
 func _ready() -> void:
+	source_collision_shape = get_parent() as CollisionShape2D
+	if source_collision_shape == null:
+		push_error("WaterNode must be a child of a CollisionShape2D.")
+		set_physics_process(false)
+		return
+
+	var rectangle_shape := source_collision_shape.shape as RectangleShape2D
+	if rectangle_shape == null:
+		push_error("WaterNode requires its parent CollisionShape2D to use a RectangleShape2D.")
+		set_physics_process(false)
+		return
+
+	water_size = rectangle_shape.size
 	_initialize_surface()
 	_create_water_area()
 	queue_redraw()

@@ -11,12 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://ithgnakcjak7" path="res://Scenes/Items/life_item.tscn" id="7_ipahi"]
 [ext_resource type="PackedScene" uid="uid://cp8jr1pfygg8p" path="res://Scenes/Objects/door.tscn" id="8_r75xb"]
 [ext_resource type="PackedScene" uid="uid://piqglv83hmq8" path="res://Scenes/Objects/target_plataform.tscn" id="9_x5sfu"]
-[ext_resource type="PackedScene" uid="uid://bhkwtvj5o83d1" path="res://Scenes/water_node.tscn" id="11_dv1fo"]
 [ext_resource type="TileSet" uid="uid://ebfwp5qhy85a" path="res://Tilemaps/tile_set.tres" id="12_tv4bj"]
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
 [ext_resource type="PackedScene" uid="uid://cure2amd00b1w" path="res://Scenes/Areas_points/Checkpoint.tscn" id="18_25ers"]
-[ext_resource type="PackedScene" uid="uid://b34c1o6xb0mg1" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
+[ext_resource type="PackedScene" uid="uid://dseuut0b4e8f4" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 [ext_resource type="PackedScene" uid="uid://cyxucryrvm4s6" path="res://Scenes/Objects/door_coins.tscn" id="20_2tju7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blol1"]
@@ -96,7 +95,7 @@ position = Vector2(4998, -230)
 metadata/_edit_group_ = true
 
 [node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
-position = Vector2(-4505, -3146)
+position = Vector2(-2087, -3562)
 metadata/_edit_group_ = true
 
 [node name="pursuer" parent="." unique_id=2031184125 instance=ExtResource("5_hua3f")]
@@ -198,18 +197,12 @@ metadata/_edit_group_ = true
 zoom = Vector2(0.6, 0.6)
 position_smoothing_enabled = true
 
-[node name="WaterNode" parent="." unique_id=1450265754 instance=ExtResource("11_dv1fo")]
-modulate = Color(1, 1, 1, 0.5176471)
-position = Vector2(-1085, 171)
-water_size = Vector2(500, 500)
-water_physics_speed = 249.065
-wave_strength = 100.0
-surface_color = Color(0.38039216, 0.6117647, 0.7647059, 1)
-water_fill_color = Color(0.22352941, 0.4862745, 0.74509805, 1)
+[node name="water" parent="." unique_id=90170645 instance=ExtResource("4_wnxh6")]
+position = Vector2(-1406, -3246)
 metadata/_edit_group_ = true
 
-[node name="water" parent="WaterNode" unique_id=90170645 instance=ExtResource("4_wnxh6")]
-position = Vector2(-512, -222)
+[node name="CollisionShape2D" parent="water" index="0" unique_id=1076434684]
+position = Vector2(-13, -2)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1415882799]
 scale = Vector2(6, 6)
@@ -299,6 +292,7 @@ position = Vector2(-2835, -470)
 
 [editable path="Door2"]
 [editable path="Door3"]
+[editable path="water"]
 [editable path="Door_Coins"]
 [editable path="Door_Coins2"]
 [editable path="Door_Coins3"]
