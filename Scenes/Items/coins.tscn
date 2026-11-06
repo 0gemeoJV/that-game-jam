@@ -95,5 +95,6 @@ height = 65.0
 
 [node name="AudioCollected" type="AudioStreamPlayer2D" parent="Audio" unique_id=1886971170]
 stream = ExtResource("3_jqga2")
+volume_db = -6.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
