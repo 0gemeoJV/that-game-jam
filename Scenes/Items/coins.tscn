@@ -1,10 +1,70 @@
 [gd_scene format=3 uid="uid://b030v5f3fdy37"]
 
-[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="1_6r13j"]
 [ext_resource type="Script" uid="uid://c4qax0boyidn3" path="res://Scripts/Items/coins.gd" id="1_d1l3d"]
+[ext_resource type="Texture2D" uid="uid://bjked3xxugjuj" path="res://Sprites/Items/light_coin.png" id="2_d1l3d"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(114, 114)
+[sub_resource type="CircleShape2D" id="CircleShape2D_dwxat"]
+radius = 39.623226
+
+[sub_resource type="Animation" id="Animation_jqga2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x4iw0"]
+resource_name = "idle"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_d1l3d")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, -8), Vector2(0, -10), Vector2(0, -8), Vector2(0, -4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jcej2"]
+_data = {
+&"RESET": SubResource("Animation_jqga2"),
+&"idle": SubResource("Animation_x4iw0")
+}
+
+[sub_resource type="Gradient" id="Gradient_vgqql"]
+offsets = PackedFloat32Array(0.15625, 0.17067307, 0.31009614, 0.32451922, 0.46394232, 0.56009614, 0.78125, 0.81490386, 0.8629808)
+colors = PackedColorArray(1, 1, 1, 1, 0.85997677, 0.85997677, 0.85997677, 1, 0.79288226, 0.79288226, 0.79288226, 1, 0.7067029, 0.7067029, 0.7067029, 1, 0.6262688, 0.6262688, 0.6262688, 1, 0.41729605, 0.41729605, 0.41729605, 1, 0.20111734, 0.20111734, 0.20111734, 1, 0.33271185, 0.33271185, 0.33271185, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d1l3d"]
+gradient = SubResource("Gradient_vgqql")
+fill = 1
+fill_from = Vector2(0.5052083, 0.4809028)
+fill_to = Vector2(0.9010417, 0.09548611)
 
 [node name="coins" type="Area2D" unique_id=467381588]
 collision_layer = 128
@@ -12,10 +72,22 @@ collision_mask = 2
 script = ExtResource("1_d1l3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=597080456]
-position = Vector2(2, 2)
-shape = SubResource("RectangleShape2D_xrivr")
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_dwxat")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1232645988]
-texture = ExtResource("1_6r13j")
+scale = Vector2(6, 6)
+texture = ExtResource("2_d1l3d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=735779470]
+libraries/ = SubResource("AnimationLibrary_jcej2")
+speed_scale = 2.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=529188652]
+color = Color(0.25882354, 0.4627451, 0.59607846, 0.74509805)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_d1l3d")
+texture_scale = 12.0
+height = 65.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

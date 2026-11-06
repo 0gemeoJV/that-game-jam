@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
 [ext_resource type="PackedScene" uid="uid://cure2amd00b1w" path="res://Scenes/Areas_points/Checkpoint.tscn" id="18_25ers"]
-[ext_resource type="PackedScene" uid="uid://b34c1o6xb0mg1" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
+[ext_resource type="PackedScene" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 [ext_resource type="PackedScene" uid="uid://b030v5f3fdy37" path="res://Scenes/Items/coins.tscn" id="19_8bjac"]
 [ext_resource type="PackedScene" uid="uid://cyxucryrvm4s6" path="res://Scenes/Objects/door_coins.tscn" id="20_2tju7"]
 
@@ -193,9 +193,6 @@ metadata/_edit_group_ = true
 [node name="coins" parent="." unique_id=467381588 instance=ExtResource("19_8bjac")]
 position = Vector2(299, 696)
 
-[node name="coins2" parent="." unique_id=1215050293 instance=ExtResource("19_8bjac")]
-position = Vector2(299, 696)
-
 [node name="Door_Coins" parent="." unique_id=818254917 instance=ExtResource("20_2tju7")]
 
 [connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
@@ -203,4 +200,3 @@ position = Vector2(299, 696)
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]
 [connection signal="coins" from="coins" to="Door_Coins" method="_on_coins_coins"]
-[connection signal="coins" from="coins2" to="Door_Coins" method="_on_coins_2_coins"]
