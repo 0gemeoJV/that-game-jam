@@ -371,11 +371,15 @@ node_connections = [&"output", 0, &"Animation"]
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wcuna"]
 animation = &"opening"
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_aqf7t"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_buvy5"]
-nodes/output/position = Vector2(384, 144)
+nodes/output/position = Vector2(512, 112)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_wcuna")
 nodes/Animation/position = Vector2(96, 96)
-node_connections = [&"output", 0, &"Animation"]
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_aqf7t")
+nodes/TimeScale/position = Vector2(304, 64)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qnw8y"]
 
@@ -398,7 +402,7 @@ states/4/node = SubResource("AnimationNodeBlendTree_y2gqu")
 states/4/position = Vector2(360.40002, 76.93266)
 states/5/node = SubResource("AnimationNodeBlendTree_8wryy")
 states/5/position = Vector2(223.6, 76.16)
-states/Start/position = Vector2(66.399994, 100.159996)
+states/Start/position = Vector2(68.799995, 107.35999)
 states/opening/node = SubResource("AnimationNodeBlendTree_buvy5")
 states/opening/position = Vector2(417.2, 186.40001)
 transitions = ["5", "4", SubResource("AnimationNodeStateMachineTransition_qnw8y"), "4", "3", SubResource("AnimationNodeStateMachineTransition_g7h7t"), "3", "2", SubResource("AnimationNodeStateMachineTransition_lr2fe"), "2", "1", SubResource("AnimationNodeStateMachineTransition_duo2s"), "1", "opening", SubResource("AnimationNodeStateMachineTransition_vlf4b")]
@@ -409,7 +413,7 @@ script = ExtResource("1_hed5p")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=872706747]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &""
+animation = &"counting"
 frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=238470979]
@@ -423,3 +427,4 @@ libraries/ = SubResource("AnimationLibrary_uooif")
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=706497477]
 tree_root = SubResource("AnimationNodeStateMachine_xrivr")
 anim_player = NodePath("../AnimationPlayer")
+parameters/opening/TimeScale/scale = 2.0
