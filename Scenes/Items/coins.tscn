@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4qax0boyidn3" path="res://Scripts/Items/coins.gd" id="1_d1l3d"]
 [ext_resource type="Texture2D" uid="uid://bjked3xxugjuj" path="res://Sprites/Items/light_coin.png" id="2_d1l3d"]
+[ext_resource type="AudioStream" uid="uid://cvkiobr4t5nyl" path="res://Scripts/mixkit-unlock-game-notification-253.wav" id="3_jqga2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dwxat"]
 radius = 39.623226
@@ -89,5 +90,10 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_d1l3d")
 texture_scale = 12.0
 height = 65.0
+
+[node name="Audio" type="Node2D" parent="." unique_id=432728032]
+
+[node name="AudioCollected" type="AudioStreamPlayer2D" parent="Audio" unique_id=1886971170]
+stream = ExtResource("3_jqga2")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
