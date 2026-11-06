@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://cw8a8qn5f1sc1" path="res://Scenes/Enemies/pursuer.tscn" id="5_hua3f"]
 [ext_resource type="PackedScene" uid="uid://dvyc0edbqtk2w" path="res://Scenes/Enemies/pursuer_water.tscn" id="6_kdlp7"]
 [ext_resource type="PackedScene" uid="uid://ithgnakcjak7" path="res://Scenes/Items/life_item.tscn" id="7_ipahi"]
-[ext_resource type="PackedScene" uid="uid://dj8kmvxwrn3w2" path="res://Scenes/Objects/button.tscn" id="7_ixugv"]
 [ext_resource type="PackedScene" uid="uid://cp8jr1pfygg8p" path="res://Scenes/Objects/door.tscn" id="8_r75xb"]
 [ext_resource type="PackedScene" uid="uid://piqglv83hmq8" path="res://Scenes/Objects/target_plataform.tscn" id="9_x5sfu"]
 [ext_resource type="PackedScene" uid="uid://bhkwtvj5o83d1" path="res://Scenes/water_node.tscn" id="11_dv1fo"]
@@ -91,24 +90,6 @@ position = Vector2(-5, -237)
 scale = Vector2(6, 6)
 texture = ExtResource("4_c50ne")
 centered = false
-
-[node name="Button" parent="." unique_id=2017848668 instance=ExtResource("7_ixugv")]
-position = Vector2(-4858, -2925)
-metadata/_edit_group_ = true
-
-[node name="Button2" parent="." unique_id=682456145 instance=ExtResource("7_ixugv")]
-position = Vector2(-5510, -2924)
-metadata/_edit_group_ = true
-
-[node name="Button3" parent="." unique_id=132873887 instance=ExtResource("7_ixugv")]
-position = Vector2(-3929, -3017)
-collision_mask = 22
-metadata/_edit_group_ = true
-
-[node name="Button4" parent="." unique_id=492689116 instance=ExtResource("7_ixugv")]
-position = Vector2(-3165.0002, -2912)
-collision_mask = 22
-metadata/_edit_group_ = true
 
 [node name="Life_Item" parent="." unique_id=1477277574 instance=ExtResource("7_ipahi")]
 position = Vector2(4998, -230)
@@ -271,10 +252,6 @@ position = Vector2(933, 592)
 [node name="Coin2" parent="Door_Coins3" index="5"]
 position = Vector2(699, 98)
 
-[connection signal="state_button" from="Button" to="Door" method="_on_button_state_button"]
-[connection signal="state_button" from="Button2" to="Door" method="_on_button_2_state_button"]
-[connection signal="state_button" from="Button3" to="Door" method="_on_button_2_state_button"]
-[connection signal="state_button" from="Button4" to="Door" method="_on_button_2_state_button"]
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]
 

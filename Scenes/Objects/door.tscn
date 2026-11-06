@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://28kk7e8twd4x" path="res://Scripts/Objects/door.gd" id="1_bw412"]
 [ext_resource type="Texture2D" uid="uid://bfyq5sm0hvbuw" path="res://Sprites/Objects/door.png" id="2_bw412"]
+[ext_resource type="PackedScene" uid="uid://dj8kmvxwrn3w2" path="res://Scenes/Objects/button.tscn" id="3_button"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(75, 186)
@@ -471,3 +472,12 @@ parameters/door_closed/TimeScale/scale = 2.0
 parameters/door_opened/TimeScale/scale = 3.0
 parameters/upper_green/TimeScale/scale = 2.0
 parameters/upper_red/TimeScale/scale = 2.0
+
+[node name="Button" parent="." instance=ExtResource("3_button")]
+position = Vector2(109, 147)
+
+[node name="Button2" parent="." instance=ExtResource("3_button")]
+position = Vector2(761, 148)
+
+[connection signal="state_button" from="Button" to="." method="_on_button_state_button"]
+[connection signal="state_button" from="Button2" to="." method="_on_button_2_state_button"]
