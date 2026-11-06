@@ -9,9 +9,14 @@ extends CanvasLayer
 @onready var controls_button: Button = $Screen/CenterContainer/Content/MainMenu/ControlsButton
 @onready var credits_back_button: Button = $Screen/CenterContainer/Content/CreditsPage/CreditsBackButton
 @onready var controls_back_button: Button = $Screen/CenterContainer/Content/ControlsPage/ControlsBackButton
+@onready var audioClick: AudioStreamPlayer2D = $Audio/AudioClick
 
 var is_starting := false
 
+func play_sound(stream_player: AudioStreamPlayer2D) -> void:
+	# Aplica uma leve variação aleatória de pitch antes de tocar
+	stream_player.pitch_scale = randf_range(0.9, 1.1)
+	stream_player.play()
 
 func _ready() -> void:
 	get_tree().paused = true
@@ -25,6 +30,7 @@ func _ready() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if is_starting or not event.is_action_pressed("ui_cancel"):
+		
 		return
 
 	if credits_page.visible or controls_page.visible:
@@ -33,6 +39,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _on_start_pressed() -> void:
+	play_sound(audioClick)
 	if is_starting:
 		return
 	is_starting = true
@@ -52,9 +59,11 @@ func _on_start_pressed() -> void:
 
 func _show_credits() -> void:
 	_show_page(credits_page, credits_back_button)
+	play_sound(audioClick)
 
 
 func _show_controls() -> void:
+	play_sound(audioClick)
 	_show_page(controls_page, controls_back_button)
 
 
@@ -64,6 +73,7 @@ func _show_page(page: VBoxContainer, back_button: Button) -> void:
 	controls_page.hide()
 	page.show()
 	back_button.grab_focus()
+	play_sound(audioClick)
 
 
 func _show_main_menu() -> void:
@@ -71,3 +81,4 @@ func _show_main_menu() -> void:
 	controls_page.hide()
 	main_menu.show()
 	credits_button.grab_focus()
+	play_sound(audioClick)
