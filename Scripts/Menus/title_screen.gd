@@ -10,6 +10,7 @@ extends CanvasLayer
 @onready var credits_back_button: Button = $Screen/CenterContainer/Content/CreditsPage/CreditsBackButton
 @onready var controls_back_button: Button = $Screen/CenterContainer/Content/ControlsPage/ControlsBackButton
 @onready var audioClick: AudioStreamPlayer2D = $Audio/AudioClick
+@onready var audioStart: AudioStreamPlayer2D = $Audio/AudioStart
 
 var is_starting := false
 
@@ -39,7 +40,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _on_start_pressed() -> void:
-	play_sound(audioClick)
+	play_sound(audioStart)
 	if is_starting:
 		return
 	is_starting = true
