@@ -5,6 +5,7 @@ var count_coins = 0
 
 func _ready() -> void:
 	_on_coins_coins(value_coins)
+	print(count_coins)
 	pass
 	
 
@@ -15,7 +16,13 @@ func _on_coins_coins(coins: int) -> void:
 	pass # Replace with function body.
 
 
-func _on_coins_2_coins(coins: int) -> void:
+#func _on_coins_2_coins(coins: int) -> void:
+#	print(count_coins)
+#	count_coins += coins
+#	pass # Replace with function body.
+
+
+func _on_coins_colected() -> void:
+	count_coins -= 1
 	print(count_coins)
-	count_coins += coins
 	pass # Replace with function body.

@@ -1,7 +1,7 @@
 extends Area2D
 
 signal coins
-signal  colected(count_coins: int)
+signal  colected
 
 var count_coins = 1
 

@@ -11,5 +11,5 @@ func _on_area_collision_body_entered(body: Node2D) -> void:
 			is_green = true
 		else:
 			return
-		print('Toca a animação de virar plataforma')
+		#print('Toca a animação de virar plataforma')
 	pass # Replace with function body.
