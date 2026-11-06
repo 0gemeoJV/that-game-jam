@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://kkxx88jd7xm6" path="res://Scripts/Objects/door_coins.gd" id="1_hed5p"]
 [ext_resource type="Texture2D" uid="uid://d0e43gaovxx6e" path="res://Sprites/Objects/Door_light.png" id="2_aqf7t"]
+[ext_resource type="PackedScene" uid="uid://b030v5f3fdy37" path="res://Scenes/Items/coins.tscn" id="3_coin"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tws2g"]
 atlas = ExtResource("2_aqf7t")
@@ -428,3 +429,14 @@ libraries/ = SubResource("AnimationLibrary_uooif")
 tree_root = SubResource("AnimationNodeStateMachine_xrivr")
 anim_player = NodePath("../AnimationPlayer")
 parameters/opening/TimeScale/scale = 2.0
+
+[node name="Coin1" parent="." instance=ExtResource("3_coin")]
+position = Vector2(-231, 317)
+
+[node name="Coin2" parent="." instance=ExtResource("3_coin")]
+position = Vector2(198, 459)
+
+[connection signal="coins" from="Coin1" to="." method="_on_coins_coins"]
+[connection signal="colected" from="Coin1" to="." method="_on_coins_colected"]
+[connection signal="coins" from="Coin2" to="." method="_on_coins_coins"]
+[connection signal="colected" from="Coin2" to="." method="_on_coins_colected"]

@@ -1,16 +1,13 @@
 extends StaticBody2D
 
-var value_coins: int
-var count_coins = 0
+var count_coins: int = 0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var state_machine = animation_tree.get("parameters/playback")
 
 func _ready() -> void:
-	_on_coins_coins(value_coins)
 	animation()
-	pass
 	
 func animation():
 	if count_coins < 1:
@@ -29,16 +26,7 @@ func animation():
 
 
 func _on_coins_coins(coins: int) -> void:
-	print(count_coins)
 	count_coins += coins
-	
-	pass # Replace with function body.
-
-
-#func _on_coins_2_coins(coins: int) -> void:
-#	print(count_coins)
-#	count_coins += coins
-#	pass # Replace with function body.
 
 
 func _on_coins_colected() -> void:
@@ -46,12 +34,3 @@ func _on_coins_colected() -> void:
 	if count_coins < 1:
 		collision.set_deferred("disabled", true)
 	animation()
-	pass # Replace with function body.
-
-
-func _on_coins_4_coins() -> void:
-	count_coins -= 1
-	if count_coins < 1:
-		collision.set_deferred("disabled", true)
-	animation()
-	pass # Replace with function body.
