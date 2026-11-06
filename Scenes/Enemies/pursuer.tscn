@@ -118,7 +118,7 @@ radius = 42.0
 height = 150.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(1133.125, 298)
+size = Vector2(1133.125, 411)
 
 [sub_resource type="Animation" id="Animation_4rvhr"]
 length = 0.001
@@ -307,7 +307,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 
 [node name="pursuer" type="CharacterBody2D" unique_id=2031184125 groups=["enemies", "land_pursuer"]]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 259
 script = ExtResource("1_4rvhr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=243289639]
@@ -325,7 +325,7 @@ collision_layer = 4
 collision_mask = 19
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=234486157]
-position = Vector2(9.4375, -29)
+position = Vector2(9.4375, -85.5)
 shape = SubResource("RectangleShape2D_13qdw")
 debug_color = Color(0.9929804, 0.031836376, 0.2021519, 0.41960785)
 
