@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://dm38ihq4qyto5" path="res://Fonts/DotGothic16-Regular.ttf" id="1_font"]
 [ext_resource type="Script" uid="uid://bx5rdkipantt7" path="res://Scripts/Menus/title_screen.gd" id="2_script"]
 [ext_resource type="AudioStream" uid="uid://ds3ajgawnrcmi" path="res://SoundEffects/mixkit-quick-jump-arcade-game-239.wav" id="3_foouk"]
+[ext_resource type="AudioStream" uid="uid://cvkiobr4t5nyl" path="res://Scripts/mixkit-unlock-game-notification-253.wav" id="4_ium5t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_transparent"]
 
@@ -182,3 +183,6 @@ flat = true
 
 [node name="AudioClick" type="AudioStreamPlayer2D" parent="Audio" unique_id=2099106768]
 stream = ExtResource("3_foouk")
+
+[node name="AudioStart" type="AudioStreamPlayer2D" parent="Audio" unique_id=1474011844]
+stream = ExtResource("4_ium5t")
