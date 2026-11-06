@@ -305,7 +305,7 @@ states/walk_yellow/node = SubResource("AnimationNodeBlendTree_yv11y")
 states/walk_yellow/position = Vector2(388.27203, 188.79999)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_oddyi"), "idle", "walk_red", SubResource("AnimationNodeStateMachineTransition_1mlkv"), "walk_red", "idle", SubResource("AnimationNodeStateMachineTransition_dl8bn"), "idle", "walk_yellow", SubResource("AnimationNodeStateMachineTransition_gw201"), "walk_yellow", "idle", SubResource("AnimationNodeStateMachineTransition_hjkmw"), "walk_yellow", "walk_red", SubResource("AnimationNodeStateMachineTransition_5lefr"), "walk_red", "walk_yellow", SubResource("AnimationNodeStateMachineTransition_i1vpr")]
 
-[node name="pursuer" type="CharacterBody2D" unique_id=2031184125 groups=["enemies"]]
+[node name="pursuer" type="CharacterBody2D" unique_id=2031184125 groups=["enemies", "land_pursuer"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_4rvhr")
