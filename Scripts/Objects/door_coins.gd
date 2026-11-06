@@ -47,3 +47,11 @@ func _on_coins_colected() -> void:
 		collision.set_deferred("disabled", true)
 	animation()
 	pass # Replace with function body.
+
+
+func _on_coins_4_coins() -> void:
+	count_coins -= 1
+	if count_coins < 1:
+		collision.set_deferred("disabled", true)
+	animation()
+	pass # Replace with function body.
