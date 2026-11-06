@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
 [ext_resource type="PackedScene" uid="uid://cure2amd00b1w" path="res://Scenes/Areas_points/Checkpoint.tscn" id="18_25ers"]
-[ext_resource type="PackedScene" uid="uid://b34c1o6xb0mg1" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
+[ext_resource type="PackedScene" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 [ext_resource type="PackedScene" uid="uid://cyxucryrvm4s6" path="res://Scenes/Objects/door_coins.tscn" id="20_2tju7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blol1"]
@@ -47,6 +47,8 @@ texture = ExtResource("16_rc3n5")
 1:7/0 = 0
 2:7/0 = 0
 3:7/0 = 0
+4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -8, -8, -8, 0, 8, 0)
 
 [sub_resource type="TileSet" id="TileSet_fkybt"]
 physics_layer_0/collision_layer = 256
