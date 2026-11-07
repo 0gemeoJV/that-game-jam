@@ -28,7 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.19215687, 0.13333334, 0.17254902, 1)
+color = Color(0.1254902, 0.09019608, 0.14901961, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="Screen" unique_id=229191664]
 layout_mode = 1
