@@ -47,6 +47,8 @@ func _on_start_pressed() -> void:
 	for button in [start_button, credits_button, controls_button, credits_back_button, controls_back_button]:
 		button.disabled = true
 
+	MusicManager.play_gameplay()
+
 	var slide_distance := get_viewport().get_visible_rect().size.x
 	var tween := create_tween()
 	var slide := tween.tween_property(screen, "position", screen.position + Vector2(-slide_distance, 0), 0.65)

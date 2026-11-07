@@ -67,6 +67,7 @@ func _on_final_goal_next_stage() -> void:
 	if is_ending or not player.prepare_for_ending():
 		return
 	is_ending = true
+	MusicManager.play_ending()
 
 	var ending_canvas := CanvasLayer.new()
 	ending_canvas.layer = 10
