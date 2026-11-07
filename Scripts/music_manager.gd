@@ -2,15 +2,10 @@ extends Node
 
 signal ending_finished
 
-const SOUNDTRACK: AudioStreamWAV = preload("res://Soundtrack/psychronic-clouds-of-imagination-246734.wav")
-const TITLE_START := 0.0
-const TITLE_END := 6.0
-const GAMEPLAY_START := 7.0
-const GAMEPLAY_END := 171.0
-const ENDING_START := 172.0
-const ENDING_END := 190.0
+const TITLE_TRACK: AudioStreamWAV = preload("res://Soundtrack/title_theme.wav")
+const GAMEPLAY_TRACK: AudioStreamWAV = preload("res://Soundtrack/gameplay_theme.wav")
+const ENDING_TRACK: AudioStreamWAV = preload("res://Soundtrack/ending_theme.wav")
 
-var _track: AudioStreamWAV
 var _player: AudioStreamPlayer
 var _playing_ending := false
 var has_finished_ending := false
@@ -18,43 +13,44 @@ var has_finished_ending := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_track = SOUNDTRACK.duplicate() as AudioStreamWAV
 	_player = AudioStreamPlayer.new()
 	_player.name = "MusicPlayer"
 	_player.process_mode = Node.PROCESS_MODE_ALWAYS
-	_player.stream = _track
+	_player.finished.connect(_on_player_finished)
 	add_child(_player)
 	play_title()
 
 
-func _process(_delta: float) -> void:
-	if _playing_ending and _player.get_playback_position() >= ENDING_END:
-		_player.stop()
-		_playing_ending = false
-		has_finished_ending = true
-		ending_finished.emit()
-
-
 func play_title() -> void:
-	_play_loop(TITLE_START, TITLE_END)
+	_play_track(TITLE_TRACK, true)
 
 
 func play_gameplay() -> void:
-	_play_loop(GAMEPLAY_START, GAMEPLAY_END)
+	_play_track(GAMEPLAY_TRACK, true)
 
 
 func play_ending() -> void:
-	_player.stop()
-	_track.loop_mode = AudioStreamWAV.LOOP_DISABLED
-	_playing_ending = true
-	has_finished_ending = false
-	_player.play(ENDING_START)
+	_play_track(ENDING_TRACK, false)
 
 
-func _play_loop(start_time: float, end_time: float) -> void:
+func _play_track(track: AudioStreamWAV, should_loop: bool) -> void:
 	_player.stop()
+	_playing_ending = not should_loop
+	if _playing_ending:
+		has_finished_ending = false
+
+	var stream := track.duplicate() as AudioStreamWAV
+	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD if should_loop else AudioStreamWAV.LOOP_DISABLED
+	stream.loop_begin = 0
+	stream.loop_end = roundi(stream.get_length() * stream.mix_rate)
+	_player.stream = stream
+	_player.play()
+
+
+func _on_player_finished() -> void:
+	if not _playing_ending:
+		return
+
 	_playing_ending = false
-	_track.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	_track.loop_begin = roundi(start_time * _track.mix_rate)
-	_track.loop_end = roundi(end_time * _track.mix_rate)
-	_player.play(start_time)
+	has_finished_ending = true
+	ending_finished.emit()
