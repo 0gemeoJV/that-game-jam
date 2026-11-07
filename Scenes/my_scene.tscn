@@ -89,34 +89,16 @@ scale = Vector2(6, 6)
 texture = ExtResource("4_c50ne")
 centered = false
 
-[node name="Life_Item" parent="." unique_id=1477277574 instance=ExtResource("7_ipahi")]
-position = Vector2(4998, -230)
-metadata/_edit_group_ = true
-
-[node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
-position = Vector2(732, 521)
-metadata/_edit_group_ = true
-
-[node name="pursuer" parent="." unique_id=2031184125 instance=ExtResource("5_hua3f")]
-position = Vector2(4214, 114)
-metadata/_edit_group_ = true
-
-[node name="pursuer2" parent="." unique_id=1117761161 instance=ExtResource("5_hua3f")]
-position = Vector2(3000, -799)
-metadata/_edit_group_ = true
-
-[node name="pursuer3" parent="." unique_id=549794283 instance=ExtResource("5_hua3f")]
-position = Vector2(-3733, -3053)
-metadata/_edit_group_ = true
-
 [node name="Door" parent="." unique_id=1263449903 instance=ExtResource("8_r75xb")]
 position = Vector2(-4749, -3072)
-scale = Vector2(-1, 1)
+rotation = 3.1415927
+scale = Vector2(1, -1)
 metadata/_edit_group_ = true
 
 [node name="Door2" parent="." unique_id=5153762 instance=ExtResource("8_r75xb")]
 position = Vector2(-2263, -3263)
-scale = Vector2(-1, 1)
+rotation = 3.1415927
+scale = Vector2(1, -1)
 metadata/_edit_group_ = true
 
 [node name="Button" parent="Door2" index="4"]
@@ -136,7 +118,8 @@ position = Vector2(231, 431)
 
 [node name="Door4" parent="." unique_id=1733390993 instance=ExtResource("8_r75xb")]
 position = Vector2(4461, -2878)
-scale = Vector2(-1, 1)
+rotation = 3.1415927
+scale = Vector2(1, -1)
 
 [node name="Button" parent="Door4" index="4"]
 position = Vector2(160, -336)
@@ -144,6 +127,26 @@ scale = Vector2(6, -6)
 
 [node name="Button2" parent="Door4" index="5"]
 position = Vector2(514, 45)
+
+[node name="Life_Item" parent="." unique_id=1477277574 instance=ExtResource("7_ipahi")]
+position = Vector2(4998, -230)
+metadata/_edit_group_ = true
+
+[node name="CharacterBody2D" parent="." unique_id=1111961102 instance=ExtResource("1_nj2kq")]
+position = Vector2(732, 521)
+metadata/_edit_group_ = true
+
+[node name="pursuer" parent="." unique_id=2031184125 instance=ExtResource("5_hua3f")]
+position = Vector2(4214, 114)
+metadata/_edit_group_ = true
+
+[node name="pursuer2" parent="." unique_id=1117761161 instance=ExtResource("5_hua3f")]
+position = Vector2(3000, -799)
+metadata/_edit_group_ = true
+
+[node name="pursuer3" parent="." unique_id=549794283 instance=ExtResource("5_hua3f")]
+position = Vector2(-3733, -3053)
+metadata/_edit_group_ = true
 
 [node name="Target_Plataform" parent="." unique_id=1359122803 instance=ExtResource("9_x5sfu")]
 position = Vector2(-2728, -1680)
