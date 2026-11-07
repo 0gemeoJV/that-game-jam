@@ -12,6 +12,12 @@ func set_checkpoint(pos: Vector2) -> void:
 	current_checkpoint_position = pos
 	has_checkpoint = true
 
+func reset_run_state() -> void:
+	current_checkpoint_position = Vector2.ZERO
+	initial_spawn_position = Vector2.ZERO
+	has_checkpoint = false
+	is_player_dead = false
+
 func on_player_died() -> void:
 	is_player_dead = true
 

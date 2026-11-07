@@ -103,6 +103,15 @@ func _on_final_goal_next_stage() -> void:
 	fade_tween.tween_property(fade_rect, "color", Color(0, 0, 0, 1), ENDING_FADE_DURATION)
 	await fade_tween.finished
 
+	if not MusicManager.has_finished_ending:
+		await MusicManager.ending_finished
+	GameManager.reset_run_state()
+	MusicManager.play_title()
+	get_tree().paused = false
+	var reload_error := get_tree().reload_current_scene()
+	if reload_error != OK:
+		push_error("Failed to return to the title screen: %s" % error_string(reload_error))
+
 
 func _update_ending_label_position(label: Label) -> void:
 	var player_screen_position := get_viewport().get_canvas_transform() * player.global_position
