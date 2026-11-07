@@ -7,13 +7,21 @@ var player: Node2D = null
 var in_water = false
 var velocity_y = 0.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var initial_global_position: Vector2
 
+@onready var vision_area: Area2D = $VisionArea
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 #var is_dizzy = false
 
+func _ready() -> void:
+	add_to_group("enemies")
+	initial_global_position = global_position
+
 func _physics_process(delta: float) -> void:
+	if GameManager.is_player_dead:
+		return
 	
 	if is_chasing == true and player != null:
 		state_machine.travel("wake_up")
@@ -35,7 +43,21 @@ func _physics_process(delta: float) -> void:
 			velocity_y = 0.0
 		#move_and_slide()
 
+func reset_to_initial_state() -> void:
+	global_position = initial_global_position
+	velocity_y = 0.0
+	is_chasing = false
+	player = null
+	state_machine.travel("sleep")
+
+func refresh_targets_after_respawn() -> void:
+	for body in vision_area.get_overlapping_bodies():
+		_on_vision_area_body_entered(body)
+
 func _on_vision_area_body_entered(body: Node2D) -> void:
+	if GameManager.is_player_dead:
+		return
+
 	if body.is_in_group("Player"):
 		is_chasing = true
 		#print("Player")

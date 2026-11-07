@@ -287,6 +287,7 @@ func die():
 	if is_dead or is_completing:
 		return
 	is_dead = true
+	GameManager.on_player_died()
 	
 	# 1. Desativa a colisão com plataformas e a hurtbox para não tomar mais dano
 	collision_shape.set_deferred("disabled", true)

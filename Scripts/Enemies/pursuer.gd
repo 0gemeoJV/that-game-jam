@@ -7,17 +7,25 @@ const ACCELERATION = 600.0
 var is_chasing: bool = false
 var current_target: Node2D = null
 var player_ref: Node2D = null
+var initial_global_position: Vector2
 
 # A lista que armazena quem está na área de visão
 var targets_in_vision: Array[Node2D] = []
 
+@onready var vision_area: Area2D = $VisionArea
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D 
 @onready var audiodetected: AudioStreamPlayer2D= $Audio/PlayerDetected
 
+func _ready() -> void:
+	add_to_group("enemies")
+	initial_global_position = global_position
+
 func _physics_process(delta: float) -> void:
+	if GameManager.is_player_dead:
+		return
 	
 	# Limpa da lista objetos que foram destruídos
 	targets_in_vision = targets_in_vision.filter(func(t): return is_instance_valid(t))
@@ -31,6 +39,20 @@ func _physics_process(delta: float) -> void:
 			# Escolhe o próximo da lista que sobrou
 			escolher_proximo_alvo()
 	aplicar_movimento(delta)
+
+func reset_to_initial_state() -> void:
+	global_position = initial_global_position
+	velocity = Vector2.ZERO
+	is_chasing = false
+	current_target = null
+	player_ref = null
+	targets_in_vision.clear()
+	animated_sprite.flip_h = false
+	state_machine.travel("idle")
+
+func refresh_targets_after_respawn() -> void:
+	for body in vision_area.get_overlapping_bodies():
+		_on_vision_area_body_entered(body)
 
 # Criamos esta função virtual no base para o inimigo terrestre usar
 func aplicar_movimento(delta: float) -> void:
@@ -88,6 +110,9 @@ func escolher_proximo_alvo() -> void:
 
 # Conecte o sinal "body_entered" da VisionArea aqui
 func _on_vision_area_body_entered(body: Node2D) -> void:
+	if GameManager.is_player_dead:
+		return
+
 	if (body.is_in_group("Player") or body.has_method("inside_water")) and not body in targets_in_vision:
 		targets_in_vision.append(body)
 		#print("-> ENTROU NA ÁREA: ", body, " | Lista atual: ", targets_in_vision)
