@@ -20,7 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="Screen"]
+[node name="Background" type="ColorRect" parent="Screen" unique_id=1909639982]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,9 +131,13 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 19
 text = "Pixel Artist: Pedro Enrique
+
 Programmers: João Vítor and Pedro Enrique
 Made with Godot with AI assistance
-Sound effects from Mixkit"
+
+Sound effects from Mixkit
+
+Music by Douglas Gustafson from Pixabay"
 horizontal_alignment = 1
 
 [node name="CreditsBackButton" type="Button" parent="Screen/CenterContainer/Content/CreditsPage" unique_id=893026695]
@@ -169,7 +173,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 19
-text = "Move: Left / Right Arrow or A / D
+text = "Move: Left / Right Arrow 
 Jump: Space / Enter
 Shoot: X"
 horizontal_alignment = 1
