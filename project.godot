@@ -24,6 +24,10 @@ MusicManager="*res://Scripts/music_manager.gd"
 
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/User/Meustrabalhos/Estudos/Godot/Jam/that-game-jam/Recording/gameplay.avi"
+
 [input]
 
 Shoot={
