@@ -87,7 +87,7 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_2nmks"]
 resource_name = "Charging"
-length = 5.0
+length = 3.0000000000000004
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -195,7 +195,7 @@ _data = {
 animation = &"Charging"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kdmf4"]
-nodes/output/position = Vector2(512, 128)
+nodes/output/position = Vector2(448, 144)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_2nmks")
 nodes/Animation/position = Vector2(64, 80)
 node_connections = [&"output", 0, &"Animation"]
@@ -250,7 +250,7 @@ transitions = ["idle", "charging", SubResource("AnimationNodeStateMachineTransit
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=109810512]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"complete"
+animation = &"charging"
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1819413143]
