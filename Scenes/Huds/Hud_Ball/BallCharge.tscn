@@ -250,7 +250,7 @@ transitions = ["idle", "charging", SubResource("AnimationNodeStateMachineTransit
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=109810512]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"charging"
+animation = &"complete"
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1819413143]
