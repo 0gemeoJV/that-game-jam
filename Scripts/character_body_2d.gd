@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+const SPEED = 400.0
 var JUMP_VELOCITY = -700.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
 const BOUNCE_VELOCITY = -1000.0
