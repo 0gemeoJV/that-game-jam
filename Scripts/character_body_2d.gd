@@ -76,14 +76,23 @@ func _cache_bullet_collision_extents() -> void:
 	bullet_template.free()
 
 func _update_marker_for_wall() -> void:
+	# Define a posição base local do marcador com base na direção do player
 	marker.position.x = marker_position_x * direction
 
-	var ray_length := absf(marker_position_x) + maxf(bullet_forward_extent_right, bullet_forward_extent_left) + 10.0
+	# Calcula o espaço necessário para a bala (tamanho da bala + folga)
+	var bullet_forward_extent: float = bullet_forward_extent_right if direction > 0 else bullet_forward_extent_left
+	var required_clearance: float = bullet_forward_extent + BULLET_WALL_CLEARANCE
+
+	# Configura o raio de busca na direção em que o player está olhando
+	var ray_length := absf(marker_position_x) + required_clearance + 10.0
 	var ray_start := global_position
 	var ray_end := ray_start + Vector2(direction * ray_length, 0.0)
+	
 	var query := PhysicsRayQueryParameters2D.create(ray_start, ray_end, ENVIRONMENT_COLLISION_MASK)
 	query.exclude = [get_rid()]
 	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	
+	# Se não houver parede no caminho, mantém o marcador na posição normal
 	if hit.is_empty():
 		return
 
@@ -91,13 +100,15 @@ func _update_marker_for_wall() -> void:
 	var shape_bounds := collision_shape.shape.get_rect()
 	var player_half_width: float = shape_bounds.size.x * absf(collision_shape.global_scale.x) * 0.5
 	var player_front_edge_x: float = collision_shape.global_position.x + direction * player_half_width
+	
+	# Distância atual entre a frente do player e a parede
 	var distance_to_wall: float = direction * (hit_position.x - player_front_edge_x)
-	if absf(distance_to_wall) > WALL_CONTACT_TOLERANCE:
-		return
 
-	var bullet_forward_extent: float = bullet_forward_extent_right if direction > 0 else bullet_forward_extent_left
-	var safe_marker_x: float = hit_position.x - direction * (bullet_forward_extent + BULLET_WALL_CLEARANCE)
-	marker.global_position = Vector2(safe_marker_x, marker.global_position.y)
+	# Se a parede estiver mais próxima do que o espaço que a bala precisa,
+	# reposicionamos o marcador para antes da parede, evitando que a bala nasça dentro dela.
+	if absf(distance_to_wall) < required_clearance:
+		var safe_marker_x: float = hit_position.x - direction * required_clearance
+		marker.global_position = Vector2(safe_marker_x, marker.global_position.y)
 
 # Função chamada diretamente PELA ANIMAÇÃO no frame correto do tiro
 func spawn_bullet():
