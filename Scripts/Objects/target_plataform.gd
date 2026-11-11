@@ -5,7 +5,7 @@ extends StaticBody2D
 var is_green = false
 
 func _on_area_collision_body_entered(body: Node2D) -> void:
-	if body.name == "bullets":
+	if body.is_in_group('Ball'):
 		if is_green == false:
 			state_machine.travel("transition")
 			is_green = true

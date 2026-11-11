@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	
 	for corpo in corpos_restantes:
 		# is_instance_valid garante que o objeto ainda existe e não foi excluído (queue_free)
-		if is_instance_valid(corpo) and (corpo.is_in_group("Player") or corpo.name == "bullets" or corpo.is_in_group("land_pursuer")):
+		if is_instance_valid(corpo) and (corpo.is_in_group("Player") or corpo.is_in_group('Ball') or corpo.is_in_group("land_pursuer")):
 			ainda_tem_objeto_valido = true
 			break
 			
@@ -35,6 +35,6 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	somebody = body
-	if body.is_in_group("Player") or body.name == "bullets" or body.is_in_group("land_pursuer"):
+	if body.is_in_group("Player") or body.is_in_group('Ball') or body.is_in_group("land_pursuer"):
 		pressed = true
 		emit_signal("state_button", pressed)

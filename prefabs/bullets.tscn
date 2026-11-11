@@ -259,7 +259,7 @@ states/ball_vertical/node = SubResource("AnimationNodeBlendTree_f8mtq")
 states/ball_vertical/position = Vector2(603.6, 135.2)
 transitions = ["ball_rolling", "ball_horizontal", SubResource("AnimationNodeStateMachineTransition_5drpk"), "ball_horizontal", "ball_vertical", SubResource("AnimationNodeStateMachineTransition_4t6ub"), "ball_rolling", "ball_vertical", SubResource("AnimationNodeStateMachineTransition_xs1qp"), "ball_vertical", "ball_rolling", SubResource("AnimationNodeStateMachineTransition_krkkc"), "ball_vertical", "ball_horizontal", SubResource("AnimationNodeStateMachineTransition_eslmy"), "ball_horizontal", "ball_rolling", SubResource("AnimationNodeStateMachineTransition_chsou")]
 
-[node name="bullets" type="RigidBody2D" unique_id=758352721]
+[node name="bullets" type="RigidBody2D" unique_id=758352721 groups=["Ball"]]
 collision_layer = 16
 collision_mask = 267
 script = ExtResource("1_uo5t8")

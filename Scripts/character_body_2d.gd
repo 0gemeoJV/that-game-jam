@@ -102,7 +102,7 @@ func _update_marker_for_wall() -> void:
 # Função chamada diretamente PELA ANIMAÇÃO no frame correto do tiro
 func spawn_bullet():
 	if current_bullet != null and is_instance_valid(current_bullet):
-		return
+		current_bullet.queue_free()
 	var bullet_instance = BULLET_SCENE.instantiate() as Node2D
 	bullet_instance.direction = direction
 	_update_marker_for_wall()
