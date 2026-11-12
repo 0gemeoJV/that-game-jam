@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dseuut0b4e8f4"]
 
 [ext_resource type="FontFile" uid="uid://dm38ihq4qyto5" path="res://Fonts/DotGothic16-Regular.ttf" id="1_font"]
+[ext_resource type="Texture2D" uid="uid://focwnu8dlhje" path="res://Sprites/Title_Screen/Logo_title_screen.png" id="2_80rl2"]
 [ext_resource type="Script" uid="uid://bx5rdkipantt7" path="res://Scripts/Menus/title_screen.gd" id="2_script"]
 [ext_resource type="AudioStream" uid="uid://ds3ajgawnrcmi" path="res://SoundEffects/mixkit-quick-jump-arcade-game-239.wav" id="3_foouk"]
 [ext_resource type="AudioStream" uid="uid://cvkiobr4t5nyl" path="res://Scripts/mixkit-unlock-game-notification-253.wav" id="4_ium5t"]
@@ -35,6 +36,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 95.0
+offset_right = -1.0
+offset_bottom = 95.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -42,23 +47,18 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/separation = 28
 
-[node name="TitleLabel" type="Label" parent="Screen/CenterContainer/Content" unique_id=1801365162]
+[node name="Panel" type="Panel" parent="Screen/CenterContainer/Content" unique_id=1611571985]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92941177, 0.92941177, 0.92941177, 1)
-theme_override_colors/font_shadow_color = Color(0.2, 0.1764706, 0.34509805, 1)
-theme_override_colors/font_outline_color = Color(0.36078432, 0.33333334, 0.7176471, 1)
-theme_override_constants/shadow_offset_x = -21
-theme_override_constants/shadow_offset_y = 17
-theme_override_constants/outline_size = 64
-theme_override_constants/shadow_outline_size = 64
-theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 106
-text = " Boop"
-horizontal_alignment = 1
-uppercase = true
+offset_transform_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Screen/CenterContainer/Content/Panel" unique_id=254686955]
+position = Vector2(170, -80)
+scale = Vector2(3, 3)
+texture = ExtResource("2_80rl2")
 
 [node name="MainMenu" type="VBoxContainer" parent="Screen/CenterContainer/Content" unique_id=1248128869]
 layout_mode = 2
+offset_transform_enabled = true
 theme_override_constants/separation = 8
 
 [node name="StartButton" type="Button" parent="Screen/CenterContainer/Content/MainMenu" unique_id=365952585]
