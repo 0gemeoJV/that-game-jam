@@ -35,6 +35,8 @@ var bullet_forward_extent_right: float
 var bullet_forward_extent_left: float
 var current_bullet: Node2D = null
 var direction: int = 1
+#variável para verificar se o player está invencivel
+var is_invencible = false
 var player_life = 3
 var is_dead = false
 var is_completing = false
@@ -234,7 +236,8 @@ func _physics_process(delta: float) -> void:
  # Replace with function body.
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if is_completing:
+	#se as variáves forem true apenas da o return e ignora
+	if is_completing or is_invencible:
 		return
 
 	if body.is_in_group("Spikes"):
@@ -259,7 +262,14 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 #função para tomar dano
 func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
+	if is_invencible:
+		return
 	
+	#tomou dano fica invencível
+	is_invencible = true
+	
+	if hurtbox:
+		hurtbox.set_deferred("disable", true)
 	
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force
@@ -267,7 +277,24 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 		knoback_tween.tween_property(self, "knockback_vector",Vector2.ZERO, duration)
 		animated_sprite.modulate = Color(1,0,0,1)
 		knoback_tween.tween_property(animated_sprite, "modulate", Color(1,1,1,1), duration)
-
+		
+		# 2. Piscar em branco durante o restante da invencibilidade (Totalizando 1.0 segundo)
+		# Como o primeiro durou 0.25s, restam 0.75s para completar 1 segundo.
+		var remaining_time = 1.0 - duration
+		var blink_count = 5 # Quantas vezes ele vai piscar
+		var blink_interval = remaining_time / blink_count
+		
+		for i in range(blink_count):
+			knoback_tween.tween_property(animated_sprite, "modulate", Color(5, 5, 5, 1), blink_interval / 2) # Fica meio transparente/branco
+			knoback_tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), blink_interval / 2)
+		
+		# 3. Fim da invencibilidade
+		knoback_tween.tween_callback(func():
+			is_invencible = false
+			if hurtbox and not is_dead and not is_completing:
+				hurtbox.set_deferred("disabled", false)
+		)
+		
 func follow_camera(camera):
 	camera_path = camera.get_path()
 	remote_transform.remote_path = camera_path
