@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dhjw5gygdb06e"]
+
+[ext_resource type="Script" uid="uid://dkjhqb4qapjh6" path="res://Scripts/Enemies/watcher.gd" id="1_1y0re"]
+[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="2_pml5h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+
+[node name="Watcher" type="StaticBody2D" unique_id=1454025791]
+script = ExtResource("1_1y0re")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=55248506]
+shape = SubResource("CircleShape2D_xrivr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=218212602]
+texture = ExtResource("2_pml5h")
+
+[node name="Pivot" type="Node2D" parent="." unique_id=926251560]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=131022822]
+
+[node name="RayCast2D" type="RayCast2D" parent="Pivot" unique_id=952058805]
+
+[node name="Marker2D" type="Marker2D" parent="Pivot" unique_id=968397107]
+
+[node name="Timer" type="Timer" parent="." unique_id=1806872137]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
