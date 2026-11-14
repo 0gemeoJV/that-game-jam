@@ -52,7 +52,19 @@ func _check_player():
 				_start_shooting(collider)
 				
 func _start_shooting(target:Node2D):
+	current_state = State.SHOOTING
+	shooting = true
+	timer.stop()
+	
+	# Loop de tiro enquanto o RayCast continuar vendo o jogador
+	while is_instance_valid(target) and ray_cast.is_colliding() and ray_cast.get_collider() == target:
+		var dir_to_target = (target.global_position - pivot.global_position)
+		pivot.rotation = dir_to_target.angle()
+		ray_cast.force_raycast_update()
 	print('acheeei')
+	shooting = false
+	current_state = State.WATCHING
+	timer.start()
 
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
