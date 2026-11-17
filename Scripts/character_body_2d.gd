@@ -8,6 +8,7 @@ const DEATH_JUMP_FORCE = -400.0
 const ENVIRONMENT_COLLISION_MASK = 1
 const WALL_CONTACT_TOLERANCE = 2.0
 const BULLET_WALL_CLEARANCE = 2.0
+const INVINCIBILITY_DURATION = 1.0
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -41,9 +42,6 @@ var player_life = 3
 var is_dead = false
 var is_completing = false
 var camera_path: NodePath
-const PLAYER_COLLISION_LAYER = 2
-const ENEMY_COLLISION_LAYER = 3
-
 
 # Variáveis para controlar o tempo dos tiros
 var shoot_timer: float = 0.0
@@ -264,14 +262,19 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
 
 func _set_enemy_intangibility(intangible: bool) -> void:
-	# Desativa ou ativa a hurtbox (para não tomar dano)
+	# Mantém a layer do player ativa para que as áreas de visão continuem detectando-o.
 	if hurtbox:
 		hurtbox.set_deferred("disabled", intangible)
 	
-	# Desativa ou ativa a colisão física entre Player (Layer 2) e Inimigos (Layer 3)
-	# Quando intangible = true, o valor da camada/máscara vira false (passa direto)
-	set_collision_layer_value(PLAYER_COLLISION_LAYER, not intangible)
-	set_collision_mask_value(ENEMY_COLLISION_LAYER, not intangible)
+	# A exceção afeta apenas a colisão física deste player com cada inimigo.
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		var enemy_body := enemy as PhysicsBody2D
+		if enemy_body == null:
+			continue
+		if intangible:
+			add_collision_exception_with(enemy_body)
+		else:
+			remove_collision_exception_with(enemy_body)
 
 #função para tomar dano
 func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
@@ -283,33 +286,27 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 	
 	_set_enemy_intangibility(true) # Fica invencível e passa direto pelos inimigos
 	
-	if hurtbox:
-		hurtbox.set_deferred("disable", true)
-	
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force
-		var knoback_tween = get_tree().create_tween()
-		knoback_tween.tween_property(self, "knockback_vector",Vector2.ZERO, duration)
-		animated_sprite.modulate = Color(1,0,0,1)
-		knoback_tween.tween_property(animated_sprite, "modulate", Color(1,1,1,1), duration)
-		
-		# 2. Piscar em branco durante o restante da invencibilidade (Totalizando 1.0 segundo)
-		# Como o primeiro durou 0.25s, restam 0.75s para completar 1 segundo.
-		var remaining_time = 1.0 - duration
-		var blink_count = 5 # Quantas vezes ele vai piscar
-		var blink_interval = remaining_time / blink_count
-		
-		for i in range(blink_count):
-			knoback_tween.tween_property(animated_sprite, "modulate", Color(5, 5, 5, 1), blink_interval / 2) # Fica meio transparente/branco
-			knoback_tween.tween_property(animated_sprite, "modulate", Color(1, 1, 1, 1), blink_interval / 2)
-		
-		# 3. Fim da invencibilidade
-		knoback_tween.tween_callback(func():
-			is_invencible = false
-			if hurtbox and not is_dead and not is_completing:
-				hurtbox.set_deferred("disabled", false)
-				_set_enemy_intangibility(false)
-		)
+		var knockback_tween := get_tree().create_tween()
+		knockback_tween.tween_property(self, "knockback_vector", Vector2.ZERO, duration)
+
+	var red_duration := minf(duration, INVINCIBILITY_DURATION)
+	var remaining_time := INVINCIBILITY_DURATION - red_duration
+	var blink_count := 5
+	var blink_interval := remaining_time / blink_count
+	var feedback_tween := get_tree().create_tween()
+	feedback_tween.tween_property(animated_sprite, "modulate", Color(1, 0, 0, 1), red_duration)
+
+	for i in range(blink_count):
+		feedback_tween.tween_property(animated_sprite, "modulate", Color(5, 5, 5, 1), blink_interval / 2)
+		feedback_tween.tween_property(animated_sprite, "modulate", Color.WHITE, blink_interval / 2)
+
+	get_tree().create_timer(INVINCIBILITY_DURATION).timeout.connect(func():
+		is_invencible = false
+		if not is_dead and not is_completing:
+			_set_enemy_intangibility(false)
+	)
 		
 func follow_camera(camera):
 	camera_path = camera.get_path()
