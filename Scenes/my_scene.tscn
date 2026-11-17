@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://piqglv83hmq8" path="res://Scenes/Objects/target_plataform.tscn" id="9_x5sfu"]
 [ext_resource type="TileSet" uid="uid://ebfwp5qhy85a" path="res://Tilemaps/tile_set.tres" id="12_tv4bj"]
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
-[ext_resource type="PackedScene" uid="uid://dhjw5gygdb06e" path="res://Scenes/Enemies/watcher.tscn" id="17_25ers"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
 [ext_resource type="PackedScene" uid="uid://cure2amd00b1w" path="res://Scenes/Areas_points/Checkpoint.tscn" id="18_25ers"]
 [ext_resource type="PackedScene" uid="uid://dseuut0b4e8f4" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
@@ -322,9 +321,6 @@ position = Vector2(-57, 549)
 
 [node name="Coin2" parent="Door_Coins5" index="5"]
 position = Vector2(-1352, 569)
-
-[node name="Watcher" parent="." unique_id=1454025791 instance=ExtResource("17_25ers")]
-position = Vector2(1283, 525)
 
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]
