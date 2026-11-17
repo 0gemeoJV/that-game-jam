@@ -41,6 +41,9 @@ var player_life = 3
 var is_dead = false
 var is_completing = false
 var camera_path: NodePath
+const PLAYER_COLLISION_LAYER = 2
+const ENEMY_COLLISION_LAYER = 3
+
 
 # Variáveis para controlar o tempo dos tiros
 var shoot_timer: float = 0.0
@@ -260,6 +263,16 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 			#print('Tomei dano')
 	pass # Replace with function body.
 
+func _set_enemy_intangibility(intangible: bool) -> void:
+	# Desativa ou ativa a hurtbox (para não tomar dano)
+	if hurtbox:
+		hurtbox.set_deferred("disabled", intangible)
+	
+	# Desativa ou ativa a colisão física entre Player (Layer 2) e Inimigos (Layer 3)
+	# Quando intangible = true, o valor da camada/máscara vira false (passa direto)
+	set_collision_layer_value(PLAYER_COLLISION_LAYER, not intangible)
+	set_collision_mask_value(ENEMY_COLLISION_LAYER, not intangible)
+
 #função para tomar dano
 func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 	if is_invencible:
@@ -267,6 +280,8 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 	
 	#tomou dano fica invencível
 	is_invencible = true
+	
+	_set_enemy_intangibility(true) # Fica invencível e passa direto pelos inimigos
 	
 	if hurtbox:
 		hurtbox.set_deferred("disable", true)
@@ -293,6 +308,7 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 			is_invencible = false
 			if hurtbox and not is_dead and not is_completing:
 				hurtbox.set_deferred("disabled", false)
+				_set_enemy_intangibility(false)
 		)
 		
 func follow_camera(camera):
@@ -301,6 +317,7 @@ func follow_camera(camera):
 
 
 func respawn_at(position: Vector2) -> void:
+	_set_enemy_intangibility(false)
 	global_position = position
 	velocity = Vector2.ZERO
 	knockback_vector = Vector2.ZERO
