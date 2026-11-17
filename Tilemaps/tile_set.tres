@@ -154,7 +154,7 @@ texture = ExtResource("1_lylxj")
 
 [resource]
 occlusion_layer_0/light_mask = 511
-physics_layer_0/collision_layer = 255
+physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 16
 terrain_set_0/mode = 1
 terrain_set_0/terrain_0/name = "Terrain 0"

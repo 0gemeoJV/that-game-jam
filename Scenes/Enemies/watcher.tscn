@@ -11,24 +11,9 @@ collision_mask = 2
 script = ExtResource("1_1y0re")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=55248506]
+light_mask = 4
 visibility_layer = 2
 shape = SubResource("CircleShape2D_xrivr")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=218212602]
 texture = ExtResource("2_pml5h")
-
-[node name="Pivot" type="Node2D" parent="." unique_id=926251560]
-visibility_layer = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=131022822]
-
-[node name="RayCast2D" type="RayCast2D" parent="Pivot" unique_id=952058805]
-scale = Vector2(6, 6)
-collision_mask = 2
-
-[node name="Marker2D" type="Marker2D" parent="Pivot" unique_id=968397107]
-visibility_layer = 2
-
-[node name="Timer" type="Timer" parent="." unique_id=1806872137]
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

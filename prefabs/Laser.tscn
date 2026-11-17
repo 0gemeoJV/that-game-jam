@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cag463j7ukqaq"]
+
+[ext_resource type="Script" uid="uid://cheddgg1uc288" path="res://Scripts/Prefabs/laser.gd" id="1_1ugu8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+
+[node name="Laser" type="Area2D" unique_id=437744718]
+script = ExtResource("1_1ugu8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=892687149]
+shape = SubResource("RectangleShape2D_xrivr")
