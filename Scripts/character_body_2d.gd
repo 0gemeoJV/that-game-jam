@@ -1,7 +1,12 @@
 extends CharacterBody2D
 
 const SPEED = 450.0
-var JUMP_VELOCITY = -700.0
+@export_range(0.01, 5.0, 0.01) var JUMP_PEAK_TIME: float = 0.7142857
+@export_range(0.01, 5.0, 0.01) var JUMP_FALL_TIME: float = 0.7142857
+@export_range(1.0, 2000.0, 1.0) var JUMP_HEIGHT: float = 250.0
+const DEFAULT_JUMP_VELOCITY = -700.0
+const WATER_JUMP_VELOCITY = -800.0
+const OUT_WATER_JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
 const BOUNCE_VELOCITY = -1000.0
 const DEATH_JUMP_FORCE = -400.0 
@@ -36,6 +41,8 @@ var bullet_forward_extent_right: float
 var bullet_forward_extent_left: float
 var current_bullet: Node2D = null
 var direction: int = 1
+var jump_launch_multiplier: float = 1.0
+var jump_profile_active: bool = false
 #variável para verificar se o player está invencivel
 var is_invencible = false
 var player_life = 3
@@ -126,12 +133,13 @@ func spawn_bullet():
 	emit_signal("_recharging")
 
 func bounce():
+	jump_profile_active = false
 	velocity.y = BOUNCE_VELOCITY
 	play_sound(audioBall)
 
 func inside_water(surface_y: float):
 	#print("Dentro da água")
-	JUMP_VELOCITY = -800
+	jump_launch_multiplier = absf(WATER_JUMP_VELOCITY / DEFAULT_JUMP_VELOCITY)
 	
 func play_sound(stream_player: AudioStreamPlayer2D) -> void:
 	# Aplica uma leve variação aleatória de pitch antes de tocar
@@ -139,7 +147,30 @@ func play_sound(stream_player: AudioStreamPlayer2D) -> void:
 	stream_player.play()
 
 func out_water():
-	JUMP_VELOCITY = -600	
+	jump_launch_multiplier = absf(OUT_WATER_JUMP_VELOCITY / DEFAULT_JUMP_VELOCITY)
+
+func _calculate_jump_gravity() -> float:
+	if velocity.y < 0.0:
+		return 2.0 * JUMP_HEIGHT / (JUMP_PEAK_TIME * JUMP_PEAK_TIME)
+	return 2.0 * JUMP_HEIGHT / (JUMP_FALL_TIME * JUMP_FALL_TIME)
+
+func _update_jump(delta: float) -> void:
+	if not is_on_floor():
+		if jump_profile_active:
+			velocity.y += _calculate_jump_gravity() * delta
+		else:
+			velocity += get_gravity() * delta
+	else:
+		jump_profile_active = false
+
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		jump_profile_active = true
+		velocity.y = -2.0 * JUMP_HEIGHT / JUMP_PEAK_TIME * jump_launch_multiplier
+		play_sound(audioJump)
+
+	# Soltar o botão durante a subida reduz a altura do pulo.
+	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
+		velocity.y *= 0.5
 	
 func _physics_process(delta: float) -> void:
 	if is_completing:
@@ -154,17 +185,7 @@ func _physics_process(delta: float) -> void:
 			GameManager.respawn_player(self)
 		return
 	
-	# 1. Gravidade
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# 2. Pulo
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		play_sound(audioJump)
-	# Pulo variável: se soltar o botão de pulo enquanto ainda está subindo, corta a velocidade vertical
-	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
-		velocity.y *= 0.5 #
+	_update_jump(delta)
 	
 	# 3. Movimentação horizontal
 	var input_axis := Input.get_axis("ui_left", "ui_right")
@@ -287,6 +308,7 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 	_set_enemy_intangibility(true) # Fica invencível e passa direto pelos inimigos
 	
 	if knockback_force != Vector2.ZERO:
+		jump_profile_active = false
 		knockback_vector = knockback_force
 		var knockback_tween := get_tree().create_tween()
 		knockback_tween.tween_property(self, "knockback_vector", Vector2.ZERO, duration)
@@ -318,6 +340,7 @@ func respawn_at(position: Vector2) -> void:
 	global_position = position
 	velocity = Vector2.ZERO
 	knockback_vector = Vector2.ZERO
+	jump_profile_active = false
 	player_life = 3
 	is_dead = false
 	direction = 1
@@ -339,6 +362,7 @@ func die():
 	if is_dead or is_completing:
 		return
 	is_dead = true
+	jump_profile_active = false
 	GameManager.on_player_died()
 	
 	# 1. Desativa a colisão com plataformas e a hurtbox para não tomar mais dano

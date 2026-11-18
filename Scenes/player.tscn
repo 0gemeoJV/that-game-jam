@@ -942,6 +942,8 @@ fill_to = Vector2(0.9010417, 0.09548611)
 collision_layer = 2
 collision_mask = 61
 script = ExtResource("1_cvnsp")
+JUMP_PEAK_TIME = 0.5
+JUMP_FALL_TIME = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=519868413]
 position = Vector2(-8.5, 12.5)
