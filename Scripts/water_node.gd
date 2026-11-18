@@ -12,9 +12,12 @@ var water_size: Vector2 = Vector2.ZERO
 @export var wave_strength: float = 0.25
 @export_range(1, 64) var wave_spread_updates: int = 8
 
-@export var surface_line_thickness: float = 1.0
+@export_range(1.0, 32.0, 1.0) var pixel_size: float = 2.0 # Tamanho do "pixel" da água
+@export_range(1, 8) var surface_pixel_rows: int = 1 # Espessura da linha da superfície em pixels
 @export var surface_color: Color = Color("8ed3dca9", 0.8)
 @export var water_fill_color: Color = Color("37b0c5a9", 0.5)
+
+
 
 var segment_data: PackedFloat32Array = PackedFloat32Array()
 var segment_velocities: PackedFloat32Array = PackedFloat32Array()
@@ -92,29 +95,54 @@ func _physics_process(delta: float) -> void:
 
 	queue_redraw()
 
+# --- FUNÇÃO _DRAW REFEITA PARA PIXEL ART ---
 func _draw() -> void:
 	if segment_data.size() < 2:
 		return
 
 	var width := absf(water_size.x)
 	var height := absf(water_size.y)
-	var left := -width * 0.5
-	var spacing := width / float(segment_data.size() - 1)
-	var base_y := -height * 0.5 + clampf(surface_pos_y, 0.0, 1.0) * height
-	var surface_points := PackedVector2Array()
-	var fill_points := PackedVector2Array()
-
-	for i in range(segment_data.size()):
-		var point := Vector2(left + spacing * i, base_y + segment_data[i])
-		surface_points.append(point)
-		fill_points.append(point)
-
-	# Fecha o polígono cobrindo toda a extensão até embaixo da caixa
-	fill_points.append(Vector2(width * 0.5, height * 0.5))
-	fill_points.append(Vector2(left, height * 0.5))
+	var px := maxf(pixel_size, 1.0)
 	
-	draw_colored_polygon(fill_points, water_fill_color)
-	draw_polyline(surface_points, surface_color, surface_line_thickness, true)
+	# Alinha as bordas iniciais à grade de pixels
+	var left := snappedf(-width * 0.5, px)
+	var bottom := snappedf(height * 0.5, px)
+	var base_y := -height * 0.5 + clampf(surface_pos_y, 0.0, 1.0) * height
+	
+	var column_count := maxi(1, int(ceil(width / px)))
+	var surface_thickness := px * float(surface_pixel_rows)
+
+	for col in range(column_count):
+		var col_x := left + float(col) * px
+		# Garante que a última coluna não ultrapasse a largura da caixa
+		var col_width := minf(px, (left + width) - col_x)
+		if col_width <= 0.0:
+			break
+
+		# Mapeia a coluna atual para o índice correspondente na simulação física
+		var progress := (float(col) + 0.5) / float(column_count)
+		var exact_index := progress * float(segment_data.size() - 1)
+		var idx_low := clampi(int(floor(exact_index)), 0, segment_data.size() - 1)
+		var idx_high := clampi(idx_low + 1, 0, segment_data.size() - 1)
+		var weight := exact_index - float(idx_low)
+		
+		# Interpola suavemente a física e depois trava (snap) no pixel mais próximo
+		var wave_offset := lerpf(segment_data[idx_low], segment_data[idx_high], weight)
+		var snapped_top_y := snappedf(base_y + wave_offset, px)
+		
+		# Limita para não vazar fora da caixa de colisão
+		snapped_top_y = clampf(snapped_top_y, -height * 0.5, bottom - surface_thickness)
+
+		# 1. Desenha a espuma/superfície em degraus
+		var surface_rect := Rect2(col_x, snapped_top_y, col_width, surface_thickness)
+		draw_rect(surface_rect, surface_color, true)
+
+		# 2. Desenha o corpo da água abaixo da espuma
+		var body_top_y := snapped_top_y + surface_thickness
+		var body_height := bottom - body_top_y
+		if body_height > 0.0:
+			var body_rect := Rect2(col_x, body_top_y, col_width, body_height)
+			draw_rect(body_rect, water_fill_color, true)
 
 func _on_body_entered(body: Node2D) -> void:
 	var local_x := to_local(body.global_position).x
