@@ -324,7 +324,7 @@ position = Vector2(-57, 549)
 position = Vector2(-1352, 569)
 
 [node name="Watcher" parent="." unique_id=1454025791 instance=ExtResource("17_25ers")]
-position = Vector2(1233, 381)
+position = Vector2(1637, 141)
 
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]
