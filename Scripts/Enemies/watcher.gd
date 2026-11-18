@@ -52,11 +52,9 @@ func player_found(_delta: float) -> void:
 	if rayCast.is_colliding():
 		var collider = rayCast.get_collider()
 		if collider == current_player:
-			print('olha ele')
 			is_player_in_range = true
 			return
 		else:
-			print('obstáculo no caminho (visão bloqueada)')
 			current_player = null
 	
 	if not is_player_in_range:
