@@ -9,6 +9,7 @@
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_1y0re")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=55248506]
 light_mask = 4
@@ -17,3 +18,19 @@ shape = SubResource("CircleShape2D_xrivr")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=218212602]
 texture = ExtResource("2_pml5h")
+
+[node name="ViewField" type="Area2D" parent="." unique_id=1588299171]
+collision_layer = 4
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ViewField" unique_id=1182192492]
+position = Vector2(10, 4)
+polygon = PackedVector2Array(-8, 0, -240, 350, 240, 350)
+
+[node name="RayCast2D" type="RayCast2D" parent="ViewField" unique_id=596885010]
+target_position = Vector2(1, 354)
+collision_mask = 2
+
+[connection signal="body_entered" from="ViewField" to="." method="_on_view_field_body_entered"]
+[connection signal="body_exited" from="ViewField" to="." method="_on_view_field_body_exited"]
