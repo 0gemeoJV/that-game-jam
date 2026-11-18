@@ -1,14 +1,16 @@
 extends CharacterBody2D
 
 const SPEED = 450.0
-@export_range(0.01, 5.0, 0.01) var JUMP_PEAK_TIME: float = 0.7142857
-@export_range(0.01, 5.0, 0.01) var JUMP_FALL_TIME: float = 0.7142857
+@export_range(0.01, 5.0, 0.01) var JUMP_PEAK_TIME: float = 0.5
+@export_range(0.01, 5.0, 0.01) var JUMP_FALL_TIME: float = 0.4
 @export_range(1.0, 2000.0, 1.0) var JUMP_HEIGHT: float = 250.0
+@export_range(0.01, 5.0, 0.01) var BOUNCE_PEAK_TIME: float = 1.02
+@export_range(0.01, 5.0, 0.01) var BOUNCE_FALL_TIME: float = 1.02
+@export_range(1.0, 2000.0, 1.0) var BOUNCE_HEIGHT: float = 510.0
 const DEFAULT_JUMP_VELOCITY = -700.0
 const WATER_JUMP_VELOCITY = -800.0
 const OUT_WATER_JUMP_VELOCITY = -600.0
 const BULLET_SCENE = preload("res://prefabs/bullets.tscn")
-const BOUNCE_VELOCITY = -1000.0
 const DEATH_JUMP_FORCE = -400.0 
 const ENVIRONMENT_COLLISION_MASK = 1
 const WALL_CONTACT_TOLERANCE = 2.0
@@ -43,6 +45,7 @@ var current_bullet: Node2D = null
 var direction: int = 1
 var jump_launch_multiplier: float = 1.0
 var jump_profile_active: bool = false
+var bounce_profile_active: bool = false
 #variável para verificar se o player está invencivel
 var is_invencible = false
 var player_life = 3
@@ -134,7 +137,8 @@ func spawn_bullet():
 
 func bounce():
 	jump_profile_active = false
-	velocity.y = BOUNCE_VELOCITY
+	bounce_profile_active = true
+	velocity.y = _calculate_jump_velocity(BOUNCE_HEIGHT, BOUNCE_PEAK_TIME)
 	play_sound(audioBall)
 
 func inside_water(surface_y: float):
@@ -149,27 +153,37 @@ func play_sound(stream_player: AudioStreamPlayer2D) -> void:
 func out_water():
 	jump_launch_multiplier = absf(OUT_WATER_JUMP_VELOCITY / DEFAULT_JUMP_VELOCITY)
 
-func _calculate_jump_gravity() -> float:
+func _calculate_jump_velocity(height: float, peak_time: float) -> float:
+	return -2.0 * height / peak_time
+
+func _calculate_jump_gravity(height: float, peak_time: float, fall_time: float) -> float:
 	if velocity.y < 0.0:
-		return 2.0 * JUMP_HEIGHT / (JUMP_PEAK_TIME * JUMP_PEAK_TIME)
-	return 2.0 * JUMP_HEIGHT / (JUMP_FALL_TIME * JUMP_FALL_TIME)
+		return 2.0 * height / (peak_time * peak_time)
+	return 2.0 * height / (fall_time * fall_time)
 
 func _update_jump(delta: float) -> void:
-	if not is_on_floor():
-		if jump_profile_active:
-			velocity.y += _calculate_jump_gravity() * delta
+	var on_floor := is_on_floor()
+	if bounce_profile_active:
+		if on_floor and velocity.y >= 0.0:
+			bounce_profile_active = false
 		else:
-			velocity += get_gravity() * delta
-	else:
-		jump_profile_active = false
+			velocity.y += _calculate_jump_gravity(BOUNCE_HEIGHT, BOUNCE_PEAK_TIME, BOUNCE_FALL_TIME) * delta
+	elif jump_profile_active:
+		if on_floor and velocity.y >= 0.0:
+			jump_profile_active = false
+		else:
+			velocity.y += _calculate_jump_gravity(JUMP_HEIGHT, JUMP_PEAK_TIME, JUMP_FALL_TIME) * delta
+	elif not on_floor:
+		velocity += get_gravity() * delta
 
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and on_floor:
+		bounce_profile_active = false
 		jump_profile_active = true
-		velocity.y = -2.0 * JUMP_HEIGHT / JUMP_PEAK_TIME * jump_launch_multiplier
+		velocity.y = _calculate_jump_velocity(JUMP_HEIGHT, JUMP_PEAK_TIME) * jump_launch_multiplier
 		play_sound(audioJump)
 
 	# Soltar o botão durante a subida reduz a altura do pulo.
-	if Input.is_action_just_released("ui_accept") and velocity.y < 0:
+	if jump_profile_active and Input.is_action_just_released("ui_accept") and velocity.y < 0:
 		velocity.y *= 0.5
 	
 func _physics_process(delta: float) -> void:
@@ -309,6 +323,7 @@ func take_damage(knockback_force:= Vector2.ZERO, duration:= 0.25):
 	
 	if knockback_force != Vector2.ZERO:
 		jump_profile_active = false
+		bounce_profile_active = false
 		knockback_vector = knockback_force
 		var knockback_tween := get_tree().create_tween()
 		knockback_tween.tween_property(self, "knockback_vector", Vector2.ZERO, duration)
@@ -341,6 +356,7 @@ func respawn_at(position: Vector2) -> void:
 	velocity = Vector2.ZERO
 	knockback_vector = Vector2.ZERO
 	jump_profile_active = false
+	bounce_profile_active = false
 	player_life = 3
 	is_dead = false
 	direction = 1
@@ -363,6 +379,7 @@ func die():
 		return
 	is_dead = true
 	jump_profile_active = false
+	bounce_profile_active = false
 	GameManager.on_player_died()
 	
 	# 1. Desativa a colisão com plataformas e a hurtbox para não tomar mais dano
