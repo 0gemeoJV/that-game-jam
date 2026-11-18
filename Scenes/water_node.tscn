@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://cble1etotxsh5" path="res://Scripts/water_node.gd" id="1_301vd"]
 
 [node name="WaterNode" type="Node2D" unique_id=1450265754]
-script = ExtResource("1_301vd")
 modulate = Color(1, 1, 1, 0.5176471)
+script = ExtResource("1_301vd")
 water_physics_speed = 249.065
-wave_strength = 100.0
+wave_strength = 110.0
+wave_spread_updates = 10
+surface_pixel_rows = 3
 surface_color = Color(0.38039216, 0.6117647, 0.7647059, 1)
 water_fill_color = Color(0.22352941, 0.4862745, 0.74509805, 1)
