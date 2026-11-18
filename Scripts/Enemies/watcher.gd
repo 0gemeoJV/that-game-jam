@@ -5,19 +5,19 @@ extends StaticBody2D
 @onready var collision: CollisionPolygon2D = $ViewField/CollisionShape2D
 
 # Parâmetros do Pêndulo (Campo de Visão)
-@export var rotation_speed: float = 2.0  
+@export var rotation_speed: float = 1.5
 @export var max_angle_degrees: float = 45.0 
-@export var tracking_speed: float = 10.0 # Velocidade com que o inimigo gira para o player
 
 var time_accumulator: float = 0.0
-var base_rotation: float = 0.0
+var base_global_rotation: float = 0.0
 
 var current_player = null
 var is_player_in_range: bool = false
 var original_ray_target: Vector2
 
 func _ready() -> void:
-	base_rotation = viewField.rotation
+	# Salvamos a rotação global inicial como âncora fixa
+	base_global_rotation = viewField.global_rotation
 	original_ray_target = rayCast.target_position
 
 func _physics_process(delta: float) -> void:
@@ -32,17 +32,20 @@ func _physics_process(delta: float) -> void:
 func pendulum_movement(delta: float) -> void:
 	time_accumulator += delta * rotation_speed
 	var max_angle_rads = deg_to_rad(max_angle_degrees)
-	viewField.rotation = base_rotation + sin(time_accumulator) * max_angle_rads
+	
+	# Movimento de pêndulo suave baseado em coordenadas globais
+	viewField.global_rotation = base_global_rotation + sin(time_accumulator) * max_angle_rads
 
-func player_found(delta: float) -> void:
-	# 1. Calcula a direção em relação ao jogador
+func player_found(_delta: float) -> void:
+	# 1. Aponta instantaneamente para o player usando o vetor global (sem lerp/tremor)
 	var direction_to_player = current_player.global_position - viewField.global_position
-	var target_angle = direction_to_player.angle()
+	viewField.global_rotation = direction_to_player.angle()
 	
-	# 2. Suaviza a rotação usando lerp_angle para evitar saltos bruscos quando o player se vira
-	viewField.global_rotation = lerp_angle(viewField.global_rotation, target_angle, tracking_speed * delta)
+	# 2. Sincroniza o acumulador para que o pêndulo saiba exatamente onde parou
+	var current_offset = clamp((viewField.global_rotation - base_global_rotation) / deg_to_rad(max_angle_degrees), -1.0, 1.0)
+	time_accumulator = asin(current_offset)
 	
-	# 3. Atualiza o RayCast
+	# 3. Atualiza o RayCast para checar linha de visão limpa
 	rayCast.target_position = rayCast.to_local(current_player.global_position)
 	rayCast.force_raycast_update()
 	
@@ -50,15 +53,12 @@ func player_found(delta: float) -> void:
 		var collider = rayCast.get_collider()
 		if collider == current_player:
 			print('olha ele')
-			# Reseta o flag de saída para garantir que ele não perca o player por conta da Area2D
 			is_player_in_range = true
 			return
 		else:
 			print('obstáculo no caminho (visão bloqueada)')
-			# Se bateu em uma parede, perde o player de vista
 			current_player = null
 	
-	# Se o player saiu fisicamente da Area2D E o raycast não está mais vendo diretamente
 	if not is_player_in_range:
 		current_player = null
 
