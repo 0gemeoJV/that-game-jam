@@ -29,7 +29,7 @@ polygon = PackedVector2Array(0, 0, -240, 500, 240, 500)
 
 [node name="RayCast2D" type="RayCast2D" parent="ViewField" unique_id=596885010]
 target_position = Vector2(1, 354)
-collision_mask = 2
+collision_mask = 3
 
 [connection signal="body_entered" from="ViewField" to="." method="_on_view_field_body_entered"]
 [connection signal="body_exited" from="ViewField" to="." method="_on_view_field_body_exited"]

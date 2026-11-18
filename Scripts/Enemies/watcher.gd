@@ -61,7 +61,7 @@ func player_found(_delta: float) -> void:
 		current_player = null
 
 func _on_view_field_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") or body.is_in_group("Ball"):
 		current_player = body
 		is_player_in_range = true
 		print("Jogador entrou no cone de visão.")
