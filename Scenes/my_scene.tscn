@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dbtk231sj5u3p" path="res://Tilemaps/ground_ruins.png" id="16_rc3n5"]
 [ext_resource type="PackedScene" uid="uid://dhjw5gygdb06e" path="res://Scenes/Enemies/watcher.tscn" id="17_25ers"]
 [ext_resource type="PackedScene" uid="uid://c6w86lsdh00kd" path="res://Scenes/Areas_points/final_goal.tscn" id="17_blol1"]
+[ext_resource type="PackedScene" uid="uid://b78hath45c435" path="res://Scenes/Objects/portal.tscn" id="18_8bjac"]
 [ext_resource type="PackedScene" uid="uid://cure2amd00b1w" path="res://Scenes/Areas_points/Checkpoint.tscn" id="18_25ers"]
 [ext_resource type="PackedScene" uid="uid://dseuut0b4e8f4" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 [ext_resource type="PackedScene" uid="uid://cyxucryrvm4s6" path="res://Scenes/Objects/door_coins.tscn" id="20_2tju7"]
@@ -325,6 +326,12 @@ position = Vector2(-1352, 569)
 
 [node name="Watcher" parent="." unique_id=1454025791 instance=ExtResource("17_25ers")]
 position = Vector2(1637, 141)
+
+[node name="portal" parent="." unique_id=1237333462 groups=["portal"] instance=ExtResource("18_8bjac")]
+position = Vector2(336, 712)
+
+[node name="portal2" parent="." unique_id=323499712 groups=["portal"] instance=ExtResource("18_8bjac")]
+position = Vector2(1318, 468)
 
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]

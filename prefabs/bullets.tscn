@@ -259,6 +259,9 @@ states/ball_vertical/node = SubResource("AnimationNodeBlendTree_f8mtq")
 states/ball_vertical/position = Vector2(603.6, 135.2)
 transitions = ["ball_rolling", "ball_horizontal", SubResource("AnimationNodeStateMachineTransition_5drpk"), "ball_horizontal", "ball_vertical", SubResource("AnimationNodeStateMachineTransition_4t6ub"), "ball_rolling", "ball_vertical", SubResource("AnimationNodeStateMachineTransition_xs1qp"), "ball_vertical", "ball_rolling", SubResource("AnimationNodeStateMachineTransition_krkkc"), "ball_vertical", "ball_horizontal", SubResource("AnimationNodeStateMachineTransition_eslmy"), "ball_horizontal", "ball_rolling", SubResource("AnimationNodeStateMachineTransition_chsou")]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_13qdw"]
+radius = 49.0408
+
 [node name="bullets" type="RigidBody2D" unique_id=758352721 groups=["Ball"]]
 collision_layer = 16
 collision_mask = 267
@@ -318,5 +321,13 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/ball_horizontal/TimeScale/scale = 4.0
 parameters/ball_vertical/TimeScale/scale = 4.0
 
+[node name="PortalDetector" type="Area2D" parent="." unique_id=1070897577]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalDetector" unique_id=1364898510]
+position = Vector2(19, 16)
+shape = SubResource("CircleShape2D_13qdw")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="JumpDetector" to="." method="_on_jump_detector_body_entered"]
+[connection signal="area_entered" from="PortalDetector" to="." method="_on_portal_detector_area_entered"]

@@ -100,3 +100,24 @@ func out_water():
 	in_water = false
 	gravity_scale = 1.0
 	#print('fora dágua')
+
+# Encontra o portal de destino com o mesmo ID, bloqueia a entrada para evitar
+# um retorno imediato e agenda a mudança de posição fora do callback de física.
+func teleport(area: Area2D) -> void:
+	for portal in get_tree().get_nodes_in_group("portal"):
+		if portal != area and portal.portal_id == area.portal_id:
+			if not portal.portal_is_locked:
+				area.lock_portal()
+				call_deferred("_apply_deferred_teleport", portal.global_position)
+				return
+
+# Move a bala para a posição recebida quando a chamada adiada é executada,
+# evitando alterar sua posição durante o processamento da colisão.
+func _apply_deferred_teleport(destination: Vector2) -> void:
+	global_position = destination
+
+# Trata áreas detectadas pelo sensor da bala e inicia o teleporte apenas para
+# portais válidos que não estejam bloqueados.
+func _on_portal_detector_area_entered(area: Area2D) -> void:
+	if area.is_in_group('portal') and not area.portal_is_locked:
+		teleport(area)

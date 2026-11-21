@@ -28,6 +28,10 @@ window/stretch/mode="canvas_items"
 
 movie_writer/movie_file="C:/Users/User/Meustrabalhos/Estudos/Godot/Jam/that-game-jam/Recording/gameplay.avi"
 
+[global_group]
+
+portal=""
+
 [input]
 
 Shoot={
