@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://coeqhx5qp5kmf"]
+
+[ext_resource type="Script" uid="uid://x6a53v1mrafe" path="res://Scripts/Objects/electric_conductor.gd" id="1_bs3y0"]
+[ext_resource type="Texture2D" uid="uid://ji3t04yclj3h" path="res://icon.svg" id="1_cvksa"]
+[ext_resource type="Script" uid="uid://rha0pq8qmh4d" path="res://Scripts/Objects/metal_box.gd" id="3_fehja"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(21, 131)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(122, 122)
+
+[node name="ElectricConductor" type="Area2D" unique_id=2009210765]
+collision_mask = 16
+script = ExtResource("1_bs3y0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1235819323]
+texture = ExtResource("1_cvksa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=724083445]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="MetalBox" type="CharacterBody2D" parent="." unique_id=184534571]
+position = Vector2(314, 1)
+collision_mask = 17
+script = ExtResource("3_fehja")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="MetalBox" unique_id=2128078559]
+texture = ExtResource("1_cvksa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MetalBox" unique_id=1146454941]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="follow_ball" from="." to="MetalBox" method="_on_electric_conductor_follow_ball"]
