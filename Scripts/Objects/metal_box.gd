@@ -4,9 +4,13 @@ var body: Node2D = null
 const SPEED = 250.0
 const ACCELERATION = 600.0
 
+#Este é o sinal que será emitido pelo condutor elétrico quando... 
+#a bola entrar na área de detecção, caso duplique o meta_box,... 
+#lembre se conectar o sinal manualmente no inspetor,... 
+#pois o Godot não conecta automaticamente os sinais de instâncias duplicadas
 func _on_electric_conductor_follow_ball(ball_body: Node2D) -> void:
 	body = ball_body
-	print('Implementar função de seguir a bola')
+	#print('Implementar função de seguir a bola')
 	pass # Replace with function body.
 
 #função para seguir a bola, chamada pelo sinal do condutor elétrico
