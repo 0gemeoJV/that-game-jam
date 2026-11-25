@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cwm15lfp5o2wo"]
+
+[ext_resource type="PackedScene" uid="uid://cw8a8qn5f1sc1" path="res://Scenes/Enemies/pursuer.tscn" id="1_pursuer"]
+[ext_resource type="Script" uid="uid://cfnoe0e407jqq" path="res://Scripts/Enemies/dash_enemy.gd" id="2_dash_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(639, 410)
+
+[node name="Dash_Enemy" unique_id=1550718148 instance=ExtResource("1_pursuer")]
+script = ExtResource("2_dash_enemy")
+dash_speed = 600.0
+
+[node name="AreaDash" type="Area2D" parent="." index="6" unique_id=666543831]
+collision_layer = 4
+collision_mask = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDash" index="0" unique_id=573710449]
+position = Vector2(0.5, -85)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[connection signal="body_entered" from="AreaDash" to="." method="_on_area_dash_body_entered"]

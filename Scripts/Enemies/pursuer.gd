@@ -1,7 +1,7 @@
 #class_name Pursuer
 extends CharacterBody2D
 
-const SPEED = 250.0
+var SPEED = 250.0
 const ACCELERATION = 600.0
 
 var is_chasing: bool = false

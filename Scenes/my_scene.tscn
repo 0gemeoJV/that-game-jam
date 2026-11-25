@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dseuut0b4e8f4" path="res://Huds/Menus/title_screen.tscn" id="18_title_screen"]
 [ext_resource type="PackedScene" uid="uid://coeqhx5qp5kmf" path="res://Scenes/Objects/electric_conductor.tscn" id="19_8bjac"]
 [ext_resource type="PackedScene" uid="uid://cyxucryrvm4s6" path="res://Scenes/Objects/door_coins.tscn" id="20_2tju7"]
+[ext_resource type="PackedScene" uid="uid://cwm15lfp5o2wo" path="res://Scenes/Enemies/dash_enemy.tscn" id="20_j3ci4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blol1"]
 texture = ExtResource("16_rc3n5")
@@ -336,6 +337,9 @@ position = Vector2(1318, 468)
 
 [node name="ElectricConductor" parent="." unique_id=2009210765 instance=ExtResource("19_8bjac")]
 position = Vector2(934, 701)
+
+[node name="Dash_Enemy" parent="." unique_id=1550718148 instance=ExtResource("20_j3ci4")]
+position = Vector2(6715.166, -3663.0576)
 
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]
