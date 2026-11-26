@@ -339,7 +339,7 @@ position = Vector2(1318, 468)
 position = Vector2(934, 701)
 
 [node name="Dash_Enemy" parent="." unique_id=1550718148 instance=ExtResource("20_j3ci4")]
-position = Vector2(6715.166, -3663.0576)
+position = Vector2(7441, -3631)
 
 [connection signal="life_charge" from="Life_Item" to="CharacterBody2D" method="_on_life_item_life_charge"]
 [connection signal="next_stage" from="Final_Goal" to="." method="_on_final_goal_next_stage"]

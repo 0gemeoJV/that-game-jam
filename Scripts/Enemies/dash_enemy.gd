@@ -7,6 +7,7 @@ var current_dash_state: DashState = DashState.NORMAL
 @export var dash_speed: float = 600.0
 var dash_direction: float = 1.0
 
+@onready var dash_area: Area2D = $AreaDash
 
 func aplicar_movimento(delta: float) -> void:
 	match current_dash_state:
@@ -16,6 +17,8 @@ func aplicar_movimento(delta: float) -> void:
 			
 		DashState.ANTICIPATION:
 			velocity.x = move_toward(velocity.x, 0, ACCELERATION * delta)
+			if not is_on_floor():
+				velocity += get_gravity() * delta
 			move_and_slide()
 			# Aqui ele fica parado preparando o dash
 			
@@ -25,6 +28,8 @@ func aplicar_movimento(delta: float) -> void:
 			if is_on_wall():
 				# Interrompe o dash se bater na parede
 				print('Interrompe o dash e toca animação de recuperação')
+			if not is_on_floor():
+				velocity += get_gravity() * delta
 			move_and_slide()
 			
 		DashState.RECOVERY:
@@ -76,7 +81,21 @@ func dash_recover():
 	await get_tree().create_timer(0.5).timeout
 	# Retorna ao estado normal e limpa o estado
 	if current_dash_state == DashState.RECOVERY:
-		current_dash_state = DashState.NORMAL
-		is_chasing = true
-		escolher_proximo_alvo() # Reavalia se o player ou bola ainda estão na visão
+		
+		# --- NOVO: Checagem se ainda há player ou bola na área de dash ---
+		var target_inside: Node2D = null
+		
+		for body in dash_area.get_overlapping_bodies():
+			if body.is_in_group("Player") or body.is_in_group("Ball"):
+				target_inside = body
+				break # Encontrou um alvo válido, para a busca
+		
+		if target_inside != null:
+			# Se ainda tem alguém na área, engata direto em um novo dash!
+			#print("Alvo ainda na área de dash! Repetindo investida...")
+			dash_anticipation(target_inside)
+		else:
+			current_dash_state = DashState.NORMAL
+			is_chasing = true
+			escolher_proximo_alvo() # Reavalia se o player ou bola ainda estão na visão
 	pass		
