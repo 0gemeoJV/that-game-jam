@@ -151,7 +151,7 @@ func play_sound(stream_player: AudioStreamPlayer2D) -> void:
 	stream_player.play()
 
 func out_water():
-	jump_launch_multiplier = absf(OUT_WATER_JUMP_VELOCITY / DEFAULT_JUMP_VELOCITY)
+	jump_launch_multiplier = 1.0
 
 func _calculate_jump_velocity(height: float, peak_time: float) -> float:
 	return -2.0 * height / peak_time
